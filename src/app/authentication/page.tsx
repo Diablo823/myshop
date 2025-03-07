@@ -215,7 +215,7 @@ const LoginPage = () => {
               );
               Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
                 expires: 10,
-                secure: process.env.NODE_ENV === "production",
+                secure: true,
                 sameSite: "lax",
                 path: "/",
               });
