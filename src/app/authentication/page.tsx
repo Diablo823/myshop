@@ -215,9 +215,9 @@ const LoginPage = () => {
               );
               Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
                 expires: 10,
-                secure: process.env.NODE_ENV === "production",
-                sameSite: "strict",
-                path: "/",
+                // secure: process.env.NODE_ENV === "production",
+                // sameSite: "strict",
+                // path: "/",
               });
               await wixClient.auth.setTokens(tokens);
 
