@@ -3,16 +3,15 @@
 import Banner from "@/components/Banner";
 import CategoryList from "@/components/CategoryList";
 import ProductList from "@/components/ProductList";
-import ProductWrapper from "@/components/products/ProductWrapper";
+//import ProductWrapper from "@/components/products/ProductWrapper";
 import ProductScroll from "@/components/ProductScroll";
 import Promotion from "@/components/Promotion";
-import Slider from "../../backup codes/Slider";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { slides1 } from "@/constants";
-import { WixClientContext } from "@/context/WixContext";
-import { useWixClient } from "@/hooks/useWixClient";
-import { wixClientServer } from "@/lib/wixClientServer";
-import { Suspense, useContext, useEffect } from "react";
+// import { WixClientContext } from "@/context/WixContext";
+// import { useWixClient } from "@/hooks/useWixClient";
+// import { wixClientServer } from "@/lib/wixClientServer";
+import { Suspense } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const HomePage = async () => {
