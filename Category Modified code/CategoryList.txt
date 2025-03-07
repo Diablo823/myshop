@@ -1,0 +1,89 @@
+"use client"
+
+import { useState, useRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { Button } from "./ui/button";
+
+interface CategoryItem {
+  _id?: string | null;
+  slug?: string | null;
+  name?: string | null;
+  media?: {
+    mainMedia?: {
+      image?: {
+        url?: string | null;
+      }
+    }
+  }
+}
+
+interface CategoryListClientProps {
+  initialCategories: CategoryItem[];
+}
+
+export default function CategoryListClient({ initialCategories }: CategoryListClientProps) {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const scrollContainer = scrollContainerRef.current;
+      const scrollAmount = scrollContainer.clientWidth;
+
+      scrollContainer.scrollBy({
+        left: direction === 'right' ? scrollAmount : -scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  return (
+    <div className="mt-12 px-4 overflow-x-hidden">
+      <div 
+        ref={scrollContainerRef} 
+        className="flex gap-4 md:gap-8 overflow-x-scroll scrollbar-hide scroll-smooth"
+      >
+        {initialCategories.map((item) => (
+          <Link
+            href={`/list?cat=${item.slug || ''}`}
+            key={item._id || ''}
+            className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/4 xl:w-1/6"
+          >
+            <div className="relative bg-slate-100 w-full h-[20rem]">
+              <Image
+                src={item.media?.mainMedia?.image?.url || "/category.png"}
+                alt={item.name || "category"}
+                fill
+                sizes="20vw"
+                className="object-cover rounded-lg"
+              />
+            </div>
+            <h1 className="mt-8 font-semibold text-xl tracking-wide">
+              {item.name}
+            </h1>
+          </Link>
+        ))}
+      </div>
+      <div className="flex items-center justify-between md:justify-center sm:gap-8 md:gap-10 lg:gap-12 pl-10 pr-10 mt-4">
+        <Button 
+          onClick={() => scroll('left')} 
+          className="w-16 h-16 rounded-full bg-emerald-200 text-black hover:bg-amber-200"
+        >
+          <FaArrowLeft />
+        </Button>
+        <Button 
+          onClick={() => scroll('right')} 
+          className="w-16 h-16 rounded-full bg-emerald-200 text-black hover:bg-amber-200"
+        >
+          <FaArrowRight />
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+
+
+
+
