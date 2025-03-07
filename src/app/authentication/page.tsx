@@ -217,7 +217,7 @@ const LoginPage = () => {
                 expires: 10,
               });
               wixClient.auth.setTokens(tokens);
-              router.push("/");
+              router.push(window.location.origin);
             } else {
               setError("Authentication succeeded but no session token received");
             }
