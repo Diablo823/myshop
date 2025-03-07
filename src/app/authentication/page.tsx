@@ -221,8 +221,8 @@ const LoginPage = () => {
               });
               await wixClient.auth.setTokens(tokens);
 
-              window.location.href = "/"
-              //router.push(window.location.origin);
+              //window.location.href = "/"
+              router.push("/");
             } else {
               setError("Authentication succeeded but no session token received");
             }
