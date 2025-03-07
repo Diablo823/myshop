@@ -98,7 +98,7 @@ export default function ReturnAndRefundPolicy() {
             </button>
             {/* Modal image container */}
             <div className="relative w-full h-full flex items-center justify-center">
-              <img
+              <Image
                 src={modalImage}
                 alt="Enlarged view"
                 className="max-w-full max-h-full object-contain"

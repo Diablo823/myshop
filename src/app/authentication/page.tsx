@@ -94,7 +94,7 @@ const LoginPage = () => {
     } else {
       setIsCheckingAuth(false);
     }
-  }, [router]);
+  }, [router, wixClient.auth]);
 
   // Don't render the login form while checking auth
   if (isCheckingAuth) {
@@ -197,15 +197,34 @@ const LoginPage = () => {
       switch (response?.loginState) {
         case LoginState.SUCCESS:
           setMessage("Logged in successfully! Redirecting...");
-          const tokens = await wixClient.auth.getMemberTokensForDirectLogin(
-            response.data.sessionToken!
-          );
-          //console.log(tokens);
-          Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
-            expires: 12,
-          });
-          wixClient.auth.setTokens(tokens);
-          router.push("/");
+          // const tokens = await wixClient.auth.getMemberTokensForDirectLogin(
+          //   response.data.sessionToken!
+          // );
+          // //console.log(tokens);
+          // Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
+          //   expires: 10,
+          // });
+          // wixClient.auth.setTokens(tokens);
+          // router.push("/");
+          // break;
+
+          try {
+            if (response.data?.sessionToken) {
+              const tokens = await wixClient.auth.getMemberTokensForDirectLogin(
+                response.data.sessionToken
+              );
+              Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
+                expires: 10,
+              });
+              wixClient.auth.setTokens(tokens);
+              router.push("/");
+            } else {
+              setError("Authentication succeeded but no session token received");
+            }
+          } catch (error) {
+            console.error("Token retrieval error:", error);
+            setError("Failed to complete authentication process");
+          }
           break;
 
         case LoginState.FAILURE:

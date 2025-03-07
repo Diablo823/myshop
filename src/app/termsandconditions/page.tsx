@@ -12,11 +12,11 @@ const TermsConditionsPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <div className="relative h-48 bg-black">
-        <img
+        {/* <img
           src="/api/placeholder/1920/400"
           alt="Terms Header"
           className="w-full h-full object-cover opacity-20"
-        />
+        /> */}
         <div className="absolute inset-0 flex items-center justify-center">
           <h1 className="text-3xl md:text-4xl font-bold text-white">Terms & Conditions</h1>
         </div>

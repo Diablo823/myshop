@@ -100,7 +100,7 @@ const ThankYouPage = () => {
         gsap.killTweensOf(confettiRef.current.children);
       }
     };
-  }, [controls]);
+  }, [controls, triggerConfetti]);
 
   return (
     <div className="fixed inset-0 w-full h-full bg-gradient-to-b from-blue-100 to-white flex flex-col items-center justify-center p-4 md:p-0 overflow-hidden">
