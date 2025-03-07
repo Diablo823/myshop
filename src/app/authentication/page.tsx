@@ -215,13 +215,13 @@ const LoginPage = () => {
               );
               Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
                 expires: 10,
-                secure: true,
-                sameSite: "lax",
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "strict",
                 path: "/",
               });
               await wixClient.auth.setTokens(tokens);
 
-              window.location.href = window.location.origin;
+              window.location.href = "/"
               //router.push(window.location.origin);
             } else {
               setError("Authentication succeeded but no session token received");
