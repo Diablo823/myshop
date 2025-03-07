@@ -124,7 +124,7 @@ const LoginPage = () => {
     setIsLoading(true);
     setError("");
 
-    let response;
+    let response: any;
 
     try {
       switch (mode) {
@@ -196,41 +196,43 @@ const LoginPage = () => {
 
       switch (response?.loginState) {
         case LoginState.SUCCESS:
-          setMessage("Logged in successfully! Redirecting...");
-          // const tokens = await wixClient.auth.getMemberTokensForDirectLogin(
-          //   response.data.sessionToken!
-          // );
-          // //console.log(tokens);
-          // Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
-          //   expires: 10,
-          // });
-          // wixClient.auth.setTokens(tokens);
-          // router.push("/");
-          // break;
-
-          try {
-            if (response.data?.sessionToken) {
-              const tokens = await wixClient.auth.getMemberTokensForDirectLogin(
-                response.data.sessionToken
-              );
-              Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
-                expires: 10,
-                // secure: process.env.NODE_ENV === "production",
-                // sameSite: "strict",
-                // path: "/",
-              });
-              await wixClient.auth.setTokens(tokens);
-
-              //window.location.href = "/"
-              router.push("/");
-            } else {
-              setError("Authentication succeeded but no session token received");
-            }
-          } catch (error) {
-            console.error("Token retrieval error:", error);
-            setError("Failed to complete authentication process");
-          }
-          break;
+  setMessage("Logged in successfully! Redirecting...");
+  
+  try {
+    if (response.data?.sessionToken) {
+      // Add a small delay before token exchange
+      setTimeout(async () => {
+        try {
+          const tokens = await wixClient.auth.getMemberTokensForDirectLogin(
+            response.data.sessionToken
+          );
+          
+          Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
+            expires: 10,
+            secure: true,
+            sameSite: "lax",
+            path: "/"
+          });
+          
+          await wixClient.auth.setTokens(tokens);
+          
+          // Add another small delay before redirect
+          setTimeout(() => {
+           // window.location.href = window.location.origin;
+           router.push("/")
+          }, 500);
+          
+        } catch (error) {
+          console.error("Token retrieval error:", error);
+          setError("Please try again - authentication in progress");
+        }
+      }, 3000); // 1 second delay before attempting token exchange
+    }
+  } catch (error) {
+    console.error("Authentication error:", error);
+    setError("Failed to complete authentication process");
+  }
+  break;
 
         case LoginState.FAILURE:
           if (
