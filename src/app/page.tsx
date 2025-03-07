@@ -6,7 +6,7 @@ import ProductList from "@/components/ProductList";
 import ProductWrapper from "@/components/products/ProductWrapper";
 import ProductScroll from "@/components/ProductScroll";
 import Promotion from "@/components/Promotion";
-import Slider from "@/components/Slider";
+import Slider from "../../backup codes/Slider";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { slides1 } from "@/constants";
 import { WixClientContext } from "@/context/WixContext";
