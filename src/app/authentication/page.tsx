@@ -215,9 +215,14 @@ const LoginPage = () => {
               );
               Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
                 expires: 10,
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "strict",
+                path: "/",
               });
-              wixClient.auth.setTokens(tokens);
-              router.push(window.location.origin);
+              await wixClient.auth.setTokens(tokens);
+
+              window.location.href = "/"
+              //router.push(window.location.origin);
             } else {
               setError("Authentication succeeded but no session token received");
             }
