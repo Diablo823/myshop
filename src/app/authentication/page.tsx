@@ -209,12 +209,12 @@ const LoginPage = () => {
           
           Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
             expires: 10,
-            secure: true,
-            sameSite: "lax",
-            path: "/"
+            // secure: true,
+            // sameSite: "lax",
+            // path: "/"
           });
           
-          await wixClient.auth.setTokens(tokens);
+          wixClient.auth.setTokens(tokens);
           
           // Add another small delay before redirect
           setTimeout(() => {
@@ -224,9 +224,9 @@ const LoginPage = () => {
           
         } catch (error) {
           console.error("Token retrieval error:", error);
-          setError("Please try again - authentication in progress");
+          setError("Please try signing in again - authentication is done!");
         }
-      }, 3000); // 1 second delay before attempting token exchange
+      }, 2000); // 1 second delay before attempting token exchange
     }
   } catch (error) {
     console.error("Authentication error:", error);
