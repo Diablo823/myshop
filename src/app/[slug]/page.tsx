@@ -83,7 +83,7 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
       <div className="min-h-[calc(100vh-80px)] px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative flex flex-col lg:flex-row gap-16">
         {/* IMAGES */}
         <div className="w-full lg:w-1/2 lg:sticky top-20 mt-5 h-max">
-          <ProductImages items={product.media?.items} />
+          <ProductImages items={product.media?.items!} />
         </div>
         {/* TEXT */}
         <div className="w-full lg:w-1/2 flex flex-col gap-4 lg:mt-5">
