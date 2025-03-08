@@ -196,40 +196,32 @@ const LoginPage = () => {
 
       switch (response?.loginState) {
         case LoginState.SUCCESS:
-  setMessage("Logged in successfully! Redirecting...");
-  
-  try {
+          setMessage("Logged in successfully! Redirecting...");
+          //const tokens = await wixClient.auth.getMemberTokensForDirectLogin(
+          //  response.data.sessionToken!
+          //);
+          //console.log(tokens);
+          //Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
+          //  expires: 10,
+          //});
+          //wixClient.auth.setTokens(tokens);
+         // router.push("/");
+          //break;
+          try {
     if (response.data?.sessionToken) {
-      // Add a small delay before token exchange
-      setTimeout(async () => {
-        try {
-          const tokens = await wixClient.auth.getMemberTokensForDirectLogin(
-            response.data.sessionToken
-          );
-          
-          Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
-            expires: 10,
-            // secure: true,
-            // sameSite: "lax",
-            // path: "/"
-          });
-          
-          wixClient.auth.setTokens(tokens);
-          
-          // Add another small delay before redirect
-          setTimeout(() => {
-           // window.location.href = window.location.origin;
-           router.push("/")
-          }, 500);
-          
-        } catch (error) {
-          console.error("Token retrieval error:", error);
-          setError("Please try signing in again - authentication is done!");
-        }
-      }, 2000); // 1 second delay before attempting token exchange
+      const tokens = await wixClient.auth.getMemberTokensForDirectLogin(
+        response.data.sessionToken
+      );
+      Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
+        expires: 10,
+      });
+      wixClient.auth.setTokens(tokens);
+      router.push("/");
+    } else {
+      setError("Authentication succeeded but no session token received");
     }
   } catch (error) {
-    console.error("Authentication error:", error);
+    console.error("Token retrieval error:", error);
     setError("Failed to complete authentication process");
   }
   break;
@@ -272,11 +264,9 @@ const LoginPage = () => {
   return (
     <div className="h-[calc(100vh-80px)] px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 flex items-center justify-center">
       <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
-        
-          <h2 className="flex justify-center items-center font-bold text-lg md:text-2xl text-neutral-800 dark:text-neutral-200 tracking-wider">
-            US CARTEL
-          </h2>
-        
+        <h2 className="flex justify-center items-center font-bold text-lg md:text-2xl text-neutral-800 dark:text-neutral-200 tracking-wider">
+          US CARTEL
+        </h2>
 
         <div className="flex items-center w-full justify-between mt-2">
           <h2 className="text-[1rem] font-semibold mb-3">{formTitle}</h2>

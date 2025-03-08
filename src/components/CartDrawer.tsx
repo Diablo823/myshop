@@ -150,7 +150,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
         </div>
 
         {/* Content */}
-        <div className="flex flex-col h-[calc(100vh-80px)]">
+        <div className="flex flex-col h-[calc(100vh-80px_-_env(safe-area-inset-bottom))]">
           {isLoading ? (
             <LoadingSpinner />
           ) : showEmptyCart ? (
@@ -251,7 +251,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
               </div>
 
               {/* Footer */}
-              <div className="border-t mt-auto p-6 bg-white">
+              <div className="border-t mt-auto p-6 bg-white pb-[calc(1.5rem_+_env(safe-area-inset-bottom))]">
                 <div className="flex items-center justify-between text-lg font-semibold mb-2">
                   <span className="text-lg font-bold">Subtotal:</span>
                   <span className="text-lg font-bold">{(cart as any).subtotal?.formattedConvertedAmount}</span>
