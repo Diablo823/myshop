@@ -222,7 +222,7 @@ const LoginPage = () => {
     }
   } catch (error) {
     console.error("Token retrieval error:", error);
-    setError("Failed to complete authentication process");
+    setError("Youre logged in but something went wrong please try signing in again");
   }
   break;
 
