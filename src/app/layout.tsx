@@ -10,6 +10,9 @@ import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import MobNav from "@/components/MobNav";
 import NewNav from "@/components/NewNav";
 import { Toaster } from "@/components/ui/toaster";
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 
 const inter = Inter({ subsets: ["latin"] });
 const jost = Jost({ subsets: ["latin"] });
@@ -37,6 +40,8 @@ export default function RootLayout({
           <Footer />
           <MobNav />
         </WixClientContextProvider>
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
