@@ -150,7 +150,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
         </div>
 
         {/* Content */}
-        <div className="flex flex-col h-[calc(100vh-80px_-_env(safe-area-inset-bottom))]">
+        <div className="flex flex-col h-[calc(100vh-80px)]">
           {isLoading ? (
             <LoadingSpinner />
           ) : showEmptyCart ? (
@@ -251,7 +251,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
               </div>
 
               {/* Footer */}
-              <div className="border-t mt-auto p-6 bg-white pb-[calc(1.5rem_+_env(safe-area-inset-bottom))]">
+              <div className="border-t mt-auto p-6 bg-white pb-12">
                 <div className="flex items-center justify-between text-lg font-semibold mb-2">
                   <span className="text-lg font-bold">Subtotal:</span>
                   <span className="text-lg font-bold">{(cart as any).subtotal?.formattedConvertedAmount}</span>
@@ -262,13 +262,13 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
                 <div className="flex flex-col gap-2">
                   <Button
                     onClick={handleViewCart}
-                    className="w-full rounded-full bg-emerald-500 text-gray-950 font-bold hover:bg-emerald-700 hover:text-slate-200"
+                    className="w-full rounded-full bg-[#800020] text-slate-100 font-bold hover:bg-[#800023] hover:text-slate-200"
                   >
                     View Cart <FaShoppingCart className="ml-2" />
                   </Button>
                   <Button
                     onClick={handleCheckout}
-                    className="w-full rounded-full bg-yellow-400 text-gray-950 font-bold hover:bg-yellow-600 hover:text-slate-200"
+                    className="w-full rounded-full bg-[#FFD700] text-gray-950 font-bold hover:bg-[#FFD700] hover:text-slate-200"
                   >
                     Checkout <FaShoppingBag className="ml-2" />
                   </Button>

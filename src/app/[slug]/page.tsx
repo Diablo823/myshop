@@ -119,14 +119,14 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
               <h3 className="text-xl font-bold text-black">
                 ₹{product.priceData?.discountedPrice}
               </h3>
-              <Badge className="bg-amber-300 hover:bg-amber-400 text-xs">
+              <Badge className="bg-[#800020] hover:bg-[#800020] text-xs text-white">
                 {calculateDiscount(
                   product.priceData?.price || 0,
                   product.priceData?.discountedPrice || 0
                 )}
                 % OFF
               </Badge>
-              <Badge className="bg-rose-500 hover:bg-rose-600 text-xs">
+              <Badge className="bg-rose-900 hover:bg-rose-900 text-xs text-white">
                 {product.ribbon}
               </Badge>
             </div>

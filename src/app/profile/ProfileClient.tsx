@@ -242,7 +242,7 @@ const ProfileClient = ({ profileData }: { profileData: ProfileData }) => {
                   href="/list?cat=all-products"
                   className="mt-4 inline-block"
                 >
-                  <Button className="mt-2 bg-amber-300 hover:bg-amber-400">
+                  <Button className="mt-2 bg-[#800020] hover:bg-[#800023] text-slate-100 hover:text-slate-200 font-bold text-sm">
                     Start Shopping
                   </Button>
                 </Link>

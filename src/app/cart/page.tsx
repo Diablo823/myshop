@@ -231,11 +231,11 @@ const CartPage = () => {
                 </div>
                 <Button
                   onClick={handleCheckout}
-                  className="w-full mt-4 rounded-full bg-yellow-400 text-gray-950 font-bold hover:bg-yellow-600 hover:text-slate-200"
+                  className="w-full mt-4 rounded-full bg-[#FFD700] text-gray-950 font-bold hover:bg-[#FFD700] hover:text-slate-200"
                 >
                   Checkout <FaShoppingBag />
                 </Button>
-                <p className=" text-gray-600 text-center mt-4">
+                <p className=" text-black text-center mt-4 text-sm">
                   Secure checkout powered by Razorpay
                 </p>
                 <div className="flex gap-4 justify-center">

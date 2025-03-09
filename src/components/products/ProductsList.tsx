@@ -104,7 +104,7 @@ const ProductsList = ({
           key={product._id}
         >
           <div className="relative w-full h-60 sm:h-72 rounded-2xl">
-            <Badge className="absolute top-2 right-2 z-20 bg-amber-300 hover:bg-amber-400 text-xs">
+            <Badge className="absolute top-2 right-2 z-20 bg-[#800020] hover:bg-[#800020] text-xs">
               {calculateDiscount(
                 product.priceData?.price || 0,
                 product.priceData?.discountedPrice || 0

@@ -20,7 +20,7 @@ const Footer = () => {
   // Determine if the current page is a product page
   //const isProductPage = pathname.split('/').length === 2; // Adjust based on your routing structure
 
-  const footRoutes = ['/', '/about', '/contact', '/legal', '/termsandconditions', '/returns'];
+  const footRoutes = ['/', '/about', '/contact', '/legal', '/termsandconditions', '/returns', '/shipping'];
   return (
     <div
       className={`${
@@ -44,13 +44,13 @@ const Footer = () => {
           </Link>
 
           <p className="text-sm font-medium">
-           Eramalloor, Alappuzha, Kerala, India
+           Kerala, India
           </p>
           <span className="text-sm font-semibold">support@uscartel.com</span>
-          <span className="text-sm font-semibold">
+          {/* <span className="text-sm font-semibold">
             uscartelofficial@gmail.com
           </span>
-          <span className="font-semibold">+1 (123) 456-7890</span>
+          <span className="font-semibold">+1 (123) 456-7890</span> */}
 
           <div className="flex gap-6 mb-8">
             {socialIcons.map((social) => (

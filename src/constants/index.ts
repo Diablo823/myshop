@@ -72,6 +72,10 @@ export const navLinksMenu = [
         label: "Terms & Conditions",
         route: "/termsandconditions"
     },
+    {
+        label: "Shipping Policy",
+        route: "/shipping"
+    },
 
 ]
 
@@ -237,10 +241,10 @@ export const footLinksHelp = [
         label: "Returns & Refunds",
         route: "/returns"
     },
-    /* {
-        label: "Gift Cards",
-        route: "/"
-    }, */
+    {
+        label: "Shipping Policy",
+        route: "/shipping"
+    },
 
 ]
 

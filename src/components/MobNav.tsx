@@ -141,7 +141,7 @@ const MobNav = () => {
             {/* <HiShoppingCart size={24} /> */}
             <FaShoppingCart size={22} />
             {itemCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-gray-700 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+              <span className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
                 {itemCount}
               </span>
             )}

@@ -8,8 +8,7 @@ import { useWixClient } from "@/hooks/useWixClient";
 import Cookies from "js-cookie";
 import { useCartStore } from "@/hooks/useCartStore";
 import CartDrawer from "./CartDrawer";
-import { FaShoppingCart } from "react-icons/fa";
-
+import { FaShoppingCart, FaUser } from "react-icons/fa";
 
 const NavIcons = () => {
   const wixClient = useWixClient();
@@ -38,11 +37,9 @@ const NavIcons = () => {
     const checkLoginStatus = async () => {
       const status = await wixClient.auth.loggedIn();
       setIsLoggedIn(status);
-    }
+    };
     checkLoginStatus();
-  }, [wixClient])
-
-  
+  }, [wixClient]);
 
   const handleProfile = async () => {
     const loginStatus = await wixClient.auth.loggedIn();
@@ -51,35 +48,34 @@ const NavIcons = () => {
     } else {
       setIsProfileOpen((prev) => !prev);
     }
-  }
+  };
 
   const handleLogout = async () => {
     setIsLoading(true);
-    
+
     try {
       // Remove the refresh token
       Cookies.remove("refreshToken");
-   
+
       // Get the logout URL
       const { logoutUrl } = await wixClient.auth.logout(window.location.href);
-      
+
       // Close the profile dropdown
       setIsProfileOpen(false);
-      
+
       // Clear any auth-related state
       setIsLoggedIn(false);
-      
+
       // Force a complete page refresh when logging out
       window.location.href = logoutUrl;
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error("Logout error:", error);
       setIsLoading(false);
       router.refresh();
-      router.push('/');
+      router.push("/");
     }
   };
 
-  
   // AUTH WITH WIX MANAGED AUTHENTICATION
   // const wixClient = useWixClient();
 
@@ -111,7 +107,13 @@ const NavIcons = () => {
 
   return (
     <div className="flex gap-4 items-center xl:gap-6 relative nav-icon-container">
-      <Image
+      <FaUser 
+        size={24} 
+        className="cursor-pointer text-gray-900" 
+        onClick={handleProfile} 
+      />
+
+      {/* <Image
         src="/profile.png"
         alt="profile"
         width={22}
@@ -119,28 +121,30 @@ const NavIcons = () => {
         className="cursor-pointer"
         onClick={handleProfile}
         //onClick={login}
-      />
+      /> */}
+
       {isProfileOpen && (
         <div className="absolute top-12 p-4 right-0 text-md rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white min-w-[140px] flex flex-col items-center justify-center z-20">
-          <Link href="/profile" onClick={() => setIsProfileOpen(false)}>Profile</Link>
+          <Link href="/profile" onClick={() => setIsProfileOpen(false)}>
+            Profile
+          </Link>
           <div className="mt-2 cursor-pointer" onClick={handleLogout}>
             {isLoading ? "Logging Out..." : "LogOut"}
           </div>
         </div>
       )}
-      <Image
+      {/* <Image
         src="/notification.png"
         alt="notification"
         width={22}
         height={22}
         className="cursor-pointer"
-      />
+      /> */}
 
       <div
         className="relative cursor-pointer"
         onClick={() => setIsCartOpen((prev) => !prev)}
       >
-        
         <FaShoppingCart size={24} className="text-gray-900" />
         <div className="absolute -top-4 -right-3 bg-black rounded-full w-5 h-5 flex items-center justify-center text-sm text-white">
           {counter}
