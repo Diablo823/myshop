@@ -68,7 +68,7 @@ const ProductScroll = async ({
             <div className="relative w-full h-[17rem]">
             {product.priceData?.price !== product.priceData?.discountedPrice && (
                 <Badge 
-                  className="absolute top-2 right-2 z-20 bg-amber-300 hover:bg-amber-400"
+                  className="absolute top-2 right-2 z-20 bg-[#800020] hover:bg-[#800020]"
                 >
                   {calculateDiscount(
                     product.priceData?.price || 0,
