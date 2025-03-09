@@ -251,7 +251,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
               </div>
 
               {/* Footer */}
-              <div className="border-t mt-auto p-6 bg-white pb-12">
+              <div className="border-t mt-auto p-6 bg-white pb-14">
                 <div className="flex items-center justify-between text-lg font-semibold mb-2">
                   <span className="text-lg font-bold">Subtotal:</span>
                   <span className="text-lg font-bold">{(cart as any).subtotal?.formattedConvertedAmount}</span>
