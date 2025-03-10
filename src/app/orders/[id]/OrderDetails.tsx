@@ -233,6 +233,10 @@ const OrderDetails = ({ orderData }: { orderData: OrderDataProps }) => {
                 <Button variant="notAllowed" className="bg-gray-400 text-white">
                   Order Cancelled
                   </Button>
+              ) : order.fulfillmentStatus === 'FULFILLED' ? (
+                <Button variant="notAllowed" className="bg-gray-400 text-xs text-white">
+                  Order Fulfilled (Cannot Cancel)
+                  </Button>
               ) : (
                 <CancellationRequestForm 
                 orderId={order._id!}
