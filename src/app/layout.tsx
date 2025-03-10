@@ -19,7 +19,10 @@ const jost = Jost({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "US Cartel",
-  description: "A complete e-commerce application with Next.js and Wix",
+  description: "US Cartel offers affordable, high-quality fashion, beauty & lifestyle essentials. Shop quality products online at uscartel.com!",
+  alternates : {
+    canonical: "https://uscartel.com",
+  }
 };
 
 export default function RootLayout({
@@ -29,6 +32,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+      <meta name="google-site-verification" content="6fy7lri8jmPKtLlaiVLgv30UjAcc66VDFngPt21m6vw" />
+      </head>
       <body className={`${jost.className}`}>
         <WixClientContextProvider>
           <Navbar />
