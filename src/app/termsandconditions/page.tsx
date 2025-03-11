@@ -18,7 +18,7 @@ const TermsConditionsPage = () => {
           className="w-full h-full object-cover opacity-20"
         /> */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-white">Terms & Conditions</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-white">Terms & Conditions</h1>
         </div>
       </div>
 
@@ -32,37 +32,37 @@ const TermsConditionsPage = () => {
 
               {/* Welcome Section */}
               <div className="mb-8">
-                <p className="text-gray-700">
+                <p className="text-gray-700 text-sm">
                   Welcome to US Cartel (the "Site"). By accessing or using uscartel.com, you agree to be bound by these Terms & Conditions ("Terms"). Please read them carefully before using our website. If you do not agree with any part of these Terms, please refrain from using our Site.
                 </p>
               </div>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">1. Acceptance of Terms</h2>
-                <p className="text-gray-700">
+                <h2 className="text-lg md:text-2xl font-bold mb-4">1. Acceptance of Terms</h2>
+                <p className="text-gray-700 text-sm">
                   By accessing or using uscartel.com, you confirm that you are at least 18 years old or have the consent of a parent or guardian, and agree to be bound by these Terms, as well as any additional terms and conditions that may apply to specific sections of the Site or to products and services available through the Site.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">2. Use of the Website</h2>
-                <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                <h2 className="text-lg md:text-2xl font-bold mb-4">2. Use of the Website</h2>
+                <ul className="list-disc pl-6 space-y-2 text-gray-700 text-sm">
                   <li><span className="font-semibold">Permitted Use:</span> You are granted a limited, non-exclusive, non-transferable right to access and use the Site for personal, non-commercial purposes.</li>
                   <li><span className="font-semibold">Prohibited Use:</span> You agree not to use the Site for any unlawful purpose, or in any way that could damage, disable, overburden, or impair the Site or interfere with any other party's use of the Site.</li>
                 </ul>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">3. Account & Authentication</h2>
-                <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                <h2 className="text-lg md:text-2xl font-bold mb-4">3. Account & Authentication</h2>
+                <ul className="list-disc pl-6 space-y-2 text-gray-700 text-sm">
                   <li><span className="font-semibold">Guest Purchases:</span> Even guest users can place orders, as our middleware assigns a visitor token to facilitate transactions.</li>
                   <li><span className="font-semibold">Account Creation:</span> If you choose to create an account, you are responsible for maintaining the confidentiality of your login information and for all activities that occur under your account.</li>
                 </ul>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">4. Ordering & Payments</h2>
-                <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                <h2 className="text-lg md:text-2xl font-bold mb-4">4. Ordering & Payments</h2>
+                <ul className="list-disc pl-6 space-y-2 text-gray-700 text-sm">
                   <li><span className="font-semibold">Product Information:</span> We strive to provide accurate information about our products, including descriptions and pricing. However, we do not guarantee that all product details are error-free, complete, or current.</li>
                   <li><span className="font-semibold">Payment Gateway:</span> All payments on the Site are processed securely through Razorpay. By placing an order, you agree to the terms and conditions of the payment processor.</li>
                   <li><span className="font-semibold">Order Confirmation:</span> Once an order is placed, you will receive an order confirmation via email. Please ensure your contact information is accurate.</li>
@@ -70,24 +70,24 @@ const TermsConditionsPage = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">5. Shipping & Returns</h2>
-                <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                <h2 className="text-lg md:text-2xl font-bold mb-4">5. Shipping & Returns</h2>
+                <ul className="list-disc pl-6 space-y-2 text-gray-700 text-sm">
                   <li><span className="font-semibold">Shipping:</span> Orders are shipped to the address provided by you at the time of purchase. Delivery times may vary.</li>
                   <li><span className="font-semibold">Returns & Refunds:</span> For any return or refund requests, please contact our support team at support@uscartel.com with your order details. Specific return policies may vary based on the product category.</li>
                 </ul>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">6. Intellectual Property</h2>
-                <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                <h2 className="text-lg md:text-2xl font-bold mb-4">6. Intellectual Property</h2>
+                <ul className="list-disc pl-6 space-y-2 text-gray-700 text-sm">
                   <li><span className="font-semibold">Content Ownership:</span> All content on uscartel.com, including text, graphics, logos, images, and software, is the property of US Cartel or its licensors and is protected by applicable intellectual property laws.</li>
                   <li><span className="font-semibold">Limited License:</span> You are granted a limited license to access and make personal use of the Site, but you are not allowed to download or modify any portion of the content without express written consent from US Cartel.</li>
                 </ul>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">7. Third-Party Integrations</h2>
-                <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                <h2 className="text-lg md:text-2xl font-bold mb-4">7. Third-Party Integrations</h2>
+                <ul className="list-disc pl-6 space-y-2 text-gray-700 text-sm">
                   <li><span className="font-semibold">Wix Headless CMS:</span> Our backend and authentication are managed via Wix Headless CMS. Your interactions with this service are subject to Wix's own terms and policies.</li>
                   <li><span className="font-semibold">Razorpay:</span> Payment processing is handled by Razorpay. Your use of their services is governed by Razorpay's terms and conditions.</li>
                   <li><span className="font-semibold">Future Integrations:</span> We may integrate additional third-party services (such as review apps) in the future. Any such services will be subject to their own terms and conditions.</li>
@@ -95,52 +95,52 @@ const TermsConditionsPage = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">8. Data Protection & Privacy</h2>
-                <p className="text-gray-700">
+                <h2 className="text-lg md:text-2xl font-bold mb-4">8. Data Protection & Privacy</h2>
+                <p className="text-gray-700 text-sm">
                   Your privacy is important to us. Our collection, use, and storage of personal data are described in our Legal & Privacy page. By using the Site, you consent to the data practices described therein.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">9. Disclaimers & Limitation of Liability</h2>
-                <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                <h2 className="text-lg md:text-2xl font-bold mb-4">9. Disclaimers & Limitation of Liability</h2>
+                <ul className="list-disc pl-6 space-y-2 text-gray-700 text-sm">
                   <li><span className="font-semibold">Disclaimer:</span> The Site and all information, products, and services provided on the Site are provided "as is" without any warranties of any kind. We do not warrant that the Site will be error-free, secure, or continuously available.</li>
                   <li><span className="font-semibold">Limitation of Liability:</span> In no event shall US Cartel, its owners, or its affiliates be liable for any indirect, incidental, special, consequential, or punitive damages arising out of your use or inability to use the Site or any products purchased through the Site.</li>
                 </ul>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">10. Indemnification</h2>
-                <p className="text-gray-700">
+                <h2 className="text-lg md:text-2xl font-bold mb-4">10. Indemnification</h2>
+                <p className="text-gray-700 text-sm">
                   You agree to indemnify, defend, and hold harmless US Cartel and its affiliates, directors, officers, employees, and agents from and against any claims, liabilities, damages, losses, or expenses arising from your use of the Site or violation of these Terms.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">11. Modifications to Terms</h2>
-                <p className="text-gray-700">
+                <h2 className="text-lg md:text-2xl font-bold mb-4">11. Modifications to Terms</h2>
+                <p className="text-gray-700 text-sm">
                   US Cartel reserves the right to modify or update these Terms at any time without prior notice. Changes will be effective immediately upon posting on the Site. Your continued use of the Site following any changes constitutes acceptance of those changes.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">12. Governing Law</h2>
-                <p className="text-gray-700">
+                <h2 className="text-lg md:text-2xl font-bold mb-4">12. Governing Law</h2>
+                <p className="text-gray-700 text-sm">
                   These Terms shall be governed by and construed in accordance with the laws of the jurisdiction in which US Cartel operates. Any disputes arising from these Terms or the use of the Site will be resolved in the appropriate courts of that jurisdiction.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">13. Termination</h2>
-                <p className="text-gray-700">
+                <h2 className="text-lg md:text-2xl font-bold mb-4">13. Termination</h2>
+                <p className="text-gray-700 text-sm">
                   We reserve the right to suspend or terminate your access to the Site at our sole discretion, without notice, for conduct that we believe violates these Terms or is harmful to other users or the operation of the Site.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">14. Contact Information</h2>
-                <p className="text-gray-700 mb-4">If you have any questions or concerns about these Terms, please contact us at:</p>
-                <ul className="list-none space-y-2 text-gray-700">
+                <h2 className="text-lg md:text-2xl font-bold mb-4">14. Contact Information</h2>
+                <p className="text-gray-700 mb-4 text-sm">If you have any questions or concerns about these Terms, please contact us at:</p>
+                <ul className="list-none space-y-2 text-gray-700 text-sm">
                   <li>Email (General Inquiries): uscartelofficial@gmail.com</li>
                   <li>Email (Support): support@uscartel.com</li>
                   <li>Address: Eramalloor, Alappuzha, Kerala, India</li>
@@ -156,7 +156,7 @@ const TermsConditionsPage = () => {
 
         {/* FAQ Accordion Section */}
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold mb-6 text-center">Common Questions</h2>
+          <h2 className="text-lg md:text-2xl font-bold mb-6 text-center">Common Questions</h2>
           <Accordion type="single" collapsible>
             <AccordionItem value="item-1">
               <AccordionTrigger>How are my payments processed and secured?</AccordionTrigger>

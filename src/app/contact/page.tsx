@@ -82,7 +82,7 @@ const ContactPage = () => {
 
         {/* Social Media Section */}
         <div className="text-center mb-12">
-          <h2 className="text-2xl font-bold mb-6">Follow Us on Social Media</h2>
+          <h2 className="text-xl md:texr-2xl font-bold mb-6">Follow Us on Social Media</h2>
           <div className="flex justify-center space-x-6">
             <a href="#" className="hover:text-blue-600 transition-colors">
               <FaInstagram size={28} />
@@ -101,7 +101,7 @@ const ContactPage = () => {
 
         {/* FAQ Accordion */}
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold mb-6 text-center">Frequently Asked Questions</h2>
+          <h2 className="text-xl md:text-2xl font-bold mb-6 text-center">Frequently Asked Questions</h2>
           <Accordion type="single" collapsible>
             {/* <AccordionItem value="item-1">
               <AccordionTrigger>How can I track my order?</AccordionTrigger>

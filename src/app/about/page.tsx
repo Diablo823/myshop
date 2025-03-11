@@ -34,7 +34,7 @@ export default function AboutUs() {
       <div className="container mx-auto py-12 max-w-4xl space-y-12">
         {/* Story Behind the Name */}
         <section>
-          <h2 className="text-2xl md:text-3xl font-bold mb-6 border-b-2 border-gray-200 pb-2">
+          <h2 className="text-xl md:text-2xl font-bold mb-6 border-b-2 border-gray-200 pb-2">
             The Story Behind the Name
           </h2>
           <div className="grid md:grid-cols-2 gap-6 items-center">
@@ -46,19 +46,19 @@ export default function AboutUs() {
               className="rounded-lg shadow-md"
             />
             <div>
-              <p className="text-lg leading-relaxed mb-4">
+              <p className="text-sm md:text-lg leading-relaxed mb-4">
                 US Cartel wasn't just another random brand name—it came from an
                 unexpected moment of inspiration. While searching for the
                 perfect name, everything either lacked impact or didn't have an
                 available .com domain.
               </p>
-              <p className="text-lg leading-relaxed mb-4">
+              <p className="text-sm md:text-lg leading-relaxed mb-4">
                 Then, while watching <em>Call of Duty: Modern Warfare 2</em>, a
                 scene caught my attention—Captain Price identifying a group as{" "}
                 <em>Las Almas Mexican Cartel</em>. That moment sparked an idea:{" "}
                 <strong>US Cartel</strong>.
               </p>
-              <p className="text-lg leading-relaxed">
+              <p className="text-sm md:text-lg leading-relaxed">
                 I immediately checked if <em>uscartel.com</em> was available—and
                 it was! The name felt bold, memorable, and had multiple
                 meanings. It could stand for <strong>"USA Cartel"</strong> for
@@ -73,7 +73,7 @@ export default function AboutUs() {
 
         {/* Mission & Vision */}
         <section>
-          <h2 className="text-2xl md:text-3xl font-bold mb-6 border-b-2 border-gray-200 pb-2">
+          <h2 className="text-xl md:text-2xl font-bold mb-6 border-b-2 border-gray-200 pb-2">
             Our Mission & Vision
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
@@ -95,7 +95,7 @@ export default function AboutUs() {
               <p>Delivering affordable, premium products customers love</p>
             </div>
           </div>
-          <div className="mt-6 text-lg leading-relaxed">
+          <div className="mt-6 text-sm md:text-lg leading-relaxed">
             <p className="mb-4">
               At <strong>US Cartel</strong>, we're here to build more than just
               a business—we're creating a brand that sticks. When people hear{" "}
@@ -119,7 +119,7 @@ export default function AboutUs() {
 
         {/* Why We Started */}
         <section>
-          <h2 className="text-2xl md:text-3xl font-bold mb-6 border-b-2 border-gray-200 pb-2">
+          <h2 className="text-xl md:text-2xl font-bold mb-6 border-b-2 border-gray-200 pb-2">
             Why We Started
           </h2>
           <div className="grid md:grid-cols-2 gap-6 items-center">
@@ -132,14 +132,14 @@ export default function AboutUs() {
             />
 
             <div>
-              <p className="text-lg leading-relaxed mb-4">
+              <p className="text-sm md:text-lg leading-relaxed mb-4">
                 It all began with my mother's business. She sells beauty and
                 healthcare products through personal connections, but that
                 limited her reach. I saw an opportunity to create an{" "}
                 <strong>e-commerce platform</strong> where her products could
                 reach a wider audience.
               </p>
-              <p className="text-lg leading-relaxed">
+              <p className="text-sm md:text-lg leading-relaxed">
                 Instead of relying on word-of-mouth alone, now she can simply
                 share <em>uscartel.com</em>, allowing more people to shop
                 conveniently. From this small start, I realized the potential to
@@ -152,17 +152,17 @@ export default function AboutUs() {
 
         {/* What Makes Us Different */}
         <section>
-          <h2 className="text-2xl md:text-3xl font-bold mb-6 border-b-2 border-gray-200 pb-2">
+          <h2 className="text-xl md:text-3xl font-bold mb-6 border-b-2 border-gray-200 pb-2">
             What Makes Us Different
           </h2>
           <div className="space-y-4 bg-gray-50 p-6 rounded-lg">
             <div className="flex items-start space-x-4">
               <Home className="text-red-500 flex-shrink-0" size={24} />
               <div>
-                <h3 className="font-semibold text-xl">
+                <h3 className="font-semibold text-lg md:text-xl">
                   Affordable & High-Quality Products
                 </h3>
-                <p>
+                <p className="text-sm">
                   We believe in offering <strong>great results</strong> without
                   breaking the bank.
                 </p>
@@ -171,10 +171,10 @@ export default function AboutUs() {
             <div className="flex items-start space-x-4">
               <Target className="text-blue-500 flex-shrink-0" size={24} />
               <div>
-                <h3 className="font-semibold text-xl">
+                <h3 className="font-semibold text-lg md:text-xl">
                   Memorable Brand Identity
                 </h3>
-                <p>
+                <p className="text-sm">
                   US Cartel is a name that stands out, making it easier for
                   people to find and share.
                 </p>
@@ -183,8 +183,8 @@ export default function AboutUs() {
             <div className="flex items-start space-x-4">
               <Clock className="text-green-500 flex-shrink-0" size={24} />
               <div>
-                <h3 className="font-semibold text-xl">Future-Ready Vision</h3>
-                <p>
+                <h3 className="font-semibold text-lg md:text-xl">Future-Ready Vision</h3>
+                <p className="text-sm">
                   We aim to evolve into a <strong>luxury brand</strong>, but for
                   now, we focus on being{" "}
                   <strong>friendly, accessible, and customer-first</strong>.
@@ -194,8 +194,8 @@ export default function AboutUs() {
             <div className="flex items-start space-x-4">
               <Gift className="text-purple-500 flex-shrink-0" size={24} />
               <div>
-                <h3 className="font-semibold text-xl">Customer Satisfaction</h3>
-                <p>
+                <h3 className="font-semibold text-lg md:text-xl">Customer Satisfaction</h3>
+                <p className="text-sm">
                   Your happiness is our priority. We want you to love our
                   products and the experience of shopping with us.
                 </p>
@@ -206,10 +206,10 @@ export default function AboutUs() {
 
         {/* Looking Ahead */}
         <section>
-          <h2 className="text-2xl md:text-3xl font-bold mb-6 border-b-2 border-gray-200 pb-2">
+          <h2 className="text-xl md:text-3xl font-bold mb-6 border-b-2 border-gray-200 pb-2">
             Looking Ahead
           </h2>
-          <div className="text-lg leading-relaxed bg-gray-50 p-6 rounded-lg">
+          <div className="text-sm md:text-lg leading-relaxed bg-gray-50 p-6 rounded-lg">
             <p className="mb-4">
               Our goal is to make{" "}
               <strong>US Cartel a well-known name in fashion and beauty</strong>
@@ -228,10 +228,10 @@ export default function AboutUs() {
 
         {/* Call to Action */}
         <section className="text-center bg-gray-100 p-12 rounded-lg">
-          <h2 className="text-3xl font-bold mb-4">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">
             Join the US Cartel Journey
           </h2>
-          <p className="text-xl mb-6">
+          <p className="text-lg md:text-xl mb-6">
             Be part of our growing community and exciting story
           </p>
           <Link href="/list?cat=all-products">

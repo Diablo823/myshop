@@ -12,7 +12,7 @@ const LegalPrivacyPage = () => {
           className="w-full h-full object-cover opacity-20"
         /> */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-white">Legal & Privacy</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-white">Legal & Privacy</h1>
         </div>
       </div>
 
@@ -26,25 +26,25 @@ const LegalPrivacyPage = () => {
 
               {/* Welcome Section */}
               <div className="mb-8">
-                <p className="text-gray-700">
+                <p className="text-sm">
                   Welcome to US Cartel. This page explains how we collect, use, and protect your information when you visit and use uscartel.com. By using our website, you agree to the practices described here. If you have any questions, please contact us via our Contact Page.
                 </p>
               </div>
 
               {/* Sections */}
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">1. Introduction</h2>
-                <p className="text-gray-700">
+                <h2 className="text-lg md:text-xl font-bold mb-4">1. Introduction</h2>
+                <p className="text-gray-700 text-sm">
                   US Cartel is a startup brand dedicated to offering quality fashion and beauty products. Although we are in the early stages of our journey, we are committed to protecting your personal data and ensuring a safe, trustworthy experience on our site.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">2. Data Collection & Use</h2>
+                <h2 className="text-lg md:text-xl font-bold mb-4">2. Data Collection & Use</h2>
                 <p className="text-gray-700 mb-4">
                   When you interact with uscartel.com, we may collect the following personal data:
                 </p>
-                <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                <ul className="list-disc pl-6 space-y-2 text-gray-700 text-sm">
                   <li>
                     <span className="font-semibold">Personal Information:</span> Name, email address, phone number, and shipping addresses provided when placing orders.
                   </li>
@@ -55,9 +55,9 @@ const LegalPrivacyPage = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">3. Cookies & Tokens</h2>
+                <h2 className="text-lg md:text-xl font-bold mb-4">3. Cookies & Tokens</h2>
                 <p className="text-gray-700 mb-4">Our website uses cookies to enhance your experience and manage authentication. Specifically:</p>
-                <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                <ul className="list-disc pl-6 space-y-2 text-gray-700 text-sm">
                   <li>
                     <span className="font-semibold">Refresh Token & Visitor Token Cookies:</span> We use cookies to store a refresh token and a visitor token. These cookies are essential for maintaining your session and ensuring a smooth shopping experience.
                   </li>
@@ -68,9 +68,9 @@ const LegalPrivacyPage = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">4. Third-Party Integrations</h2>
+                <h2 className="text-lg md:text-xl font-bold mb-4">4. Third-Party Integrations</h2>
                 <p className="text-gray-700 mb-4">Currently, our key third-party integrations include:</p>
-                <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                <ul className="list-disc pl-6 space-y-2 text-gray-700 text-sm">
                   <li>Wix Headless CMS: Handles backend operations and authentication.</li>
                   <li>Razorpay: Processes payments securely.</li>
                   <li>Upcoming Review App Integration: We plan to integrate a review application via its API.</li>
@@ -78,17 +78,17 @@ const LegalPrivacyPage = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">5. Data Protection</h2>
-                <p className="text-gray-700">
+                <h2 className="text-lg md:text-xl font-bold mb-4">5. Data Protection</h2>
+                <p className="text-gray-700 text-sm">
                   While we are not yet a formally registered company, we take data protection seriously. Your personal information is safeguarded on our website and managed by Wix, which implements security measures to protect your data.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">6. Terms & Conditions</h2>
+                <h2 className="text-lg md:text-xl font-bold mb-4">6. Terms & Conditions</h2>
                 <div className="space-y-4 text-gray-700">
                   <p className="font-semibold">By accessing or using uscartel.com, you agree to the following terms:</p>
-                  <ul className="list-disc pl-6 space-y-2">
+                  <ul className="list-disc pl-6 space-y-2 text-sm">
                     <li><span className="font-semibold">Use of Website:</span> You agree to use our website for lawful purposes only.</li>
                     <li><span className="font-semibold">Ordering & Payments:</span> All orders are processed through Razorpay.</li>
                     <li><span className="font-semibold">Content & Reviews:</span> Any submitted content becomes part of the website's content.</li>
@@ -99,9 +99,9 @@ const LegalPrivacyPage = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">7. Contact Information</h2>
-                <p className="text-gray-700 mb-4">If you have any questions or concerns about this policy or our practices, please feel free to reach out:</p>
-                <ul className="list-none space-y-2 text-gray-700">
+                <h2 className="text-lg md:text-xl font-bold mb-4">7. Contact Information</h2>
+                <p className="text-gray-700 mb-4 text-sm">If you have any questions or concerns about this policy or our practices, please feel free to reach out:</p>
+                <ul className="list-none space-y-2 text-gray-700 text-sm">
                   <li>Email (General Inquiries): uscartelofficial@gmail.com</li>
                   <li>Email (Support): support@uscartel.com</li>
                   <li>Physical Address: Eramalloor, Alappuzha, Kerala, India</li>
