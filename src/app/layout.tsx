@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   description: "US Cartel offers affordable, high-quality fashion, beauty & lifestyle essentials. Shop quality products online at uscartel.com!",
   alternates : {
     canonical: "https://uscartel.com",
+  },
+  icons: {
+    icon: "/favicon.ico",
   }
 };
 
