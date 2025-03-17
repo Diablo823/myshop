@@ -19,13 +19,34 @@ const jost = Jost({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "US Cartel",
-  description: "US Cartel offers affordable, high-quality fashion, beauty & lifestyle essentials. Shop quality products online at uscartel.com!",
+  description: "US Cartel the store that offers affordable, high-quality fashion, beauty & lifestyle essentials. Shop quality products online at uscartel.com!",
   alternates : {
     canonical: "https://uscartel.com",
   },
   icons: {
-    icon: "/favicon.ico",
-  }
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-96x96.png", type: "image/png", sizes: "96x96" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/web-app-manifest-192x192.png", type: "image/png", sizes: "192x192" },
+    { url: "/web-app-manifest-512x512.png", type: "image/png", sizes: "512x512" }
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    other: [
+      {
+        rel: "manifest",
+        url: "/site.webmanifest",
+      }
+    ]
+  },
+  appleWebApp: {
+    title: "US CARTEL",
+    capable: true,
+    statusBarStyle: "default",
+  },
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({
