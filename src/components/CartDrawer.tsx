@@ -260,7 +260,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
                   Shipping &amp; Taxes calculated at checkout
                 </p>
                 <p className="text-gray-800 text-sm font-bold mb-4">
-                  Free shipping for orders abone ₹580!
+                  Free shipping for orders above ₹580!
                 </p>
                 <div className="flex flex-col gap-2">
                   <Button
