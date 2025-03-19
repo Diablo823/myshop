@@ -57,9 +57,9 @@ const Navbar = () => {
           {/* <div className="text-2xl font-bold tracking-wider text-nowrap">US CARTEL</div> */}
           {
             <Image
-              src="/mobcartel.png"
+              src="/cartel.png"
               alt="logo"
-              width={60}
+              width={80}
               height={28}
               className="image-container"
             />

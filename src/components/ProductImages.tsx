@@ -193,7 +193,7 @@ const ProductImages = ({ items }: { items: any[] }) => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isModalOpen]);
-
+  
   return (
     <div className="w-full">
       {/* MAIN IMAGE */}
@@ -203,7 +203,7 @@ const ProductImages = ({ items }: { items: any[] }) => {
       >
         <Image
           src={items[index].image?.url}
-          alt="main-img"
+          alt={items[index].image?.altText || "product image"}
           fill
           sizes="50vw"
           priority

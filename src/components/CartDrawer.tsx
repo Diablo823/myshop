@@ -256,8 +256,11 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
                   <span className="text-lg font-bold">Subtotal:</span>
                   <span className="text-lg font-bold">{(cart as any).subtotal?.formattedConvertedAmount}</span>
                 </div>
-                <p className="text-gray-800 text-sm mb-4">
+                <p className="text-gray-800 text-sm font-bold mb-2">
                   Shipping &amp; Taxes calculated at checkout
+                </p>
+                <p className="text-gray-800 text-sm font-bold mb-4">
+                  Free shipping for orders abone ₹580!
                 </p>
                 <div className="flex flex-col gap-2">
                   <Button

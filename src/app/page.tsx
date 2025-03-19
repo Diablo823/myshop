@@ -38,7 +38,7 @@ const HomePage = async () => {
       <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 max-w-[100vw] overflow-x-hidden">
         <Banner
           slides={slides1}
-          autoPlayInterval={5000}
+          autoPlayInterval={7000}
           showControls={false}
           height="h-[18rem] md:h-[26rem]"
         />

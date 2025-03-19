@@ -10,25 +10,33 @@ import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import MobNav from "@/components/MobNav";
 import NewNav from "@/components/NewNav";
 import { Toaster } from "@/components/ui/toaster";
-import { Analytics } from "@vercel/analytics/react"
-import { SpeedInsights } from "@vercel/speed-insights/next"
-
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"] });
 const jost = Jost({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "US Cartel",
-  description: "US Cartel the store that offers affordable, high-quality fashion, beauty & lifestyle essentials. Shop quality products online at uscartel.com!",
-  alternates : {
+  description:
+    "US Cartel, the store that offers affordable, high-quality fashion, beauty & lifestyle essentials. Shop quality products online at uscartel.com! cartel shop, us cartel",
+  alternates: {
     canonical: "https://uscartel.com",
   },
   icons: {
     icon: [
       { url: "/favicon.ico" },
       { url: "/favicon-96x96.png", type: "image/png", sizes: "96x96" },
-      { url: "/web-app-manifest-192x192.png", type: "image/png", sizes: "192x192" },
-    { url: "/web-app-manifest-512x512.png", type: "image/png", sizes: "512x512" }
+      {
+        url: "/web-app-manifest-192x192.png",
+        type: "image/png",
+        sizes: "192x192",
+      },
+      {
+        url: "/web-app-manifest-512x512.png",
+        type: "image/png",
+        sizes: "512x512",
+      },
     ],
     apple: [
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
@@ -37,8 +45,8 @@ export const metadata: Metadata = {
       {
         rel: "manifest",
         url: "/site.webmanifest",
-      }
-    ]
+      },
+    ],
   },
   appleWebApp: {
     title: "US CARTEL",
@@ -56,7 +64,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-      <meta name="google-site-verification" content="6fy7lri8jmPKtLlaiVLgv30UjAcc66VDFngPt21m6vw" />
+        <meta
+          name="google-site-verification"
+          content="6fy7lri8jmPKtLlaiVLgv30UjAcc66VDFngPt21m6vw"
+        />
       </head>
       <body className={`${jost.className}`}>
         <WixClientContextProvider>

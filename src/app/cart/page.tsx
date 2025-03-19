@@ -213,12 +213,15 @@ const CartPage = () => {
               <h2 className="text-lg font-bold mb-4">Order Summary</h2>
               <div className="space-y-4">
                 <div className="flex justify-between">
-                  <span>Subtotal</span>
-                  <span>{(cart as any).subtotal?.formattedConvertedAmount}</span>
+                  <span className="font-semibold">Subtotal</span>
+                  <span className="font-semibold">{(cart as any).subtotal?.formattedConvertedAmount}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Shipping</span>
-                  <span>Calculated at checkout</span>
+                  <span className="font-semibold">Shipping</span>
+                  <span className="text-sm font-semibold">Calculated at checkout</span>
+                </div>
+                <div className="flex justify-center">
+                  <span className="font-bold text-sm">Free shipping for orders above ₹580!</span>
                 </div>
                 {/* <div className="flex justify-between">
                   <span>Tax</span>
@@ -235,7 +238,7 @@ const CartPage = () => {
                 >
                   Checkout <FaShoppingBag />
                 </Button>
-                <p className=" text-black text-center mt-4 text-sm">
+                <p className=" text-black text-center font-semibold mt-4 text-sm">
                   Secure checkout powered by Razorpay
                 </p>
                 <div className="flex gap-4 justify-center">
