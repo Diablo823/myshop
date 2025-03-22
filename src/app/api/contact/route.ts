@@ -86,7 +86,7 @@ export async function POST(req: Request) {
     } = body;
 
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
       const prompt = `
         You are Nik, a female customer service representative for US CARTEL, an e-commerce website. 
       you can address the person with their full name or first name that's your choice.
