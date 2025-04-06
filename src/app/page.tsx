@@ -46,28 +46,28 @@ const HomePage = async () => {
 
       <div className="mt-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
         <h1 className="text-2xl font-bold">New Arrivals</h1>
-        <Suspense fallback={<LoadingSpinner />}>
+        {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductList
             categoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID!}
             limit={12}
           />
-        </Suspense>
+        
 
         <h1 className="mt-5 text-2xl font-bold">Featured Products</h1>
-        <Suspense fallback={<LoadingSpinner />}>
+        {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductList
             categoryId={process.env.NEXT_PUBLIC_FEATURED_PRDUCTS_CATEGORY_ID!}
             limit={4}
           />
-        </Suspense>
+        
 
         <h1 className="mt-5 text-2xl font-bold">Popular Products</h1>
-        <Suspense fallback={<LoadingSpinner />}>
+        {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductList
             categoryId={process.env.NEXT_PUBLIC_POPULAR_PRDUCTS_CATEGORY_ID!}
             limit={6}
           />
-        </Suspense>
+        
       </div>
 
       <div>
@@ -79,12 +79,12 @@ const HomePage = async () => {
         />
       </div>
       <div className="mt-8 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
-        <Suspense fallback={<LoadingSpinner />}>
+        {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductList
             categoryId={process.env.NEXT_PUBLIC_FEATURED_PRDUCTS_CATEGORY_ID!}
             limit={4}
           />
-        </Suspense>
+        
       </div>
 
       <div className="mt-20 px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
@@ -97,19 +97,19 @@ const HomePage = async () => {
             <FaArrowRight />
           </span>
         </h1>
-        <Suspense fallback={<LoadingSpinner />}>
+        {/* <Suspense fallback={<LoadingSpinner />}> */}
           <CategoryList />
-        </Suspense>
+        
       </div>
 
       <div className="mt-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
         <h1 className="text-2xl font-bold">Facewash</h1>
-        <Suspense fallback={<LoadingSpinner />}>
+        {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductList
             categoryId={process.env.NEXT_PUBLIC_FACE_WASH_CATEGORY_ID!}
             limit={4}
           />
-        </Suspense>
+        
       </div>
 
       <div className="mt-20 px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
@@ -122,22 +122,22 @@ const HomePage = async () => {
             <FaArrowRight />
           </span>
         </h1>
-        <Suspense fallback={<LoadingSpinner />}>
+        {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductScroll
             categoryId={process.env.NEXT_PUBLIC_ESSENTIAL_PRODUCTS_CATEGORY_ID!}
             limit={20}
           />
-        </Suspense>
+        
       </div>
 
       <div className="mt-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
         <h1 className="text-2xl font-bold">Hair Care</h1>
-        <Suspense fallback={<LoadingSpinner />}>
+        {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductList
             categoryId={process.env.NEXT_PUBLIC_HAIR_PRODUCTS_CATEGORY_ID!}
             limit={5}
           />
-        </Suspense>
+        
 
         
       </div>
