@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY!);
+const genAI = new GoogleGenAI({ apiKey: process.env.GOOGLE_AI_API_KEY! });
 
 const validateEmailConfig = () => {
   if (!process.env.EMAIL_USER || !process.env.EMAIL_APP_PASSWORD) {
@@ -86,7 +87,7 @@ export async function POST(req: Request) {
     } = body;
 
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+      //const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
       const prompt = `
         You are Nik, a female customer service representative for US CARTEL, an e-commerce website. 
       you can address the person with their full name or first name that's your choice.
@@ -104,7 +105,7 @@ export async function POST(req: Request) {
       If it's a complaint, show empathy and provide a solution.
       If it's a business opportunity, handle that response in a way how businessmen handle.
 
-      And tell them that somebody will send them an email with more information soon from the email "support@uscartel.com", and also tell them that they can directly email support@uscartel.com.
+      And tell them that somebody will send them an email with more information soon from the email "support@uscartel.com" or "hello@uscartel.com", and also tell them that they can directly email support@uscartel.com.
 
       Keep the tone professional but friendly.
 
@@ -139,26 +140,35 @@ export async function POST(req: Request) {
           Ensure the subject line reflects the email's content accurately, making it easy for customers to locate later.
       `;
 
-      const result = await model.generateContent(prompt);
-      const aiResponse = result.response.text();
 
-      // Send customer email with proper "from" name
+      const response = await genAI.models.generateContent({
+        model: "gemini-2.0-flash", // Specify the model here
+        contents: prompt, // Replace with actual prompt
+      });
 
-      // await sendEmail({
-      //   from: '"US CARTEL" <uscartelofficial@gmail.com>', // Added display name
-      //   to: email,
-      //   subject: `Response to - ${messageTitle}`,
-      //   text: aiResponse,
-      // });
+      let aiResponse = response.text;
+      //console.log(aiResponse);
+      
 
       setTimeout(async () => {
-        await sendEmail({
-          from: '"US CARTEL" <uscartelofficial@gmail.com>', // Added display name
-          to: email,
-          subject: `Response to - ${messageTitle}`,
-          text: aiResponse,
-        });
-
+        try {
+          //console.log(`Attempting to send email to user: ${email}`);
+          await sendEmail({
+            from: '"US CARTEL" <uscartelofficial@gmail.com>', // Added display name
+            to: email,
+            subject: `Response to - ${messageTitle}`,
+            text: aiResponse,
+            html: `<div style="font-family: Arial, sans-serif;">${aiResponse?.replace(/\n/g, '<br>')}</div>`,
+            headers: {
+              'Precedence': 'bulk',
+    'X-Auto-Response-Suppress': 'OOF, AutoReply',
+    'Auto-Submitted': 'auto-generated'
+            },
+          });
+          //console.log(`Successfully sent email to user: ${email}`);
+        } catch (error) {
+          console.error("Error sending email to user:", error);
+        }
       }, 180000);
 
       // Send admin notification if configured

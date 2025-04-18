@@ -264,6 +264,7 @@ const ProductImages = ({ items }: { items: any[] }) => {
               alt="small-images"
               fill
               sizes="20vw"
+              loading="lazy"
               className="object-cover rounded-lg cursor-pointer"
             />
           </div>

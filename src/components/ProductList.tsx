@@ -83,6 +83,7 @@ const ProductList = async ({
               alt="product"
               fill
               sizes="25vw"
+              loading="lazy"
               className="absolute object-cover z-10 rounded-2xl hover:opacity-0 transition-opacity ease-in duration-500"
             />
             {product.media?.items && (
@@ -91,6 +92,7 @@ const ProductList = async ({
                 alt="product"
                 fill
                 sizes="25vw"
+                loading="lazy"
                 className="absolute rounded-2xl object-cover "
               />
             )}
