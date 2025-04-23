@@ -1,8 +1,7 @@
-// src/app/api/cancellation-request/route.ts
-
 import { NextRequest, NextResponse } from "next/server";
 import { wixClientServer } from "@/lib/wixClientServer";
-import nodemailer from "nodemailer";
+import { TransactionalEmailsApi, SendSmtpEmail } from "@getbrevo/brevo";
+import * as SibApi from "@getbrevo/brevo";
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,28 +11,35 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Order Id Required" }, { status: 400 });
     }
 
-    // Configure nodemailer transporter
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',  // or your email service
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_APP_PASSWORD
-      }
-    });
+    // Set up Brevo API client
+    const apiInstance = new TransactionalEmailsApi();
+    apiInstance.setApiKey(SibApi.TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY!);
 
-    // Send email to admin
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: process.env.ADMIN_EMAIL,
-      subject: `Cancellation Request for Order #${orderNumber}`,
-      text: `Cancellation request for Order ID: ${orderId}\nOrder Number: ${orderNumber}\nMessage: ${message || "No message provided"}`,
-      html: `
-        <h2>Order Cancellation Request</h2>
-        <p><strong>Order Number:</strong> ${orderNumber}</p>
-        <p><strong>Order ID:</strong> ${orderId}</p>
-        <p><strong>Customer Message:</strong> ${message || "No message provided"}</p>
-      `
-    });
+    if (!process.env.BREVO_API_KEY || !process.env.EMAIL_USER || !process.env.FROM_NAME) {
+      throw new Error("Missing Brevo or sender configuration");
+    }
+
+    // Create and configure the email
+    const sendSmtpEmail = new SendSmtpEmail();
+    sendSmtpEmail.subject = `Cancellation Request for Order #${orderNumber}`;
+    sendSmtpEmail.htmlContent = `
+      <h2>Order Cancellation Request</h2>
+      <p><strong>Order Number:</strong> ${orderNumber}</p>
+      <p><strong>Order ID:</strong> ${orderId}</p>
+      <p><strong>Customer Message:</strong> ${message || "No message provided"}</p>
+    `;
+    sendSmtpEmail.textContent = `Cancellation request for Order ID: ${orderId}\nOrder Number: ${orderNumber}\nMessage: ${message || "No message provided"}`;
+    sendSmtpEmail.sender = { name: process.env.FROM_NAME!, email: process.env.EMAIL_USER! };
+    
+    // Add recipient (admin email)
+    if (!process.env.ADMIN_EMAIL) {
+      throw new Error("Admin email not configured");
+    }
+    
+    sendSmtpEmail.to = [{ email: process.env.ADMIN_EMAIL }];
+
+    // Send email
+    await apiInstance.sendTransacEmail(sendSmtpEmail);
 
     // You can still try to update the order status in Wix if needed
     const wixClient = await wixClientServer();
