@@ -12,6 +12,7 @@ import NewNav from "@/components/NewNav";
 import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 const jost = Jost({ subsets: ["latin"] });
@@ -68,6 +69,20 @@ export default function RootLayout({
           name="google-site-verification"
           content="6fy7lri8jmPKtLlaiVLgv30UjAcc66VDFngPt21m6vw"
         />
+
+
+<Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-8REF7JVL1X"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-8REF7JVL1X');
+        `}
+      </Script>
       </head>
       <body className={`${jost.className}`}>
         <WixClientContextProvider>
