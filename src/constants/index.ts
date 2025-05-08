@@ -61,6 +61,10 @@ export const navLinksMenu = [
         route: "/contact"
     },
     {
+        label: "Partner with USC",
+        route: "/partnership"
+    },
+    {
         label: "Returns & Refunds",
         route: "/returns"
     },
@@ -104,6 +108,16 @@ export const slides1 = [
       url: "/list?cat=neustar",
       bg: "bg-gradient-to-r from-blue-50 to-yellow-50",
     },
+  ];
+export const slides2 = [
+    {
+      id: 1,
+     //title: "Summer Sale Collections",
+     //description: "Sale! Up to 50% off!",
+      img: "https://ik.imagekit.io/5ok2lashts/US%20CARTEL/Warrior%20in%20t6he%20garden.png?updatedAt=1746206162893",
+      url: "/list?cat=all-products",
+      bg: "bg-gradient-to-r from-yellow-50 to-pink-50",
+    }
   ];
 
 export const socialIcons = [
@@ -189,6 +203,10 @@ export const footLinksCompany = [
     {
         label: "Contact Us",
         route: "/contact"
+    },
+    {
+        label: "Partner with US Cartel",
+        route: "/partnership"
     },
 
 ]

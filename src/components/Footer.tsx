@@ -20,7 +20,7 @@ const Footer = () => {
   // Determine if the current page is a product page
   //const isProductPage = pathname.split('/').length === 2; // Adjust based on your routing structure
 
-  const footRoutes = ['/', '/about', '/contact', '/legal', '/termsandconditions', '/returns', '/shipping'];
+  const footRoutes = ['/', '/about', '/contact', '/legal', '/termsandconditions', '/returns', '/shipping', '/partnership'];
   return (
     <div
       className={`${

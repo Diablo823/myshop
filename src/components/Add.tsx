@@ -93,14 +93,14 @@ const Add = ({
         <div className="flex items-center gap-4">
           <div className="flex items-center justify-between w-36">
             <Button
-              className="bg-[#800020] hover:bg-[#800023] text-white"
+              className="bg-[#453B27] hover:bg-[#342C1D] text-white rounded-xl"
               onClick={() => handleQuantity("d")}
             >
               <FaMinus />
             </Button>
             <span className="font-bold">{stockNumber === 0 ? 0 : quantity}</span>
             <Button
-              className="bg-[#800020] hover:bg-[#800023] text-white"
+              className="bg-[#453B27] hover:bg-[#342C1D] text-white rounded-xl"
               onClick={() => handleQuantity("i")}
             >
               <FaPlus />
@@ -115,7 +115,7 @@ const Add = ({
           ) : stockNumber > 0 && stockNumber < 7 ? (
             <span className="text-sm font-semibold text-red-500">Only {stockNumber} left!</span>
           ) : (
-            <span className="text-sm text-amber-400">In Stock!</span>
+            <span className="text-sm text-amber-400">Only a few left!</span>
           )}
         </div>
       </div>
@@ -124,14 +124,14 @@ const Add = ({
         <Button
           onClick={() => addItem(wixClient, productId, variantId, quantity)}
           disabled={stockNumber === 0}
-          className="md:w-1/2 h-10 text-sm font-bold rounded-full bg-[#800020] text-slate-100 hover:bg-[#800023] hover:text-slate-200 disabled:cursor-not-allowed disabled:bg-pink-200 disabled:text-white"
+          className="md:w-1/2 h-10 text-sm font-bold rounded-xl bg-[#453B27] text-slate-100 hover:bg-[#342C1D] hover:text-slate-200 disabled:cursor-not-allowed disabled:bg-pink-200 disabled:text-white"
           >
           Add To Cart <FaShoppingCart />
         </Button>
         <Button
           onClick={handleBuyNow}
           disabled={stockNumber === 0}
-          className="md:w-1/2 h-10 text-sm font-bold rounded-full bg-[#FFD700] text-gray-900 hover:bg-[#FFD700] hover:text-slate-200 disabled:cursor-not-allowed disabled:bg-pink-200 disabled:text-white"
+          className="md:w-1/2 h-10 text-sm font-bold rounded-xl bg-[#BE5103] text-slate-100 hover:text-slate-200 hover:bg-[#99431F] disabled:cursor-not-allowed disabled:bg-pink-200 disabled:text-white"
           >
           Buy Now <FaShoppingBag />
         </Button>

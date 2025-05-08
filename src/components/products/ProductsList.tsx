@@ -100,10 +100,10 @@ const ProductsList = ({
         
         <Link
           href={"/" + product.slug}
-          className="flex flex-col gap-4 w-[45%] sm:w-[45%] md:w-[45%] lg:w-[22%]"
+          className="flex flex-col shadow-sm rounded-lg gap-4 w-[45%] sm:w-[45%] md:w-[45%] lg:w-[22%]"
           key={product._id}
         >
-          <div className="relative w-full h-60 sm:h-72 rounded-2xl">
+          <div className="relative w-full h-60 sm:h-72 rounded-lg">
             <Badge className="absolute top-2 right-2 z-20 bg-[#800020] hover:bg-[#800020] text-xs">
               {calculateDiscount(
                 product.priceData?.price || 0,
@@ -117,7 +117,7 @@ const ProductsList = ({
               fill
               sizes="25vw"
               loading="lazy"
-              className="absolute object-cover z-10 rounded-2xl hover:opacity-0 transition-opacity ease-in duration-500"
+              className="absolute object-cover z-10 rounded-lg hover:opacity-0 transition-opacity ease-in duration-500"
             />
             {product.media?.items && (
               <Image
@@ -126,21 +126,21 @@ const ProductsList = ({
                 fill
                 sizes="25vw"
                 loading="lazy"
-                className="absolute rounded-2xl object-cover"
+                className="absolute rounded-lg object-cover"
               />
             )}
           </div>
           <div className="flex justify-between gap-4">
-            <span className="text-sm md:text-base font-bold">
+            <span className="text-xs md:text-base font-bold">
               {product?.name?.length && product.name.length > 20
                 ? `${product.name.substring(0, 25)}...`
                 : product?.name || "No Name"}
             </span>
             <div className="flex flex-col gap-2">
-              <span className="text-sm font-bold">
+              <span className="text-xs md:text-base font-bold">
                 ₹{product.priceData?.discountedPrice}
               </span>
-              <span className="text-sm font-bold text-gray-700 line-through">
+              <span className="text-xs md:text-base font-bold text-gray-700 line-through">
                 ₹{product.priceData?.price}
               </span>
             </div>

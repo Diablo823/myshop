@@ -226,7 +226,7 @@ const OrderDetails = ({ orderData }: { orderData: OrderDataProps }) => {
 
             <div className="flex items-center justify-center gap-6 mt-6">
               <Link href="/">
-                <Button className="bg-black hover:bg-gray-950">Continue</Button>
+                <Button className="bg-[#453B27] hover:bg-[#342C1D]">Continue</Button>
               </Link>
 
               {isOrderCanceled ? (

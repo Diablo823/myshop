@@ -6,8 +6,9 @@ import ProductList from "@/components/ProductList";
 //import ProductWrapper from "@/components/products/ProductWrapper";
 import ProductScroll from "@/components/ProductScroll";
 import Promotion from "@/components/Promotion";
+import SingleBanner from "@/components/SingleBanner";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
-import { slides1 } from "@/constants";
+import { slides1, slides2 } from "@/constants";
 // import { WixClientContext } from "@/context/WixContext";
 // import { useWixClient } from "@/hooks/useWixClient";
 // import { wixClientServer } from "@/lib/wixClientServer";
@@ -60,6 +61,7 @@ const HomePage = async () => {
             limit={4}
           />
         
+        
 
         <h1 className="mt-5 text-2xl font-bold">Popular Products</h1>
         {/* <Suspense fallback={<LoadingSpinner />}> */}
@@ -69,6 +71,13 @@ const HomePage = async () => {
           />
         
       </div>
+
+      {/* <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 max-w-[100vw] overflow-x-hidden">
+        <SingleBanner
+          slide={slides2[0]}
+          height="h-[18rem] md:h-[26rem]"
+        />
+      </div> */}
 
       <div>
         <Promotion

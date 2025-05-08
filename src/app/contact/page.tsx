@@ -44,7 +44,7 @@ const ContactPage = () => {
                 <Mail className="w-12 h-12 text-blue-600 mb-4" />
                 <h3 className="text-xl font-semibold mb-2">Email Us</h3>
                 <p className="text-sm text-gray-600 mb-2">General Inquiries:</p>
-                <p className="text-blue-600">uscartelofficial@gmail.com</p>
+                <p className="text-blue-600">hello@uscartel.com</p>
                 <p className="text-sm text-gray-600 mt-2 mb-2">Support:</p>
                 <p className="text-blue-600">support@uscartel.com</p>
               </div>
@@ -136,7 +136,7 @@ const ContactPage = () => {
             </AccordionItem>
           </Accordion>
         </div>
-        <div className='mt-8'>
+        <div className='mt-8' id='con'>
           <ContactForm />
         </div>
       </div>
