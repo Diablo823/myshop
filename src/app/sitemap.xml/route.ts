@@ -31,6 +31,11 @@ export async function GET() {
       priority: '0.8'
     },
     {
+      loc: 'https://www.uscartel.com/partnership',
+      lastmod: today,
+      priority: '0.8'
+    },
+    {
       loc: 'https://www.uscartel.com/returns',
       lastmod: today,
       priority: '0.8'
