@@ -70,6 +70,8 @@ export default function RootLayout({
           content="6fy7lri8jmPKtLlaiVLgv30UjAcc66VDFngPt21m6vw"
         />
 
+        <meta name="p:domain_verify" content="34764cb53c23c911a3152eb26617b9da"/>
+
 
 <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-8REF7JVL1X"
