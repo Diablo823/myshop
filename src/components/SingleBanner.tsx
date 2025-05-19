@@ -11,6 +11,7 @@ export interface SingleSlide {
   img: string;
   url: string;
   bg?: string;
+  alt: string;
 }
 
 interface SingleImageProps {
@@ -38,7 +39,7 @@ const SingleBanner = ({
         <div className="relative w-full h-full">
           <Image
             src={slide.img || "/placeholder.svg"}
-            alt={slide.title || "Banner"}
+            alt={slide.alt || "Banner"}
             fill
             style={{ objectFit: "cover" }}
             priority

@@ -15,6 +15,7 @@ export interface Slide {
   img: string;
   url: string;
   bg: string;
+  alt: string;
 }
 
 interface BannerProps {
@@ -178,7 +179,7 @@ const Banner = ({
             <div className="relative w-full h-full">
               <Image
                 src={slide.img || "/placeholder.svg"}
-                alt={slide.title || "Slide"}
+                alt={slide.alt || "Slide"}
                 fill
                 style={{ objectFit: "cover" }}
                 priority={index === 1} // First real slide
