@@ -265,13 +265,13 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
                 <div className="flex flex-col gap-2">
                   <Button
                     onClick={handleViewCart}
-                    className="w-full rounded-full bg-[#800020] text-slate-100 font-bold hover:bg-[#800023] hover:text-slate-200"
+                    className="w-full rounded-xl bg-[#800020] text-slate-100 font-bold hover:bg-[#800023] hover:text-slate-200"
                   >
                     View Cart <FaShoppingCart className="ml-2" />
                   </Button>
                   <Button
                     onClick={handleCheckout}
-                    className="w-full rounded-full bg-[#FFD700] text-gray-950 font-bold hover:bg-[#FFD700] hover:text-slate-200"
+                    className="w-full rounded-xl bg-[#FFD700] text-gray-950 font-bold hover:bg-[#FFD700] hover:text-slate-200"
                   >
                     Checkout <FaShoppingBag className="ml-2" />
                   </Button>
