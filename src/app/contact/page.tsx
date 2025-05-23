@@ -7,6 +7,7 @@ import { FaXTwitter } from 'react-icons/fa6';
 import Image from 'next/image';
 import ContactForm from '@/components/ContactForm';
 import Link from 'next/link';
+import { socialIcons } from '@/constants';
 
 const ContactPage = () => {
   return (
@@ -84,18 +85,11 @@ const ContactPage = () => {
         <div className="text-center mb-12">
           <h2 className="text-xl md:texr-2xl font-bold mb-6">Follow Us on Social Media</h2>
           <div className="flex justify-center space-x-6">
-            <a href="#" className="hover:text-blue-600 transition-colors">
-              <FaInstagram size={28} />
-            </a>
-            <a href="#" className="hover:text-blue-600 transition-colors">
-              <FaFacebook size={28} />
-            </a>
-            <a href="#" className="hover:text-blue-600 transition-colors">
-              <FaXTwitter size={28}  />
-            </a>
-            <a href="#" className="hover:text-blue-600 transition-colors">
-              <FaPinterest size={28}  />
-            </a>
+            {socialIcons.map((social) => (
+              <Link href={social.route} key={social.id}>
+              <social.icon size={28} className="hover:text-blue-800 transition-colors" />
+              </Link>
+            ))}
           </div>
         </div>
 

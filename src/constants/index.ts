@@ -1,3 +1,4 @@
+import { url } from "inspector";
 import { FaFacebookF, FaInstagram, FaPinterest, FaYoutube, FaGooglePay, FaCcMastercard } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6"
 import { SiPhonepe, SiPaytm, SiVisa,  } from "react-icons/si";
@@ -125,30 +126,30 @@ export const slides2 = [
   ];
 
 export const socialIcons = [
+
     {
         id: 1,
-        icon: FaFacebookF,
-        alt: 'facebook'
+        icon: FaInstagram,
+        alt: 'instagram',
+        route: "https://www.instagram.com/uscartelcompany/"
     },
     {
         id: 2,
-        icon: FaInstagram,
-        alt: 'instagram'
+        icon: FaYoutube,
+        alt: 'youtube',
+        route: "https://www.youtube.com/@uscartel"
     },
     {
         id: 3,
-        icon: FaYoutube,
-        alt: 'youtube'
+        icon: FaPinterest,
+        alt: 'pinterest',
+        route: "https://www.pinterest.com/uscartel/"
     },
     {
         id: 4,
-        icon: FaPinterest,
-        alt: 'facebook'
-    },
-    {
-        id: 5,
         icon: FaXTwitter,
-        alt: 'facebook'
+        alt: 'twitter',
+        route: "https://twitter.com/uscartelcompany"
     },
 ]
 

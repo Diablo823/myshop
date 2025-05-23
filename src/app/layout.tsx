@@ -20,9 +20,65 @@ const jost = Jost({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "US Cartel",
   description:
-    "US Cartel, the store that offers affordable, high-quality fashion, beauty & lifestyle essentials. Shop quality products online at uscartel.com! cartel shop, us cartel",
+    "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel",
+     keywords: [
+    "US Cartel",
+    "US Cartel marketplace",
+    "US Cartel shop",
+    "US Cartel store",
+    "fashion marketplace",
+    "cosmetics online",
+    "tech gadgets",
+    "household products",
+    "seller marketplace",
+    "90% seller profits",
+    "better than Amazon"
+  ],
+  authors: [{ name: "US Cartel" }],
+  creator: "US Cartel",
+  publisher: "US Cartel",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL("https://uscartel.com"),
   alternates: {
     canonical: "https://uscartel.com",
+  },
+  openGraph: {
+    title: "US Cartel - Marketplace for Fashion, Cosmetics, Gadgets, Household essentials & More",
+    description: "US Cartel marketplace: Fashion, cosmetics, home products & tech gadgets. Sellers keep 90% profits Better prices for buyers, richer sellers.",
+    url: "https://uscartel.com",
+    siteName: "US Cartel",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/og-image.png", // You'll need to create this image (1200x630px recommended)
+        width: 1200,
+        height: 630,
+        alt: "US Cartel Marketplace",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "US Cartel - Marketplace for Fashion, Cosmetics, Gadgets, Household essentials & More",
+    description: "US Cartel marketplace: Fashion, cosmetics, home products & tech gadgets. Sellers keep 90% profits",
+    images: ["/og-image.png"], // Same image as OpenGraph
+    creator: "@uscartel", // Replace with your actual Twitter handle if you have one
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
   icons: {
     icon: [
@@ -55,6 +111,7 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
   },
   manifest: "/site.webmanifest",
+  category: "E-commerce",
 };
 
 export default function RootLayout({
@@ -71,6 +128,59 @@ export default function RootLayout({
         />
 
         <meta name="p:domain_verify" content="34764cb53c23c911a3152eb26617b9da"/>
+
+        {/* Preconnect to external domains for performance */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
+        
+        {/* DNS prefetch for external resources */}
+        <link rel="dns-prefetch" href="https://static.wixstatic.com" />
+
+        {/* Structured Data - Organization Schema */}
+        <Script
+          id="organization-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "US Cartel",
+              "alternateName": ["US Cartel Marketplace", "US Cartel Shop"],
+              "url": "https://uscartel.com",
+              
+              "description": "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel",
+              "foundingDate": "2025", // Update with your actual founding date
+              "sameAs": [
+                // Add your social media URLs here when you create them
+                "https://x.com/uscartelcompany",
+                "https://instagram.com/uscartelcompany",
+                "https://pinterest.com/uscartel",
+                "https://youtube.com/@uscartel",
+              ]
+            })
+          }}
+        />
+
+        {/* Structured Data - WebSite Schema for Search Box */}
+        <Script
+          id="website-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "US Cartel",
+              "url": "https://uscartel.com",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://uscartel.com/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
 
 
 <Script

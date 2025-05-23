@@ -28,13 +28,17 @@ export default function PartnershipPage() {
             Let's Grow Together.
           </h3>
           <h3 className="text-lg md:text-xl font-bold text-center mb-6 border-b-2 border-gray-200 pb-2">
-            We &#40;US Cartel aka USC&#41; are inviting brands, companies and
+           We &#40;US Cartel aka USC&#41; are inviting brands, companies and
             investors to partner with us in our journey to build a marketplace.
+          </h3>
+          <h3 className="text-lg md:text-xl font-bold text-center mb-6 border-b-2 border-gray-200 pb-2">
+             We are not wasting your time. So let us be straight to the point.
+            
           </h3>
           <div className="flex gap-8">
             <div className="bg-gray-50 p-6 rounded-lg">
               <h3 className="text-xl font-bold mb-3 text-center">
-                YOU KEEP THE PROFITS!
+                YOU WILL MAKE YOUR MILLIONS WITHIN 365 DAYS
               </h3>
               <p className="text-gray-500 text-center italic mb-2">
                 From The Founder of &#40;US Cartel aka USC&#41;
@@ -231,7 +235,7 @@ export default function PartnershipPage() {
             Ready to Scale Together?
           </h2>
           <p className="text-lg md:text-xl mb-6">
-            Join 50+ brands already growing with US Cartel
+            Join US Cartel and make your millions
           </p>
           <Link href="/contact#con">
             <Button className="bg-black hover:bg-gray-950 text-white px-8 py-3 rounded-full">

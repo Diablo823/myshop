@@ -36,17 +36,21 @@ const Footer = () => {
           <Link href="/" className="flex items-center gap-3 mt-5">
             <Image
               src="/cartel.png"
-              alt="logo"
+              alt="US Cartel"
               width={110}
               height={28}
               className=""
             />
           </Link>
 
+          <h2 className="text-lg font-bold">
+           US Cartel
+          </h2>
           <p className="text-sm font-medium">
            Kerala, India
           </p>
           <span className="text-sm font-semibold">support@uscartel.com</span>
+          <span className="text-sm font-semibold">hello@uscartel.com</span>
           {/* <span className="text-sm font-semibold">
             uscartelofficial@gmail.com
           </span>
@@ -54,7 +58,9 @@ const Footer = () => {
 
           <div className="flex gap-6 mb-8">
             {socialIcons.map((social) => (
+              <Link href={social.route} key={social.id}>
               <social.icon key={social.id} size={22} className="cursor-pointer"/>
+              </Link>
             ))}
           </div>
         </div>
