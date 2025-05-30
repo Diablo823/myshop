@@ -58,7 +58,7 @@ const Navbar = () => {
           {
             <Image
               src="/cartel.png"
-              alt="logo"
+              alt="US Cartel logo"
               width={80}
               height={28}
               className="image-container"
@@ -92,7 +92,7 @@ const Navbar = () => {
           <Link href="/" className="flex items-center">
             <Image
               src="/cartel.png"
-              alt="logo"
+              alt="US Cartel Shop"
               width={110}
               height={18}
               className="image-container"

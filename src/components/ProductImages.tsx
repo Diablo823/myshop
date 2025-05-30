@@ -203,7 +203,7 @@ const ProductImages = ({ items }: { items: any[] }) => {
       >
         <Image
           src={items[index].image?.url}
-          alt={items[index].image?.altText || "product image"}
+          alt={items[index].image?.altText || "US Cartel product image"}
           fill
           sizes="50vw"
           priority
@@ -261,7 +261,7 @@ const ProductImages = ({ items }: { items: any[] }) => {
           >
             <Image
               src={item.image?.url}
-              alt="small-images"
+              alt="US Cartel products"
               fill
               sizes="20vw"
               loading="lazy"
