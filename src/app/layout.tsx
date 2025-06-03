@@ -21,18 +21,19 @@ export const metadata: Metadata = {
   title: "US Cartel",
   description:
     "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel",
-     keywords: [
+  keywords: [
     "US Cartel",
     "US Cartel marketplace",
     "US Cartel shop",
     "US Cartel store",
     "fashion marketplace",
     "cosmetics online",
+    "gadgets",
     "tech gadgets",
     "household products",
     "seller marketplace",
     "90% seller profits",
-    "better than Amazon"
+    "better than Amazon",
   ],
   authors: [{ name: "US Cartel" }],
   creator: "US Cartel",
@@ -47,8 +48,10 @@ export const metadata: Metadata = {
     canonical: "https://uscartel.com",
   },
   openGraph: {
-    title: "US Cartel - Marketplace for Fashion, Cosmetics, Gadgets, Household essentials & More",
-    description: "US Cartel marketplace: Fashion, cosmetics, home products & tech gadgets. Sellers keep 90% profits Better prices for buyers, richer sellers.",
+    title:
+      "US Cartel - Marketplace for Fashion, Cosmetics, Gadgets, Household essentials & More",
+    description:
+      "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel, richer sellers.",
     url: "https://uscartel.com",
     siteName: "US Cartel",
     locale: "en_US",
@@ -64,10 +67,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "US Cartel - Marketplace for Fashion, Cosmetics, Gadgets, Household essentials & More",
-    description: "US Cartel marketplace: Fashion, cosmetics, home products & tech gadgets. Sellers keep 90% profits",
+    title:
+      "US Cartel - Marketplace for Fashion, Cosmetics, Gadgets, Household essentials & More",
+    description:
+      "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel, richer sellers.",
     images: ["/og-image.png"], // Same image as OpenGraph
-    creator: "@uscartel", // Replace with your actual Twitter handle if you have one
+    creator: "@uscartelcompany", // Replace with your actual Twitter handle if you have one
   },
   robots: {
     index: true,
@@ -75,9 +80,9 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   icons: {
@@ -127,14 +132,21 @@ export default function RootLayout({
           content="6fy7lri8jmPKtLlaiVLgv30UjAcc66VDFngPt21m6vw"
         />
 
-        <meta name="p:domain_verify" content="34764cb53c23c911a3152eb26617b9da"/>
+        <meta
+          name="p:domain_verify"
+          content="34764cb53c23c911a3152eb26617b9da"
+        />
 
         {/* Preconnect to external domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin=""
+        />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
-        
+
         {/* DNS prefetch for external resources */}
         <link rel="dns-prefetch" href="https://static.wixstatic.com" />
 
@@ -146,20 +158,21 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              "name": "US Cartel",
-              "alternateName": ["US Cartel Marketplace", "US Cartel Shop"],
-              "url": "https://uscartel.com",
-              
-              "description": "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel",
-              "foundingDate": "2025", // Update with your actual founding date
-              "sameAs": [
+              name: "US Cartel",
+              alternateName: ["US Cartel Marketplace", "US Cartel Shop"],
+              url: "https://uscartel.com",
+
+              description:
+                "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel",
+              foundingDate: "2025", // Update with your actual founding date
+              sameAs: [
                 // Add your social media URLs here when you create them
                 "https://x.com/uscartelcompany",
                 "https://instagram.com/uscartelcompany",
                 "https://pinterest.com/uscartel",
                 "https://youtube.com/@uscartel",
-              ]
-            })
+              ],
+            }),
           }}
         />
 
@@ -171,30 +184,29 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              "name": "US Cartel",
-              "url": "https://uscartel.com",
-              "potentialAction": {
+              name: "US Cartel",
+              url: "https://uscartel.com",
+              potentialAction: {
                 "@type": "SearchAction",
-                "target": "https://uscartel.com/search?q={search_term_string}",
-                "query-input": "required name=search_term_string"
-              }
-            })
+                target: "https://uscartel.com/search?q={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
+            }),
           }}
         />
 
-
-<Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-8REF7JVL1X"
-        strategy="afterInteractive"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-8REF7JVL1X"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){window.dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', 'G-8REF7JVL1X');
         `}
-      </Script>
+        </Script>
       </head>
       <body className={`${jost.className}`}>
         <WixClientContextProvider>
