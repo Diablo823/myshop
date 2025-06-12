@@ -7,8 +7,9 @@ import ProductList from "@/components/ProductList";
 import ProductScroll from "@/components/ProductScroll";
 import Promotion from "@/components/Promotion";
 import SingleBanner from "@/components/SingleBanner";
+import SingleVideoBanner from "@/components/SingleVideoBanner";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
-import { slides1, slides2 } from "@/constants";
+import { slides1, slides2, videoSlides } from "@/constants";
 // import { WixClientContext } from "@/context/WixContext";
 // import { useWixClient } from "@/hooks/useWixClient";
 // import { wixClientServer } from "@/lib/wixClientServer";
@@ -36,7 +37,7 @@ const HomePage = async () => {
   return (
     <div className="w-full min-h-screen">
       {/* <Slider /> */}
-      <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 max-w-[100vw] overflow-x-hidden">
+      <div className="px-2 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 max-w-[100vw] overflow-x-hidden">
         <Banner
           slides={slides1}
           autoPlayInterval={7000}
@@ -45,7 +46,11 @@ const HomePage = async () => {
         />
       </div>
 
-      <div className="mt-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+      <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 max-w-[100vw] overflow-x-hidden">
+        <SingleVideoBanner slide={videoSlides[0]} />
+      </div>
+
+      <div className="mt-20 px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
         <h1 className="text-2xl font-bold">New Arrivals</h1>
         {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductList
@@ -87,7 +92,7 @@ const HomePage = async () => {
           className="mt-8 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64"
         />
       </div>
-      <div className="mt-8 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+      <div className="mt-8 px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
         {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductList
             categoryId={process.env.NEXT_PUBLIC_FEATURED_PRDUCTS_CATEGORY_ID!}
@@ -96,7 +101,7 @@ const HomePage = async () => {
         
       </div>
 
-      <div className="mt-20 px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="mt-20 px-2 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <h1 className="flex items-center justify-center gap-12 text-lg md:text-2xl font-bold">
           <span>
             <FaArrowLeft />
@@ -111,7 +116,7 @@ const HomePage = async () => {
         
       </div>
 
-      <div className="mt-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+      <div className="mt-20 px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
         <h1 className="text-2xl font-bold">Facewash</h1>
         {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductList
@@ -121,7 +126,7 @@ const HomePage = async () => {
         
       </div>
 
-      <div className="mt-20 px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      <div className="mt-20 px-2 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <h1 className="flex items-center justify-center gap-12 text-lg md:text-2xl font-bold">
           <span>
             <FaArrowLeft />
@@ -139,16 +144,14 @@ const HomePage = async () => {
         
       </div>
 
-      <div className="mt-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+      <div className="mt-20 px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
         <h1 className="text-2xl font-bold">Hair Care</h1>
         {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductList
             categoryId={process.env.NEXT_PUBLIC_HAIR_PRODUCTS_CATEGORY_ID!}
             limit={5}
           />
-        
-
-        
+               
       </div>
 
     </div>

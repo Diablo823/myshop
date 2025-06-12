@@ -289,3 +289,15 @@ export const productImages = [
         imgUrl: "https://images.pexels.com/photos/6470599/pexels-photo-6470599.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     },
 ];
+
+export const videoSlides = [
+  {
+    id: 1,
+    title: "Video Promotion",
+    description: "Check out our latest video!",
+    video: "https://ik.imagekit.io/5ok2lashts/Brand%20Name%202.mp4?updatedAt=1749708532540",
+    poster: "https://ik.imagekit.io/5ok2lashts/celestial-6.jpg?updatedAt=1701773946817",
+    url: "/contact",
+    bg: "bg-gradient-to-r from-blue-50 to-green-50",
+  },
+];

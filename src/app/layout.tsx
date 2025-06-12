@@ -20,7 +20,7 @@ const jost = Jost({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "US Cartel",
   description:
-    "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel",
+    "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel, US Cartel store",
   keywords: [
     "US Cartel",
     "US Cartel marketplace",

@@ -95,12 +95,12 @@ const ProductsList = ({
   }, [inView, loading, hasMore, page, categoryId, searchParams, limit]);
 
   return (
-    <div className="mt-12 flex gap-y-6 gap-x-8 justify-between flex-wrap">
+    <div className="mt-12 flex gap-y-4 gap-x-2 md:gap-y-6 md:gap-x-4 justify-between flex-wrap">
       {products.map((product: products.Product) => (
         
         <Link
           href={"/" + product.slug}
-          className="flex flex-col shadow-sm rounded-lg gap-4 w-[45%] sm:w-[45%] md:w-[45%] lg:w-[22%]"
+          className="flex flex-col shadow-sm rounded-lg gap-4 basis-[48%] sm:basis-[49%] md:basis-[31%] lmd:basis-[23%] h-[300px] md:h-[425px]"
           key={product._id}
         >
           <div className="relative w-full h-60 sm:h-72 rounded-lg">
