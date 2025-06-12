@@ -301,3 +301,32 @@ export const videoSlides = [
     bg: "bg-gradient-to-r from-blue-50 to-green-50",
   },
 ];
+export const videoSlides2 = [
+  {
+    id: 1,
+    title: "Video Promotion",
+    description: "Check out our latest video!",
+    video: "https://ik.imagekit.io/5ok2lashts/Brand%20Name%202.mp4?updatedAt=1749708532540",
+    poster: "https://ik.imagekit.io/5ok2lashts/celestial-6.jpg?updatedAt=1701773946817",
+    url: "/contact",
+    bg: "bg-gradient-to-r from-blue-50 to-green-50",
+  },
+  {
+    id: 2,
+    title: "Video Promotion",
+    description: "Check out our latest video!",
+    video: "https://ik.imagekit.io/5ok2lashts/Brand%20Name%202.mp4?updatedAt=1749708532540",
+    poster: "https://ik.imagekit.io/5ok2lashts/celestial-6.jpg?updatedAt=1701773946817",
+    url: "/contact",
+    bg: "bg-gradient-to-r from-blue-50 to-green-50",
+  },
+  {
+    id: 3,
+    title: "Video Promotion",
+    description: "Check out our latest video!",
+    video: "https://ik.imagekit.io/5ok2lashts/Brand%20Name%202.mp4?updatedAt=1749708532540",
+    poster: "https://ik.imagekit.io/5ok2lashts/celestial-6.jpg?updatedAt=1701773946817",
+    url: "/contact",
+    bg: "bg-gradient-to-r from-blue-50 to-green-50",
+  },
+];

@@ -9,7 +9,8 @@ import Promotion from "@/components/Promotion";
 import SingleBanner from "@/components/SingleBanner";
 import SingleVideoBanner from "@/components/SingleVideoBanner";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
-import { slides1, slides2, videoSlides } from "@/constants";
+import VideoBannerGrid from "@/components/VideoBannerGrid";
+import { slides1, slides2, videoSlides, videoSlides2 } from "@/constants";
 // import { WixClientContext } from "@/context/WixContext";
 // import { useWixClient } from "@/hooks/useWixClient";
 // import { wixClientServer } from "@/lib/wixClientServer";
@@ -46,9 +47,12 @@ const HomePage = async () => {
         />
       </div>
 
-      <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 max-w-[100vw] overflow-x-hidden">
+      {/* <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 max-w-[100vw] overflow-x-hidden">
         <SingleVideoBanner slide={videoSlides[0]} />
       </div>
+      <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 max-w-[100vw] overflow-x-hidden">
+        <VideoBannerGrid slides={videoSlides2} />
+      </div> */}
 
       <div className="mt-20 px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
         <h1 className="text-2xl font-bold">New Arrivals</h1>
