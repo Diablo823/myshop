@@ -98,7 +98,7 @@ const CartPage = () => {
   };
 
   return (
-    <div className="container h-screen mx-auto px-4 md:px-8 lg:px-16 xl:px-32 py-8 mb-8 bg-slate-50">
+    <div className="w-full h-screen mx-auto px-4 md:px-8 lg:px-16 xl:px-32 py-8 mb-8 bg-slate-50">
       <h1 className="text-xl font-bold mb-8">MY Shopping Cart</h1>
 
       {isLoading ? (
@@ -146,7 +146,7 @@ const CartPage = () => {
                       <div className="flex-grow space-y-4">
                         <div className="flex flex-row justify-between gap-2">
                           <h3
-                            className="font-semibold text-lg  hover:text-blue-600 transition-colors cursor-pointer hidden md:block"
+                            className="font-semibold text-lg  hover:text-gray-800 transition-colors cursor-pointer hidden md:block"
                             onClick={() => onSlugClick(slug)}
                           >
                             {item.productName?.original}
@@ -155,7 +155,7 @@ const CartPage = () => {
                             className="font-semibold text-sm hover:text-blue-600 transition-colors cursor-pointer block md:hidden"
                             onClick={() => onSlugClick(slug)}
                           >
-                            {item.productName?.original?.slice(0, 15)}...
+                            {item.productName?.original?.slice(0, 30)}...
                           </h3>
 
                           <div className="flex flex-col gap-2">

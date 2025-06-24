@@ -137,6 +137,9 @@ export default function RootLayout({
           content="34764cb53c23c911a3152eb26617b9da"
         />
 
+        <meta name="msvalidate.01" content="C58A8ABF53A617997EAEAC357116C71B" />
+
+
         {/* Preconnect to external domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -149,6 +152,8 @@ export default function RootLayout({
 
         {/* DNS prefetch for external resources */}
         <link rel="dns-prefetch" href="https://static.wixstatic.com" />
+
+        <link rel="preconnect" href="https://ik.imagekit.io" crossOrigin="" />
 
         {/* Structured Data - Organization Schema */}
         <Script
@@ -209,19 +214,21 @@ export default function RootLayout({
         </Script>
 
         <Script
-        id="clarity-script"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
+          id="clarity-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
             (function(c,l,a,r,i,t,y){
               c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
               t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
               y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
             })(window, document, "clarity", "script", "ryy2ibtcq3");
           `,
-        }}
-      />
-          
+          }}
+        />
+
+       
+
       </head>
       <body className={`${jost.className}`}>
         <WixClientContextProvider>
@@ -234,8 +241,8 @@ export default function RootLayout({
           <Footer />
           <MobNav />
         </WixClientContextProvider>
-        <SpeedInsights />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

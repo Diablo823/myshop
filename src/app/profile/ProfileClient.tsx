@@ -12,12 +12,24 @@ import { RiShutDownLine } from "react-icons/ri";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { useWixClient } from "@/hooks/useWixClient";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const ProfileClient = ({ profileData }: { profileData: ProfileData }) => {
   const wixClient = useWixClient();
 
   const { isAuthenticated, member, ordersList } = profileData;
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const router = useRouter();
 
@@ -154,13 +166,35 @@ const ProfileClient = ({ profileData }: { profileData: ProfileData }) => {
                 </div>
               </div>
             )}
+            
+            <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+<AlertDialogTrigger asChild>
 
             <Button
-              onClick={handleLogout}
-              className="bg-black w-full text-slate-100 hover:text-white hover:bg-gray-950 cursor-pointer rounded-xl"
+              //onClick={handleLogout}
+              className="bg-red-600 w-full text-slate-100 hover:text-white hover:bg-red-700 cursor-pointer rounded-xl"
             >
               <span>LogOut</span> <RiShutDownLine />
             </Button>
+</AlertDialogTrigger>
+<AlertDialogContent>
+  <AlertDialogHeader>
+    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+    <AlertDialogDescription>
+            You can log back in at any time and continue where you left off.
+          </AlertDialogDescription>
+  </AlertDialogHeader>
+  <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={handleLogout} className="bg-red-600 text-slate-100 hover:text-white hover:bg-red-700 cursor-pointer">
+            
+              <span>LogOut</span> <RiShutDownLine />
+            
+          </AlertDialogAction>
+        </AlertDialogFooter>
+</AlertDialogContent>
+            </AlertDialog>
+
           </div>
           <h3 className="mt-6 font-semibold text-sm text text-gray-600">
             If you want to update your profile information <br />
