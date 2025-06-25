@@ -42,7 +42,7 @@ const Filter = () => {
 
 
   return (
-    <div className="flex gap-2 overflow-x-scroll scrollbar-hide pt-8">
+    <div className="flex gap-2 overflow-x-scroll scrollbar-hide p-4">
     <Select onValueChange={(value) => handleFilterChange("type", value)}>
       <SelectTrigger className="py-2 px-4 rounded-2xl text-xs font-medium bg-[#EBEDED] h-auto w-auto">
         <SelectValue placeholder="Type" />

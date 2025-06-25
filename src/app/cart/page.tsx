@@ -76,7 +76,7 @@ const CartPage = () => {
   };
 
   const onSlugClick = (slug: string) => {
-    router.push(`/${slug}`);
+    router.push(`/${encodeURIComponent(slug)}`);
   };
 
   const getVariantInfo = (descriptionLines: DescriptionLine[]) => {
@@ -99,7 +99,7 @@ const CartPage = () => {
 
   return (
     <div className="w-full h-screen mx-auto px-4 md:px-8 lg:px-16 xl:px-32 py-8 mb-8 bg-slate-50">
-      <h1 className="text-xl font-bold mb-8">MY Shopping Cart</h1>
+      <h1 className="text-lg md:text-xl font-bold mb-4">MY Shopping Cart</h1>
 
       {isLoading ? (
         <LoadingSpinner />
@@ -115,7 +115,7 @@ const CartPage = () => {
         <div className="flex flex-col lg:flex-row gap-8 relative">
           {/* Cart Items Section */}
           <div className="flex-grow">
-            <div className="space-y-6">
+            <div className="space-y-4">
               {cart.lineItems?.map((item) => {
                 const slug = getSlugFromUrl(item.url || "");
                 const { size, color } = getVariantInfo(item.descriptionLines!);
@@ -123,9 +123,10 @@ const CartPage = () => {
                 return (
                   <div
                     key={item._id}
-                    className="bg-white rounded-xl shadow-xl p-4"
+                    className="bg-white rounded-xl p-2 shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
+                    onClick={() => onSlugClick(slug)}
                   >
-                    <div className="flex flex-row gap-6">
+                    <div className="flex flex-row gap-4">
                       {item.image && (
                         <div className="relative shrink-0 w-[100px] h-[120px] md:w-[140px] md:h-[160px] cursor-pointer">
                           <Image
@@ -152,7 +153,7 @@ const CartPage = () => {
                             {item.productName?.original}
                           </h3>
                           <h3
-                            className="font-semibold text-sm hover:text-blue-600 transition-colors cursor-pointer block md:hidden"
+                            className="font-semibold text-sm hover:text-gray-900 transition-colors cursor-pointer block md:hidden"
                             onClick={() => onSlugClick(slug)}
                           >
                             {item.productName?.original?.slice(0, 30)}...

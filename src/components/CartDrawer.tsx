@@ -99,7 +99,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
   };
 
   const onSlugClick = (slug: string) => {
-    router.push(`/${slug}`);
+    router.push(`/${encodeURIComponent(slug)}`);
     onClose();
   };
 
@@ -139,7 +139,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
         onClick={handleDrawerClick}
       >
         {/* Header */}
-        <div className="flex justify-between items-center p-6 border-b">
+        <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-lg font-bold">Shopping Cart</h2>
           <button
             onClick={onClose}
@@ -164,8 +164,8 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
           ) : (
             <>
               {/* Cart Items */}
-              <div className="flex-1 overflow-y-auto px-6 scrollbar-hide bg-white">
-                <div className="flex flex-col gap-6 py-6">
+              <div className="flex-1 overflow-y-auto px-2 scrollbar-hide bg-white">
+                <div className="flex flex-col gap-3 py-2">
                   {cart.lineItems?.map((item) => {
                     const slug = getSlugFromUrl(item.url || "");
                     const { size, color } = getVariantInfo(
@@ -173,8 +173,9 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
                     );
                     return (
                       <div
-                        className="flex gap-4 bg-white rounded-lg shadow-lg p-4"
+                        className="flex gap-4 bg-white rounded-lg shadow-lg p-2 hover:shadow-xl transition-shadow cursor-pointer"
                         key={item._id}
+                        onClick={() => onSlugClick(slug)}
                       >
                         {item.image && (
                           <div className="relative shrink-0 w-[100px] h-[120px] cursor-pointer">
@@ -195,8 +196,8 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
                         <div className="flex flex-col justify-between w-full">
                           <div>
                             <div className="flex justify-between items-center gap-4">
-                              <Link href={`/${slug}`} onClick={onClose}>
-                                <h3 className="font-bold text-sm hover:text-blue-600 transition-colors cursor-pointer">
+                              <Link href={`/${encodeURIComponent(slug || "")}`} onClick={onClose}>
+                                <h3 className="font-bold text-sm hover:text-gray-900 transition-colors cursor-pointer">
                                   {item.productName?.original?.slice(0, 15)}..
                                 </h3>
                               </Link>
@@ -251,7 +252,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
               </div>
 
               {/* Footer */}
-              <div className="border-t mt-auto p-6 bg-white pb-14 md:pb-6">
+              <div className="border-t mt-auto px-2 bg-white">
                 <div className="flex items-center justify-between text-lg font-semibold mb-2">
                   <span className="text-lg font-bold">Subtotal:</span>
                   <span className="text-lg font-bold">{(cart as any).subtotal?.formattedConvertedAmount}</span>

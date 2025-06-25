@@ -66,7 +66,7 @@ const ProductList = async ({
     <div className="mt-12 flex gap-y-4 gap-x-2 md:gap-y-6 md:gap-x-4 justify-between flex-wrap ">
       {response.items.map((product: products.Product) => (
         <Link
-          href={"/" + product.slug}
+          href={"/" + encodeURIComponent(product.slug || "")}
           className="flex flex-col shadow-sm rounded-lg gap-4  basis-[48%] sm:basis-[49%] md:basis-[31%] lmd:basis-[23%] h-[300px] md:h-[425px]"
           key={product._id}
         >

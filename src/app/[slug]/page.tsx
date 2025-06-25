@@ -7,10 +7,12 @@ import ProductWrapper from "@/components/products/ProductWrapper";
 
 const SinglePage = async ({ params }: { params: { slug: string } }) => {
   const wixClient = await wixClientServer();
+
+  const decodedSlug = decodeURIComponent(params.slug)
   
   const products = await wixClient.products
     .queryProducts()
-    .eq("slug", params.slug)
+    .eq("slug", decodedSlug)
     .find();
 
   if (!products.items[0]) {

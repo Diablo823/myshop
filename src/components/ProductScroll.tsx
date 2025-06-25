@@ -61,7 +61,7 @@ const ProductScroll = async ({
       <div className="flex gap-8">
         {response.items.map((product: products.Product) => (
           <Link
-            href={"/" + product.slug}
+            href={"/" + encodeURIComponent(product.slug || "")}
             className="flex-none w-[15rem]"
             key={product._id}
           >
