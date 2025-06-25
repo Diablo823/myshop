@@ -75,11 +75,11 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
       document.body.style.paddingRight = `${scrollbarWidth}px`;
     } else {
       document.body.style.overflow = "unset";
-      document.body.style.paddingRight = '';
+      document.body.style.paddingRight = "";
     }
     return () => {
       document.body.style.overflow = "unset";
-      document.body.style.paddingRight = '';
+      document.body.style.paddingRight = "";
     };
   }, [open]);
 
@@ -175,7 +175,6 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
                       <div
                         className="flex gap-4 bg-white rounded-lg shadow-lg p-2 hover:shadow-xl transition-shadow cursor-pointer"
                         key={item._id}
-                        onClick={() => onSlugClick(slug)}
                       >
                         {item.image && (
                           <div className="relative shrink-0 w-[100px] h-[120px] cursor-pointer">
@@ -196,7 +195,10 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
                         <div className="flex flex-col justify-between w-full">
                           <div>
                             <div className="flex justify-between items-center gap-4">
-                              <Link href={`/${encodeURIComponent(slug || "")}`} onClick={onClose}>
+                              <Link
+                                href={`/${encodeURIComponent(slug || "")}`}
+                                onClick={onClose}
+                              >
                                 <h3 className="font-bold text-sm hover:text-gray-900 transition-colors cursor-pointer">
                                   {item.productName?.original?.slice(0, 15)}..
                                 </h3>
@@ -255,7 +257,9 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
               <div className="border-t mt-auto px-2 bg-white">
                 <div className="flex items-center justify-between text-lg font-semibold mb-2">
                   <span className="text-lg font-bold">Subtotal:</span>
-                  <span className="text-lg font-bold">{(cart as any).subtotal?.formattedConvertedAmount}</span>
+                  <span className="text-lg font-bold">
+                    {(cart as any).subtotal?.formattedConvertedAmount}
+                  </span>
                 </div>
                 <p className="text-gray-800 text-sm font-bold mb-2">
                   Shipping &amp; Taxes calculated at checkout

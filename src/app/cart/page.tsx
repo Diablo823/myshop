@@ -32,7 +32,6 @@ const CartPage = () => {
   const router = useRouter();
 
   //console.log(cart);
-  
 
   const showEmptyCart =
     !isLoading && (!cart.lineItems || cart.lineItems.length === 0);
@@ -124,7 +123,6 @@ const CartPage = () => {
                   <div
                     key={item._id}
                     className="bg-white rounded-xl p-2 shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
-                    onClick={() => onSlugClick(slug)}
                   >
                     <div className="flex flex-row gap-4">
                       {item.image && (
@@ -215,14 +213,20 @@ const CartPage = () => {
               <div className="space-y-4">
                 <div className="flex justify-between">
                   <span className="font-semibold">Subtotal</span>
-                  <span className="font-semibold">{(cart as any).subtotal?.formattedConvertedAmount}</span>
+                  <span className="font-semibold">
+                    {(cart as any).subtotal?.formattedConvertedAmount}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="font-semibold">Shipping</span>
-                  <span className="text-sm font-semibold">Calculated at checkout</span>
+                  <span className="text-sm font-semibold">
+                    Calculated at checkout
+                  </span>
                 </div>
                 <div className="flex justify-center">
-                  <span className="font-bold text-sm">Free shipping for orders above ₹580!</span>
+                  <span className="font-bold text-sm">
+                    Free shipping for orders above ₹580!
+                  </span>
                 </div>
                 {/* <div className="flex justify-between">
                   <span>Tax</span>
@@ -231,7 +235,9 @@ const CartPage = () => {
                 <div className="h-px bg-gray-200" />
                 <div className="flex justify-between font-bold text-lg">
                   <span>Total</span>
-                  <span>{(cart as any).subtotal?.formattedConvertedAmount}</span>
+                  <span>
+                    {(cart as any).subtotal?.formattedConvertedAmount}
+                  </span>
                 </div>
                 <Button
                   onClick={handleCheckout}
@@ -244,7 +250,7 @@ const CartPage = () => {
                 </p>
                 <div className="flex gap-4 justify-center">
                   {paymentIcons.map((payment) => (
-                    <payment.icon key={payment.id} size={32}/>
+                    <payment.icon key={payment.id} size={32} />
                   ))}
                 </div>
               </div>
