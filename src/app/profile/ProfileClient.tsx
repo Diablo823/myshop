@@ -98,7 +98,7 @@ const ProfileClient = ({ profileData }: { profileData: ProfileData }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 relative">
+    <div className="min-h-screen bg-gray-50 p-2 relative">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Profile Section */}
         <div className="bg-white rounded-lg shadow p-6 md:top-20 md:sticky self-start">
@@ -166,35 +166,35 @@ const ProfileClient = ({ profileData }: { profileData: ProfileData }) => {
                 </div>
               </div>
             )}
-            
+
             <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-<AlertDialogTrigger asChild>
-
-            <Button
-              //onClick={handleLogout}
-              className="bg-red-600 w-full text-slate-100 hover:text-white hover:bg-red-700 cursor-pointer rounded-xl"
-            >
-              <span>LogOut</span> <RiShutDownLine />
-            </Button>
-</AlertDialogTrigger>
-<AlertDialogContent>
-  <AlertDialogHeader>
-    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-    <AlertDialogDescription>
-            You can log back in at any time and continue where you left off.
-          </AlertDialogDescription>
-  </AlertDialogHeader>
-  <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleLogout} className="bg-red-600 text-slate-100 hover:text-white hover:bg-red-700 cursor-pointer">
-            
-              <span>LogOut</span> <RiShutDownLine />
-            
-          </AlertDialogAction>
-        </AlertDialogFooter>
-</AlertDialogContent>
+              <AlertDialogTrigger asChild>
+                <Button
+                  //onClick={handleLogout}
+                  className="bg-red-600 w-full text-slate-100 hover:text-white hover:bg-red-700 cursor-pointer rounded-xl"
+                >
+                  <span>LogOut</span> <RiShutDownLine />
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    You can log back in at any time and continue where you left
+                    off.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={handleLogout}
+                    className="bg-red-600 text-slate-100 hover:text-white hover:bg-red-700 cursor-pointer"
+                  >
+                    <span>LogOut</span> <RiShutDownLine />
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
             </AlertDialog>
-
           </div>
           <h3 className="mt-6 font-semibold text-sm text text-gray-600">
             If you want to update your profile information <br />
@@ -204,11 +204,13 @@ const ProfileClient = ({ profileData }: { profileData: ProfileData }) => {
 
         {/* Orders Section */}
         <div className="bg-white rounded-lg shadow p-2">
-          <h2 className="text-xl font-semibold mb-6 pl-6 pt-4">Order History</h2>
-          <div className="space-y-6">
+          <h2 className="text-xl font-semibold mb-4 pl-6 pt-4">
+            Order History
+          </h2>
+          <div className="space-y-4">
             {ordersList.length > 0 ? (
               ordersList.map((order: Order) => (
-                <div key={order._id} className="border rounded-lg p-4">
+                <div key={order._id} className="border rounded-lg p-2">
                   <div className="flex justify-between items-start mb-4">
                     <div>
                       <p className="font-medium">Order #{order.number}</p>

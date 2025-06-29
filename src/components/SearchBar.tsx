@@ -143,7 +143,7 @@ const SearchBar = () => {
           }}
           onFocus={() => setShowSuggestions(true)}
           placeholder="Search Products"
-          className="search-input flex-1 bg-white ring-1 ring-slate-300 focus:ring-slate-400 rounded-full"
+          className="search-input flex-1 bg-white ring-1 ring-slate-300 focus:ring-slate-400 rounded-full placeholder:text-xs"
           suppressHydrationWarning
           onBlur={handleBlur}
         />

@@ -31,6 +31,7 @@
     "@wix/members": "^1.0.155",
     "@wix/redirects": "^1.0.70",
     "@wix/sdk": "^1.9.1",
+    "@wix/site-seo": "^1.21.0",
     "@wix/stores": "^1.0.141",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

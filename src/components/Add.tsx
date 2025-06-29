@@ -113,9 +113,9 @@ const Add = ({
           {stockNumber === 0 ? (
             <span className="text-red-600 text-sm font-semibold">Out of stock!</span>
           ) : stockNumber > 0 && stockNumber <= 5 ? (
-            <span className="text-sm font-semibold text-red-500">Only {stockNumber} left!</span>
+            <span className="text-xs font-semibold text-red-500">Only {stockNumber} left!</span>
           ) : stockNumber > 5 && stockNumber <= 10 ? (
-            <span className="text-sm text-amber-400">Only a few left!</span>
+            <span className="text-xs font-semibold text-red-500">Only a few left!</span>
           ) : (
             null
           )}

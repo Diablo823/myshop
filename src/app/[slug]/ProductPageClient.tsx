@@ -40,7 +40,6 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
       "h4",
       "h5",
       "h6", // headings
-      "&amp;",
     ],
     ALLOWED_ATTR: [
       "style", // inline styles
@@ -59,7 +58,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-80px)] px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative flex flex-col lg:flex-row gap-16">
+    <div className="min-h-[calc(100vh-80px)] px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative flex flex-col lg:flex-row gap-16">
       {/* IMAGES */}
       <div className="w-full lg:w-1/2 lg:sticky top-20 mt-5 h-max">
         <ProductImages items={product.media?.items!} />
@@ -90,7 +89,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
             ₹{product.priceData?.price}
           </h2>
         ) : (
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
             <h3 className="text-lg font-bold line-through text-gray-700">
               ₹{product.priceData?.price}
             </h3>

@@ -4,6 +4,97 @@ import React from "react";
 import ProductPageClient from "./ProductPageClient";
 import ProductScrollWrapper from "@/components/ProductScroll/ProductScrollWrapper";
 import ProductWrapper from "@/components/products/ProductWrapper";
+import { Metadata } from "next";
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+
+  const wixClient = await wixClientServer();
+  const decodedSlug = decodeURIComponent(params.slug);
+
+  const products = await wixClient.products.queryProducts().eq("slug", decodedSlug).find();
+
+  if (!products.items[0]) {
+    return {
+      title: "Product Not Found",
+      description: "The product you are looking for does not exist.",
+    }
+  }
+
+  const product = products.items[0];
+  const productImage = product.media?.mainMedia?.image?.url;
+  //const price = product.price?.formatted?.discountedPrice || product.price?.formatted?.price;
+
+  const price = parseFloat(
+    (product.price?.formatted?.discountedPrice || product.price?.formatted?.price || "0")
+      .replace(/[^0-9.]/g, '')
+  );
+  const currency = product.price?.currency || "USD";
+  const inStock = product.stock?.inStock !== false;
+  const canonicalUrl = `https://uscartel.com/${params.slug}`;
+
+ // Structured data for rich snippets
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": product.name,
+    "description": product.description || `Buy ${product.name} at the best price from US Cartel`,
+    "image": productImage,
+    "brand": product.brand ? {
+      "@type": "Brand",
+      "name": product.brand
+    } : undefined,
+    "offers": {
+      "@type": "Offer",
+      "price": price,
+      "priceCurrency": currency,
+      "availability": inStock 
+        ? "https://schema.org/InStock" 
+        : "https://schema.org/OutOfStock",
+      "url": canonicalUrl,
+      "seller": {
+        "@type": "Organization",
+        "name": "US Cartel"
+      }
+    }
+  };
+  return {
+    title: `${product.name} - US Cartel`,
+    description: product.description || `Buy ${product.name} at the best price from US Cartel`,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${product.name} - US Cartel`,
+      description: product.description || `Buy ${product.name} at the best price from US Cartel`,
+      url: canonicalUrl,
+      images: productImage ? [
+        {
+          url: `${productImage}?w=1200&h=630&fit=crop`,
+          width: 1200,
+          height: 630,
+          alt: product.name || "Product of US Cartel",
+        }
+      ] : [
+        {
+          url: "https://uscartel.com/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: "US Cartel - Your one-stop shop for the best products",
+        }
+      ],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: product.name!,
+      description: product.description || `Buy ${product.name} at the best price from US Cartel`,
+      images: productImage ? [`${productImage}?w=1200&h=630&fit=crop`] : [],
+    },
+    other: {
+      'json-ld': JSON.stringify(jsonLd)
+    }
+  };
+}
 
 const SinglePage = async ({ params }: { params: { slug: string } }) => {
   const wixClient = await wixClientServer();
@@ -25,6 +116,29 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
     <>
       {/* Client Component for main product display */}
       <ProductPageClient product={product} />
+
+      {/* Add structured data to body */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": product.name,
+            "description": product.description,
+            "image": product.media?.mainMedia?.image?.url,
+            "brand": product.brand,
+            "offers": {
+              "@type": "Offer",
+              "price": product.price?.price,
+              "priceCurrency": product.price?.currency || "USD",
+              "availability": product.stock?.inStock 
+                ? "https://schema.org/InStock" 
+                : "https://schema.org/OutOfStock"
+            }
+          })
+        }}
+      />
       
       {/* Server Components for product recommendations */}
       <div className="px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
