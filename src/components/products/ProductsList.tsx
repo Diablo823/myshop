@@ -95,91 +95,104 @@ const ProductsList = ({
   }, [inView, loading, hasMore, page, categoryId, searchParams, limit]);
 
   return (
-    <div className="mt-12 flex gap-y-4 gap-x-2 md:gap-y-6 md:gap-x-4 justify-between flex-wrap">
-      {products.map((product: products.Product) => (
-        
-        <Link
-          href={"/" + encodeURIComponent(product.slug || "")}
-          className="flex flex-col shadow-sm rounded-lg gap-4 basis-[48%] sm:basis-[49%] md:basis-[31%] lmd:basis-[23%] h-[300px] md:h-[425px]"
-          key={product._id}
-        >
-          <div className="relative w-full h-60 sm:h-72 rounded-lg">
-            <Badge className="absolute top-2 right-2 z-20 bg-[#800020] hover:bg-[#800020] text-xs">
-              {calculateDiscount(
-                product.priceData?.price || 0,
-                product.priceData?.discountedPrice || 0
-              )}
-              % OFF
-            </Badge>
-            <Image
-              src={product.media?.mainMedia?.image?.url || "/product.png"}
-              alt="product"
-              fill
-              sizes="25vw"
-              loading="lazy"
-              className="absolute object-cover z-10 rounded-lg hover:opacity-0 transition-opacity ease-in duration-500"
-            />
-            {product.media?.items && (
+    <div className="mt-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 sm:gap-2 md:grid-cols-3 lg:grid-cols-5">
+        {products.map((product: products.Product) => (
+          <Link
+            href={"/" + encodeURIComponent(product.slug || "")}
+            className="group flex flex-col rounded-lg border bg-slate-50 shadow-sm transition-all hover:shadow-md"
+            key={product._id}
+          >
+            <div className="relative pb-[120%] w-full overflow-hidden rounded-t-lg">
+              <Badge className="absolute right-2 top-2 z-20 bg-[#800020] px-2 py-1 text-xs text-white hover:bg-[#800020]">
+                {calculateDiscount(
+                  product.priceData?.price || 0,
+                  product.priceData?.discountedPrice || 0
+                )}
+                % OFF
+              </Badge>
               <Image
-                src={product.media?.items[1]?.image?.url || "/product.png"}
+                src={product.media?.mainMedia?.image?.url || "/product.png"}
                 alt="product"
                 fill
-                sizes="25vw"
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 loading="lazy"
-                className="absolute rounded-lg object-cover"
+                className="z-10 object-cover transition-opacity duration-300 group-hover:opacity-0"
               />
+              {product.media?.items && (
+                <Image
+                  src={product.media?.items[1]?.image?.url || "/product.png"}
+                  alt="product"
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  loading="lazy"
+                  className="object-cover"
+                />
+              )}
+            </div>
+            <div className="flex flex-row justify-between p-2 gap-4">
+              <span className="text-xs md:text-sm font-bold">
+                {product?.name?.length && product.name.length > 20
+                  ? `${product.name.substring(0, 25)}...`
+                  : product?.name || "No Name"}
+              </span>
+
+              {product.priceData?.price ===
+              product.priceData?.discountedPrice ? (
+                <span className="text-sm font-bold text-black">
+                  ₹{product.priceData?.price}
+                </span>
+              ) : (
+                <div className="mt-auto flex items-center justify-between">
+                  <div className="flex flex-col">
+                    <span className="font-bold text-sm text-black">
+                      ₹{product.priceData?.discountedPrice}
+                    </span>
+                    <span className="text-xs font-bold text-gray-500 line-through">
+                      ₹{product.priceData?.price}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+            {product.additionalInfoSections && (
+              <div
+                className="text-md text-gray-700"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(
+                    product.additionalInfoSections.find(
+                      (section: any) => section.title === "shortDesc"
+                    )?.description || ""
+                  ),
+                }}
+              ></div>
+            )}
+          </Link>
+        ))}
+</div>
+        {!limit && hasMore && (
+          <div
+            ref={ref}
+            className="w-full flex items-center justify-center p-1 mt-4"
+          >
+            {loading && (
+              <div className="relative flex flex-col items-center gap-2">
+                <div className="animate-pulse relative w-10 h-10">
+                  <Image
+                    src="https://ik.imagekit.io/5ok2lashts/loadlogo.png?updatedAt=1736980178600" // Replace with your image path
+                    alt="Loading animation"
+                    fill
+                    sizes="(max-width: 768px) 96px, 96px"
+                    priority // Since this is a loader, we want it to load immediately
+                    className="object-contain"
+                  />
+                </div>
+                {/* <span className="text-xs font-semibold tracking-wide text-gray-800">Loading more...</span> */}
+              </div>
             )}
           </div>
-          <div className="flex justify-between gap-4">
-            <span className="text-xs md:text-base font-bold">
-              {product?.name?.length && product.name.length > 20
-                ? `${product.name.substring(0, 25)}...`
-                : product?.name || "No Name"}
-            </span>
-            <div className="flex flex-col gap-2">
-              <span className="text-xs md:text-base font-bold">
-                ₹{product.priceData?.discountedPrice}
-              </span>
-              <span className="text-xs md:text-base font-bold text-gray-700 line-through">
-                ₹{product.priceData?.price}
-              </span>
-            </div>
-          </div>
-          {product.additionalInfoSections && (
-            <div
-              className="text-md text-gray-700"
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(
-                  product.additionalInfoSections.find(
-                    (section: any) => section.title === "shortDesc"
-                  )?.description || ""
-                ),
-              }}
-            ></div>
-          )}
-        </Link>
-
-      ))}
-
-      {!limit && hasMore && (
-        <div ref={ref} className="w-full flex justify-center p-1">
-          {loading && (
-            <div className="relative flex flex-col items-center gap-2">
-              <div className="animate-pulse relative w-10 h-10">
-                <Image
-                  src="https://ik.imagekit.io/5ok2lashts/loadlogo.png?updatedAt=1736980178600" // Replace with your image path
-                  alt="Loading animation"
-                  fill
-                  sizes="(max-width: 768px) 96px, 96px"
-                  priority // Since this is a loader, we want it to load immediately
-                  className="object-contain"
-                />
-              </div>
-              {/* <span className="text-xs font-semibold tracking-wide text-gray-800">Loading more...</span> */}
-            </div>
-          )}
-        </div>
-      )}
+        )}
+      
     </div>
   );
 };

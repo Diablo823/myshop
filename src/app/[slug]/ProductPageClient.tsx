@@ -7,6 +7,12 @@ import React from "react";
 import DOMPurify from "isomorphic-dompurify";
 import { Badge } from "@/components/ui/badge";
 import ShareUrlButton2 from "@/components/ShareUrlButton2";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 interface AdditionalInfoSection {
   title?: string;
@@ -57,6 +63,12 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
     return Math.round(discount);
   };
 
+  const filteredSections = product.additionalInfoSections?.filter(
+  (section: AdditionalInfoSection) =>
+    (section.title && section.description === "") ||
+    (section.title === "" && section.description)
+);
+
   return (
     <div className="min-h-[calc(100vh-80px)] px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative flex flex-col lg:flex-row gap-16">
       {/* IMAGES */}
@@ -73,7 +85,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
         <div className="h-[2px] bg-gray-100" />
         <h1 className="text-xl lg:text-2xl font-bold">{product.name}</h1>
         <div
-          className="text-sm text-gray-900"
+          className="md:text-sm md:text-gray-900 md:block hidden"
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(
               product.description || "",
@@ -81,6 +93,29 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
             ),
           }}
         />
+
+        <Accordion
+          type="single"
+          collapsible
+          className="px-2 bg-amber-50 rounded-xl md:hidden"
+        >
+          <AccordionItem value="product-description">
+            <AccordionTrigger className="font-bold">
+              Product Details
+            </AccordionTrigger>
+            <AccordionContent>
+              <p
+                className="text-sm"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(
+                    product.description || "",
+                    sanitizeConfig
+                  ),
+                }}
+              />
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
 
         <div className="h-[2px] bg-gray-100" />
 
@@ -134,28 +169,70 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
           />
         )}
 
-        <ShareUrlButton2
-          buttonText="Share this product"
-        />
+        <ShareUrlButton2 buttonText="Share this product" />
 
         <div className="h-[2px] bg-gray-100" />
 
         {product.additionalInfoSections?.map(
-          (section: AdditionalInfoSection) => (
-            <div className="text-sm" key={section.title}>
-              <h4 className="mb-2 font-bold">{section.title}</h4>
-              <div
-                className="text-sm text-gray-900"
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(
-                    section.description || "",
-                    sanitizeConfig
-                  ),
-                }}
-              />
-            </div>
-          )
+          (section: AdditionalInfoSection) => {
+            if (section.title && section.description) {
+              return (
+                <div className="text-sm" key={section.title}>
+                  <Accordion
+                    type="single"
+                    collapsible
+                    className="bg-amber-100 px-4 md:px-6 rounded-2xl shadow-md"
+                  >
+                    <AccordionItem value={section.title || "info"}>
+                      <AccordionTrigger className="font-bold">
+                        {section.title}
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <p
+                          className="text-gray-950"
+                          dangerouslySetInnerHTML={{
+                            __html: DOMPurify.sanitize(
+                              section.description || "",
+                              sanitizeConfig
+                            ),
+                          }}
+                        />
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
+              );
+            } else {
+              return null; // If both title and description are empty, return null
+            }
+          }
         )}
+
+        {/* Additional Info Sections with either description or title */}
+
+        {filteredSections && filteredSections.length > 0 && (
+  <div className="flex flex-col gap-4 p-4 bg-amber-50 rounded-2xl border-2 border-slate-100 shadow-md">
+    {filteredSections.map((section: AdditionalInfoSection) => {
+      if (section.title && section.description === "") {
+        return (
+          <div key={section.title} className="text-sm font-bold">
+            <ul className="list-disc pl-4">
+              <li>{section.title}</li>
+            </ul>
+          </div>
+        );
+      } else if (section.title === "" && section.description) {
+        return (
+          <div key={section.description} className="text-sm font-bold">
+            <h4>{section.description}</h4>
+          </div>
+        );
+      } else {
+        return null;
+      }
+    })}
+  </div>
+)}
       </div>
     </div>
   );

@@ -105,7 +105,7 @@ const CartPage = () => {
       ) : showEmptyCart ? (
         <div className="flex flex-col justify-center items-center h-full text-lg font-bold text-red-900 text-center">
           <div className="mb-5">
-            <Image src="/empty-cart.png" alt="" width={260} height={500} />
+            <Image src="/hippocart.webp" alt="" width={260} height={500} />
           </div>
           Your Cart Is Empty! <br />
           Add Something To Your Cart

@@ -26,6 +26,8 @@ export const metadata: Metadata = {
     "US Cartel marketplace",
     "US Cartel shop",
     "US Cartel store",
+    "US Cartel company",
+    "US Cartel corporation",
     "fashion marketplace",
     "cosmetics online",
     "gadgets",
@@ -154,6 +156,9 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://static.wixstatic.com" />
 
         <link rel="preconnect" href="https://ik.imagekit.io" crossOrigin="" />
+
+        <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="" />
+
 
         {/* Structured Data - Organization Schema */}
         <Script

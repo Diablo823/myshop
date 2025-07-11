@@ -156,7 +156,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
           ) : showEmptyCart ? (
             <div className="flex flex-col h-screen justify-center items-center p-6 text-sm font-bold text-red-900 text-center">
               <div className="mb-5">
-                <Image src="/empty-cart.png" alt="" width={240} height={520} />
+                <Image src="/hippocart.webp" alt="" width={240} height={520} />
               </div>
               Cart Is Empty! <br />
               Add Something To Your Cart

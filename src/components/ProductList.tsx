@@ -63,84 +63,96 @@ const ProductList = async ({
   };
 
   return (
-    <div className="mt-12 flex gap-y-4 gap-x-2 md:gap-y-6 md:gap-x-4 justify-between flex-wrap ">
-      {response.items.map((product: products.Product) => (
-        <Link
-          href={"/" + encodeURIComponent(product.slug || "")}
-          className="flex flex-col shadow-sm rounded-lg gap-4  basis-[48%] sm:basis-[49%] md:basis-[31%] lmd:basis-[23%] h-[300px] md:h-[425px]"
-          key={product._id}
-        >
-          <div className="relative w-full h-60 sm:h-72 rounded-lg">
-            <Badge className="absolute top-2 right-2 z-20 bg-[#800020] hover:bg-[#800020] text-xs text-white">
-              {calculateDiscount(
-                product.priceData?.price || 0,
-                product.priceData?.discountedPrice || 0
-              )}
-              % OFF
-            </Badge>
-            <Image
-              src={product.media?.mainMedia?.image?.url || "/product.png"}
-              alt="product"
-              fill
-              sizes="25vw"
-              loading="lazy"
-              className="absolute object-cover z-10 rounded-lg hover:opacity-0 transition-opacity ease-in duration-500"
-            />
-            {product.media?.items && (
+    <div className="mt-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 sm:gap-2 md:grid-cols-3 lg:grid-cols-5">
+        {response.items.map((product: products.Product) => (
+          <Link
+            href={"/" + encodeURIComponent(product.slug || "")}
+            className="group flex flex-col rounded-lg border bg-slate-50 shadow-sm transition-all hover:shadow-md"
+            key={product._id}
+          >
+            <div className="relative pb-[120%] md:pb-[120%] w-full overflow-hidden rounded-t-lg">
+              <Badge className="absolute right-2 top-2 z-20 bg-[#800020] px-2 py-1 text-xs text-white hover:bg-[#800020]">
+                {calculateDiscount(
+                  product.priceData?.price || 0,
+                  product.priceData?.discountedPrice || 0
+                )}
+                % OFF
+              </Badge>
               <Image
-                src={product.media?.items[1]?.image?.url || "/product.png"}
+                src={product.media?.mainMedia?.image?.url || "/product.png"}
                 alt="product"
                 fill
-                sizes="25vw"
-                loading="lazy"
-                className="absolute rounded-lg object-cover "
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                className="z-10 object-cover transition-opacity duration-300 group-hover:opacity-0"
               />
-            )}
-          </div>
-          <div className="flex p-2 justify-between gap-4">
-            <span className="text-xs md:text-base font-bold">
-              {product?.name?.length && product.name.length > 20
-                ? `${product.name.substring(0, 20)}...`
-                : product?.name || "No Name"}
-            </span>
-            <div className="flex flex-col gap-2">
-              <span className="text-xs md:text-base font-bold">
-                ₹{product.priceData?.discountedPrice}
-              </span>
-              <span className="text-xs md:text-base font-bold text-gray-700 line-through">
-                ₹{product.priceData?.price}
-              </span>
+              {product.media?.items && (
+                <Image
+                  src={product.media?.items[1]?.image?.url || "/product.png"}
+                  alt="product"
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  className="object-cover"
+                />
+              )}
             </div>
-          </div>
-          {product.additionalInfoSections && (
-            <div
-              className="text-md text-gray-700"
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(
-                  product.additionalInfoSections.find(
-                    (section: any) => section.title === "shortDesc"
-                  )?.description || ""
-                ),
-              }}
-            ></div>
-          )}
 
-          {/* <Button className="rounded-lg w-fit bg-emerald-300 text-gray-950 hover:bg-emerald-500">
-            <span>ADD TO</span>
-            <FaShoppingCart />
-          </Button> */}
-        </Link>
-      ))}
+            <div className="flex flex-row justify-between p-2 gap-4">
+              
+              <span className="text-xs md:text-sm font-bold">
+                {product?.name?.length && product.name.length > 20
+                  ? `${product.name.substring(0, 25)}...`
+                  : product?.name || "No Name"}
+              </span>
+
+              {product.priceData?.price ===
+              product.priceData?.discountedPrice ? (
+                <span className="text-sm font-bold text-black">
+                  ₹{product.priceData?.price}
+                </span>
+              ) : (
+                <div className="mt-auto flex items-center justify-between">
+                  <div className="flex flex-col">
+                    <span className="font-bold text-sm text-black">
+                      ₹{product.priceData?.discountedPrice}
+                    </span>
+                    <span className="text-xs font-bold text-gray-500 line-through">
+                      ₹{product.priceData?.price}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {product.additionalInfoSections && (
+              <div
+                className="px-3 pb-3 text-xs text-gray-600"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(
+                    product.additionalInfoSections.find(
+                      (section: any) => section.title === "shortDesc"
+                    )?.description || ""
+                  ),
+                }}
+              ></div>
+            )}
+          </Link>
+        ))}
+      </div>
 
       {searchParams?.cat || searchParams?.name ? (
-        <Pagination
-          currentPage={response.currentPage || 0}
-          hasPrev={response.hasPrev()}
-          hasNext={response.hasNext()}
-        />
+        <div className="mt-8">
+          <Pagination
+            currentPage={response.currentPage || 0}
+            hasPrev={response.hasPrev()}
+            hasNext={response.hasNext()}
+          />
+        </div>
       ) : null}
     </div>
   );
 };
 
 export default ProductList;
+
+// h-[300px] md:h-[425px]

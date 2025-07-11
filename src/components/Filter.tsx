@@ -29,7 +29,10 @@ const Filter = () => {
 
   const handleFilterChange = (name: string, value: string) => {
     const params = new URLSearchParams(searchParams);
-    params.set(name, value);
+
+    //if all is selected, remove the parameter
+    const actualValue = value === "__all__" ? "" : value;
+    params.set(name, actualValue);
     replace(`${pathName}?${params.toString()}`);
   };
 
@@ -48,7 +51,7 @@ const Filter = () => {
         <SelectValue placeholder="Type" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="all_types">Type</SelectItem>
+        <SelectItem value="__all__">All Type</SelectItem>
         <SelectItem value="physical">Physical</SelectItem>
         <SelectItem value="digital">Digital</SelectItem>
       </SelectContent>

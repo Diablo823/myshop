@@ -14,11 +14,11 @@ const DealPage = () => {
       </div>
       <div>
         <ProductWrapper
-          categoryId={process.env.NEXT_PUBLIC_ESSENTIAL_PRODUCTS_CATEGORY_ID!}
+          categoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID!}
           limit={6}
         />
       </div>
-      <div>
+      <div className="mt-6">
         <Promotion
           days={7}
           title="Weekly Offers"
@@ -31,7 +31,7 @@ const DealPage = () => {
           limit={8}
         />
       </div>
-      <div>
+      <div className="mt-6">
         <Promotion
           days={20}
           title="Monthly Offers"
@@ -40,8 +40,8 @@ const DealPage = () => {
       </div>
       <div>
         <ProductWrapper
-          categoryId={process.env.NEXT_PUBLIC_ESSENTIAL_PRODUCTS_CATEGORY_ID!}
-          limit={16}
+          categoryId={process.env.NEXT_PUBLIC_POPULAR_PRDUCTS_CATEGORY_ID!}
+          limit={8}
         />
       </div>
     </div>

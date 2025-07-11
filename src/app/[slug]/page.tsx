@@ -5,6 +5,13 @@ import ProductPageClient from "./ProductPageClient";
 import ProductScrollWrapper from "@/components/ProductScroll/ProductScrollWrapper";
 import ProductWrapper from "@/components/products/ProductWrapper";
 import { Metadata } from "next";
+import  DomPurify  from "isomorphic-dompurify";
+
+const sanitizeConfig = {
+  ALLOWED_TAGS: [],
+  ALLOWED_ATTR: [],
+  KEEP_CONTETT: true,
+}
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
 
@@ -32,12 +39,19 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const inStock = product.stock?.inStock !== false;
   const canonicalUrl = `https://uscartel.com/${params.slug}`;
 
+  // SANITIZE AND PREPARE DESCRIPTION
+  const rawDescription = product.description || `Buy ${product.name} at the best price from US Cartel`;
+  const cleanDescription = DomPurify.sanitize(rawDescription, sanitizeConfig);
+
+  // Truncate description to 200 characters for metadata
+  const truncatedDescription = cleanDescription.length > 200 ? cleanDescription.slice(0, 200) + '...' : cleanDescription;
+
  // Structured data for rich snippets
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     "name": product.name,
-    "description": product.description || `Buy ${product.name} at the best price from US Cartel`,
+    "description": cleanDescription,
     "image": productImage,
     "brand": product.brand ? {
       "@type": "Brand",
@@ -59,13 +73,13 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
   return {
     title: `${product.name} - US Cartel`,
-    description: product.description || `Buy ${product.name} at the best price from US Cartel`,
+    description: truncatedDescription,
     alternates: {
       canonical: canonicalUrl,
     },
     openGraph: {
       title: `${product.name} - US Cartel`,
-      description: product.description || `Buy ${product.name} at the best price from US Cartel`,
+      description: truncatedDescription,
       url: canonicalUrl,
       images: productImage ? [
         {
@@ -87,7 +101,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     twitter: {
       card: 'summary_large_image',
       title: product.name!,
-      description: product.description || `Buy ${product.name} at the best price from US Cartel`,
+      description: truncatedDescription,
       images: productImage ? [`${productImage}?w=1200&h=630&fit=crop`] : [],
     },
     other: {
@@ -159,18 +173,18 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
       <div className="px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
         <h2 className="text-lg md:text-xl font-bold mt-8">More Selections</h2>
         <ProductWrapper
-          categoryId={process.env.NEXT_PUBLIC_FEATURED_PRDUCTS_CATEGORY_ID!}
-          limit={16}
+          categoryId={process.env.NEXT_PUBLIC_POPULAR_PRDUCTS_CATEGORY_ID!}
+          limit={10}
         />
       </div>
 
-      <h2 className="px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64 text-lg md:text-xl font-bold mt-8">Essentials for you</h2>
-      <div className="px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      {/*<h2 className="px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64 text-lg md:text-xl font-bold mt-8">Essentials for you</h2>
+       <div className="px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <ProductScrollWrapper
           categoryId={process.env.NEXT_PUBLIC_ESSENTIAL_PRODUCTS_CATEGORY_ID!}
           limit={20}
         />
-      </div>
+      </div> */}
     </>
   );
 };
