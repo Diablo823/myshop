@@ -100,9 +100,9 @@ export async function getBannerByName(name: string): Promise<SanityBanner | null
         order
       }`,
       { name },
-      {
-        next: { tags: ['banner'] }, // Add Cache tag for revalidation
-      }
+      // {
+      //   next: { tags: ['banner'] }, // Add Cache tag for revalidation
+      // }
     )
     return banner || null
   } catch (error) {
