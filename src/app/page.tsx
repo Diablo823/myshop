@@ -60,7 +60,7 @@ const HomePage = async () => {
         <VideoBannerGrid slides={videoSlides2} />
       </div> */}
 
-      <div className="mt-20 px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+      <div className="mt-20 px-2 md:px-8 lg:px-16 xl:px-32">
         <h2 className="text-2xl font-bold">New Arrivals</h2>
         {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductList
@@ -99,14 +99,14 @@ const HomePage = async () => {
           days={7}
           title="Flash Sale!"
           description="Don't miss out on our amazing flash sale deals!"
-          className="mt-8 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64"
+          className="mt-8 px-4 md:px-8 lg:px-16 xl:px-32"
         />
       </div>
-      <div className="mt-8 px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+      <div className="mt-8 px-2 md:px-8 lg:px-16 xl:px-32">
         {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductList
-            categoryId={process.env.NEXT_PUBLIC_FEATURED_PRDUCTS_CATEGORY_ID!}
-            limit={4}
+            categoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID!}
+            limit={5}
           />
         
       </div>
@@ -126,12 +126,12 @@ const HomePage = async () => {
         
       </div>
 
-      <div className="mt-20 px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+      <div className="mt-20 px-2 md:px-8 lg:px-16 xl:px-32">
         <h2 className="text-2xl font-bold">Facewash</h2>
         {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductList
             categoryId={process.env.NEXT_PUBLIC_FACE_WASH_CATEGORY_ID!}
-            limit={4}
+            limit={6}
           />
         
       </div>
@@ -149,12 +149,12 @@ const HomePage = async () => {
         {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductScroll
             categoryId={process.env.NEXT_PUBLIC_ESSENTIAL_PRODUCTS_CATEGORY_ID!}
-            limit={20}
+            limit={14}
           />
         
       </div>
 
-      <div className="mt-20 px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+      <div className="mt-20 px-2 md:px-8 lg:px-16 xl:px-32">
         <h2 className="text-2xl font-bold">Hair Care</h2>
         {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductList

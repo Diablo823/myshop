@@ -70,7 +70,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
 );
 
   return (
-    <div className="min-h-[calc(100vh-80px)] px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative flex flex-col lg:flex-row gap-16">
+    <div className="min-h-[calc(100vh-80px)] px-2 md:px-8 lg:px-16 xl:px-32 relative flex flex-col lg:flex-row gap-16">
       {/* IMAGES */}
       <div className="w-full lg:w-1/2 lg:sticky top-20 mt-5 h-max">
         <ProductImages items={product.media?.items!} />
@@ -97,7 +97,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
         <Accordion
           type="single"
           collapsible
-          className="px-2 bg-amber-50 rounded-xl md:hidden"
+          className="px-2 bg-slate-50 rounded-xl md:hidden"
         >
           <AccordionItem value="product-description">
             <AccordionTrigger className="font-bold">

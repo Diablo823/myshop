@@ -155,11 +155,11 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
       />
       
       {/* Server Components for product recommendations */}
-      <div className="px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+      <div className="px-2 md:px-8 lg:px-16 xl:px-32">
         <h2 className="text-lg md:text-xl font-bold mt-8">More Picks</h2>
         <ProductWrapper
           categoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID!}
-          limit={4}
+          limit={6}
         />
       </div>
 
@@ -170,7 +170,7 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
           limit={16}
         />
       </div>
-      <div className="px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+      <div className="px-2 md:px-8 lg:px-16 xl:px-32">
         <h2 className="text-lg md:text-xl font-bold mt-8">More Selections</h2>
         <ProductWrapper
           categoryId={process.env.NEXT_PUBLIC_POPULAR_PRDUCTS_CATEGORY_ID!}

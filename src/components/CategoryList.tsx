@@ -9,8 +9,8 @@ const CategoryList = async () => {
 
 
   return (
-    <div className="mt-12 px-4 overflow-x-scroll scrollbar-hide">
-      <div className="flex gap-4">
+    <div className="mt-12 p-2 overflow-x-scroll scrollbar-hide">
+      <div className="flex gap-3">
         {categories.items.map((item) => (
           <Link
             href={`/list?cat=${item.slug}`}
@@ -23,7 +23,7 @@ const CategoryList = async () => {
                 alt="category"
                 fill
                 sizes="20vw"
-                className="object-cover rounded-2xl"
+                className="object-cover rounded-2xl hover:scale-105 transition-all duration-300"
               />
             </div>
             <h1 className="mt-4 font-semibold text-lg tracking-wide">

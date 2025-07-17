@@ -96,14 +96,14 @@ const ProductsList = ({
 
   return (
     <div className="mt-4">
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 sm:gap-2 md:grid-cols-3 lg:grid-cols-5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 sm:gap-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
         {products.map((product: products.Product) => (
           <Link
             href={"/" + encodeURIComponent(product.slug || "")}
-            className="group flex flex-col rounded-lg border bg-slate-50 shadow-sm transition-all hover:shadow-md"
+            className="group flex flex-col rounded-2xl border bg-slate-50 shadow-sm transition-all hover:shadow-md"
             key={product._id}
           >
-            <div className="relative pb-[120%] w-full overflow-hidden rounded-t-lg">
+            <div className="relative pb-[120%] w-full overflow-hidden rounded-t-2xl">
               <Badge className="absolute right-2 top-2 z-20 bg-[#800020] px-2 py-1 text-xs text-white hover:bg-[#800020]">
                 {calculateDiscount(
                   product.priceData?.price || 0,
@@ -117,9 +117,9 @@ const ProductsList = ({
                 fill
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 loading="lazy"
-                className="z-10 object-cover transition-opacity duration-300 group-hover:opacity-0"
+                className="object-cover hover:scale-105 transition-all duration-300"
               />
-              {product.media?.items && (
+              {/* {product.media?.items && (
                 <Image
                   src={product.media?.items[1]?.image?.url || "/product.png"}
                   alt="product"
@@ -128,7 +128,7 @@ const ProductsList = ({
                   loading="lazy"
                   className="object-cover"
                 />
-              )}
+              )} */}
             </div>
             <div className="flex flex-row justify-between p-2 gap-4">
               <span className="text-xs md:text-sm font-bold">

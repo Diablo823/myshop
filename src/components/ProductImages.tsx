@@ -198,7 +198,7 @@ const ProductImages = ({ items }: { items: any[] }) => {
     <div className="w-full">
       {/* MAIN IMAGE */}
       <div 
-        className="h-[400px] md:h-[500px] relative group"
+        className="h-[400px] md:h-[570px] relative group"
         {...handlers}
       >
         <Image

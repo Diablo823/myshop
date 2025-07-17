@@ -239,7 +239,7 @@ export default function RootLayout({
         <WixClientContextProvider>
           <Navbar />
           {/* <NewNav /> */}
-          <main className="pt-20 pb-20">
+          <main className="pt-16 pb-20">
             <Suspense fallback={<LoadingSpinner />}>{children}</Suspense>
           </main>
           <Toaster />

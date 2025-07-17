@@ -57,12 +57,12 @@ const ProductScroll = async ({
   };
 
   return (
-    <div className="mt-12 px-4 overflow-x-scroll scrollbar-hide">
-      <div className="flex gap-8">
+    <div className="mt-6 px-2 py-2 overflow-x-scroll scrollbar-hide">
+      <div className="flex gap-4">
         {response.items.map((product: products.Product) => (
           <Link
             href={"/" + encodeURIComponent(product.slug || "")}
-            className="flex-none w-[15rem]"
+            className="flex-none w-[15rem] bg-slate-50 rounded-2xl shadow-md hover:shadow-lg"
             key={product._id}
           >
             <div className="relative w-full h-[17rem]">
@@ -82,9 +82,9 @@ const ProductScroll = async ({
                 fill
                 sizes="25vw"
                 loading="lazy"
-                className="absolute object-cover z-10 rounded-2xl hover:opacity-0 transition-opacity ease-in duration-500"
+                className="absolute object-cover hover:scale-105 transition-all duration-500 rounded-t-2xl"
               />
-              {product.media?.items && (
+              {/* {product.media?.items && (
                 <Image
                   src={product.media?.items[1]?.image?.url || "/product.png"}
                   alt="product"
@@ -93,9 +93,9 @@ const ProductScroll = async ({
                   loading="lazy"
                   className="absolute rounded-2xl object-cover"
                 />
-              )}
+              )} */}
             </div>
-            <div className="flex flex-row justify-between gap-2 mt-4">
+            <div className="flex flex-row justify-between gap-2 mt-4 p-2">
               <span className="text-sm md:text-base font-bold">
                 {product?.name?.length && product.name.length > 20
                   ? `${product.name.substring(0, 25)}...`
