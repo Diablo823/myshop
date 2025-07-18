@@ -223,11 +223,11 @@ const CartPage = () => {
                     Calculated at checkout
                   </span>
                 </div>
-                <div className="flex justify-center">
+                {/* <div className="flex justify-center">
                   <span className="font-bold text-sm">
                     Free shipping for orders above ₹580!
                   </span>
-                </div>
+                </div> */}
                 {/* <div className="flex justify-between">
                   <span>Tax</span>
                   <span>₹0</span>
