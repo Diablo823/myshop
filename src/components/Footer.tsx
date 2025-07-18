@@ -35,7 +35,7 @@ const Footer = () => {
         <div className="w-full md:w-1/2 lg:w-1/4 flex flex-col gap-6">
           <Link href="/" className="flex items-center gap-3 mt-5">
             <Image
-              src="/cartel.png"
+              src="/logo.png"
               alt="US Cartel"
               width={110}
               height={28}
@@ -43,9 +43,9 @@ const Footer = () => {
             />
           </Link>
 
-          <h2 className="text-lg font-bold">
+          {/* <h2 className="text-lg font-bold">
            US Cartel
-          </h2>
+          </h2> */}
           <p className="text-sm font-medium">
            Kerala, India
           </p>

@@ -57,9 +57,9 @@ const Navbar = () => {
           {/* <div className="text-2xl font-bold tracking-wider text-nowrap">US CARTEL</div> */}
           {
             <Image
-              src="/cartel.png"
+              src="/logo.png"
               alt="US Cartel logo"
-              width={80}
+              width={110}
               height={28}
               className="image-container"
             />
@@ -91,9 +91,9 @@ const Navbar = () => {
         <div className="w-1/3 xl:w-1/2 flex items-center gap-12">
           <Link href="/" className="flex items-center">
             <Image
-              src="/cartel.png"
+              src="/logo.png"
               alt="US Cartel Shop"
-              width={110}
+              width={130}
               height={18}
               className="image-container"
             />
