@@ -93,52 +93,63 @@ const Add = ({
         <div className="flex items-center gap-4">
           <div className="flex items-center justify-between w-36">
             <Button
-              className="bg-[#453B27] hover:bg-[#342C1D] text-white rounded-xl"
+              className="bg-gray-800 hover:bg-gray-900 text-white rounded-xl"
               onClick={() => handleQuantity("d")}
             >
               <FaMinus />
             </Button>
-            <span className="font-bold">{stockNumber === 0 ? 0 : quantity}</span>
+            <span className="font-bold">
+              {stockNumber === 0 ? 0 : quantity}
+            </span>
             <Button
-              className="bg-[#453B27] hover:bg-[#342C1D] text-white rounded-xl"
+              className="bg-gray-800 hover:bg-gray-900 text-white rounded-xl"
               onClick={() => handleQuantity("i")}
             >
               <FaPlus />
             </Button>
           </div>
         </div>
-        <div className="text-sm">
-          {/* Only <span className="text-orange-500">{stockNumber}&nbsp;items</span>{" "}
-          left! Don't miss it. */}
+        <div className="text-sm relative">
           {stockNumber === 0 ? (
-            <span className="text-red-600 text-sm font-semibold">Out of stock!</span>
+            <span className="text-red-600 text-sm font-semibold">
+              Out of stock!
+            </span>
           ) : stockNumber > 0 && stockNumber <= 5 ? (
-            <span className="text-xs font-semibold text-red-500">Only {stockNumber} left!</span>
+            <span className="text-sm font-bold text-red-500 flex gap-5 items-center">
+              <span className="relative mr-1 bottom-2">
+                <span className="absolute inline-flex h-4 w-4 bg-red-500 rounded-full"></span>
+                <span className="absolute inline-flex h-4 w-4 bg-red-500 rounded-full opacity-80 animate-ping"></span>
+              </span>
+              Only {stockNumber} left!
+            </span>
           ) : stockNumber > 5 && stockNumber <= 10 ? (
-            <span className="text-xs font-semibold text-red-500">Only a few left!</span>
-          ) : (
-            null
-          )}
+            <span className="text-sm font-bold text-red-500 flex gap-5 items-center">
+              <span className="relative mr-1 bottom-2">
+                <span className="absolute inline-flex h-4 w-4 bg-red-500 rounded-full"></span>
+                <span className="absolute inline-flex h-4 w-4 bg-red-500 rounded-full opacity-80 animate-ping"></span>
+              </span>
+              Only a few left!
+            </span>
+          ) : null}
         </div>
       </div>
-        
-        <div className="flex flex-col gap-4 md:flex-row mt-6 pb-4">
+
+      <div className="flex flex-col gap-4 md:flex-row mt-6 pb-4">
         <Button
           onClick={() => addItem(wixClient, productId, variantId, quantity)}
           disabled={stockNumber === 0}
-          className="md:w-1/2 h-10 text-sm font-bold rounded-xl bg-[#453B27] text-slate-100 hover:bg-[#342C1D] hover:text-slate-200 disabled:cursor-not-allowed disabled:bg-pink-200 disabled:text-white"
-          >
+          className="md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-[#FFD700] text-black hover:bg-[#E6C200] disabled:cursor-not-allowed disabled:bg-pink-200 disabled:text-white"
+        >
           Add To Cart <FaShoppingCart />
         </Button>
         <Button
           onClick={handleBuyNow}
           disabled={stockNumber === 0}
-          className="md:w-1/2 h-10 text-sm font-bold rounded-xl bg-[#BE5103] text-slate-100 hover:text-slate-200 hover:bg-[#99431F] disabled:cursor-not-allowed disabled:bg-pink-200 disabled:text-white"
-          >
+          className="md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-purple-700 text-slate-100 hover:bg-purple-800 disabled:cursor-not-allowed disabled:bg-pink-200 disabled:text-white"
+        >
           Buy Now <FaShoppingBag />
         </Button>
       </div>
-        
     </div>
   );
 };
