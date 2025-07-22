@@ -107,10 +107,10 @@ const ThankYouPage = () => {
           transition={{ delay: 0.7, duration: 0.5 }}
           className="mb-6"
         >
-          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2 drop-shadow-lg">
-            Thank You!
+          <h1 className="text-4xl font-bold text-white mb-2 drop-shadow-lg">
+            Order Placed!
           </h1>
-          <p className="text-xl text-purple-200 font-semibold">
+          <p className="text-lg text-purple-200 font-semibold">
             Your Order is Confirmed!
           </p>
         </motion.div>
@@ -120,9 +120,9 @@ const ThankYouPage = () => {
           initial={{ y: -30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.9, duration: 0.5 }}
-          className="text-white/80 text-base leading-relaxed mb-8 px-2"
+          className="text-white/70 texxt-base leading-relaxed mb-8 px-2"
         >
-          We're preparing your order with extra care!
+          <span className="font-semibold">We're preparing your order with extra care!</span>
           <br />
           <span className="text-purple-300 font-medium">
             A confirmation email is on its way to you.

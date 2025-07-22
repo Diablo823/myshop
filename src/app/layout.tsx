@@ -23,9 +23,11 @@ export const metadata: Metadata = {
     "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel, US Cartel store",
   keywords: [
     "US Cartel",
-    "US Cartel marketplace",
     "US Cartel shop",
     "US Cartel store",
+    "US Cartel marketplace",
+    "US Cartel Ecommerce",
+    "US Cartel online store",
     "US Cartel company",
     "US Cartel corporation",
     "fashion marketplace",
@@ -53,7 +55,7 @@ export const metadata: Metadata = {
     title:
       "US Cartel - Marketplace for Fashion, Cosmetics, Gadgets, Household essentials & More",
     description:
-      "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel, richer sellers.",
+      "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel, Ecommerce marketplace, US Cartel store",
     url: "https://uscartel.com",
     siteName: "US Cartel",
     locale: "en_US",
@@ -72,7 +74,7 @@ export const metadata: Metadata = {
     title:
       "US Cartel - Marketplace for Fashion, Cosmetics, Gadgets, Household essentials & More",
     description:
-      "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel, richer sellers.",
+      "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel, Ecommerce marketplace, US Cartel store",
     images: ["/og-image.png"], // Same image as OpenGraph
     creator: "@uscartelcompany", // Replace with your actual Twitter handle if you have one
   },
@@ -173,7 +175,7 @@ export default function RootLayout({
               url: "https://uscartel.com",
 
               description:
-                "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel",
+                "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel, Ecommerce marketplace, US Cartel store",
               foundingDate: "2025", // Update with your actual founding date
               sameAs: [
                 // Add your social media URLs here when you create them
