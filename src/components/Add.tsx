@@ -109,6 +109,7 @@ const Add = ({
             </Button>
           </div>
         </div>
+
         <div className="text-sm relative">
           {stockNumber === 0 ? (
             <span className="text-red-600 text-sm font-semibold">
@@ -134,6 +135,17 @@ const Add = ({
         </div>
       </div>
 
+      <div className="flex flex-col gap-2 text-sm text-gray-800 font-semibold text-center border-2 border-gray-700 p-4 rounded-3xl">
+        <span>
+          Can't order anything from US Cartel for the time being, Please come
+          back after a couple days.
+        </span>
+        <span>
+          We are working hard to bring you the best deals possible, Still then,
+          Stay Tuned!
+        </span>
+      </div>
+
       <div className="flex flex-col gap-4 md:flex-row mt-6 pb-4">
         <Button
           onClick={() => addItem(wixClient, productId, variantId, quantity)}
@@ -144,8 +156,8 @@ const Add = ({
         </Button>
         <Button
           onClick={handleBuyNow}
-          disabled={stockNumber === 0}
-          className="md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-purple-700 text-slate-100 hover:bg-purple-800 disabled:cursor-not-allowed disabled:bg-pink-200 disabled:text-white"
+          disabled
+          className="md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-purple-700 text-slate-100 hover:bg-purple-800 disabled:bg-pink-200 disabled:text-white"
         >
           Buy Now <FaShoppingBag />
         </Button>
@@ -155,3 +167,5 @@ const Add = ({
 };
 
 export default Add;
+
+//disabled={stockNumber === 0}

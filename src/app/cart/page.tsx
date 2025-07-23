@@ -241,7 +241,8 @@ const CartPage = () => {
                 </div>
                 <Button
                   onClick={handleCheckout}
-                  className="w-full mt-4 rounded-full bg-[#FFD700] text-gray-950 font-bold hover:bg-[#FFD700] hover:text-slate-200"
+                  disabled
+                  className="w-full mt-4 rounded-full bg-[#FFD700] text-gray-950 font-bold hover:bg-[#FFD700] hover:text-slate-200 disabled:bg-pink-200 disabled:text-white"
                 >
                   Checkout <FaShoppingBag />
                 </Button>
