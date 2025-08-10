@@ -68,6 +68,10 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
       }))
       ?.reduce((acc: any, curr: any) => ({ ...acc, ...curr }), {}) || {}
   );
+
+  // State to track current image index
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
   // Configure DOMPurify once
   // Updated DOMPurify configuration to preserve HTML formatting
   const sanitizeConfig = {
@@ -129,7 +133,7 @@ const selectedOptionsMedia = product.productOptions?.flatMap((option: any) => {
     <div className="min-h-[calc(100vh-80px)] px-2 md:px-8 lg:px-16 xl:px-32 relative flex flex-col lg:flex-row gap-12">
       {/* IMAGES */}
       <div className="w-full lg:w-1/2 lg:sticky top-20 mt-5 h-max">
-        <ProductImages items={mediaToShow} />
+        <ProductImages items={mediaToShow} currentIndex={currentImageIndex} setCurrentIndex={setCurrentImageIndex}/>
       </div>
       {/* TEXT */}
       <div className="w-full lg:w-1/2 flex flex-col gap-4 lg:mt-5">

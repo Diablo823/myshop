@@ -3,10 +3,15 @@ import Image from "next/image";
 import React, { useState, useEffect, useRef, TouchEvent } from "react";
 import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut } from "lucide-react";
 import { useSwipeable } from "react-swipeable";
-//import Zoom from "react-medium-image-zoom";
 
-const ProductImages = ({ items }: { items: any[] }) => {
-  const [index, setIndex] = useState(0);
+interface ProductImagesProps {
+  items: any[]; // Your existing media items type
+  currentIndex?: number;
+  setCurrentIndex?: (index: number) => void;
+}
+
+const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImagesProps) => {
+  const [index, setIndex] = useState(currentIndex);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -15,13 +20,30 @@ const ProductImages = ({ items }: { items: any[] }) => {
   const [touchDistance, setTouchDistance] = useState<number | null>(null);
   const imageContainerRef = useRef<HTMLDivElement>(null);
 
+  // Update internal index when external currentIndex changes
+  useEffect(() => {
+    setIndex(currentIndex);
+  }, [currentIndex]);
+
+  // Handle index changes and notify parent
+  const handleIndexChange = (newIndex: number) => {
+    // Ensure the index is within bounds
+    const safeIndex = Math.max(0, Math.min(newIndex, items.length - 1));
+    setIndex(safeIndex);
+    if (setCurrentIndex) {
+      setCurrentIndex(safeIndex);
+    }
+  };
+
   const nextSlide = () => {
-    setIndex((prev) => (prev + 1) % items.length);
+    const newIndex = (index + 1) % items.length;
+    handleIndexChange(newIndex);
     resetZoom();
   };
 
   const prevSlide = () => {
-    setIndex((prev) => (prev - 1 + items.length) % items.length);
+    const newIndex = (index - 1 + items.length) % items.length;
+    handleIndexChange(newIndex);
     resetZoom();
   };
 
@@ -194,6 +216,9 @@ const ProductImages = ({ items }: { items: any[] }) => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isModalOpen]);
+
+  // Safety check to ensure index is within bounds
+  const safeIndex = Math.max(0, Math.min(index, items.length - 1));
   
   return (
     <div className="w-full">
@@ -204,8 +229,8 @@ const ProductImages = ({ items }: { items: any[] }) => {
       >
         
         <Image
-          src={items[index].image?.url}
-          alt={items[index].image?.altText || "US Cartel product image"}
+          src={items[safeIndex]?.image?.url}
+          alt={items[safeIndex]?.image?.altText || "US Cartel product image"}
           fill
           sizes="50vw"
           priority
@@ -245,7 +270,7 @@ const ProductImages = ({ items }: { items: any[] }) => {
         {/* Image Counter */}
         {items.length > 1 && (
           <div className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
-            {index + 1} / {items.length}
+            {safeIndex + 1} / {items.length}
           </div>
         )}
       </div>
@@ -255,12 +280,12 @@ const ProductImages = ({ items }: { items: any[] }) => {
         {items.map((item: any, idx: number) => (
           <div
             className={`w-16 h-16 relative flex-shrink-0 transition-all duration-300 ${
-              idx === index 
+              idx === safeIndex 
                 ? "ring-2 ring-pink-300 rounded-lg ring-offset-2" 
                 : "opacity-70 hover:opacity-100"
             }`}
-            key={item._id}
-            onClick={() => setIndex(idx)}
+            key={item._id || idx}
+            onClick={() => handleIndexChange(idx)}
           >
             <Image
               src={item.image?.url}
@@ -288,7 +313,7 @@ const ProductImages = ({ items }: { items: any[] }) => {
             {/* Modal Header */}
             <div className="flex justify-between items-center p-4 border-b">
               <div className="text-lg font-medium">
-                Image {index + 1} of {items.length}
+                Image {safeIndex + 1} of {items.length}
               </div>
               
               {/* Zoom controls */}
@@ -349,7 +374,7 @@ const ProductImages = ({ items }: { items: any[] }) => {
                     }}
                   >
                     <Image
-                      src={items[index].image?.url}
+                      src={items[safeIndex]?.image?.url}
                       alt="zoomed-img"
                       width={550}
                       height={550}
