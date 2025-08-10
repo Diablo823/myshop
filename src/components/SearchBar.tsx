@@ -87,7 +87,7 @@ const SearchBar = () => {
 
   const handleSuggestionClick = (slug: string) => {
     suggestionClickedRef.current = true;
-    router.push(`/${slug}`);
+    router.push(`/products/${slug}`);
     setShowSuggestions(false);
     setSearchTerm("");
     
