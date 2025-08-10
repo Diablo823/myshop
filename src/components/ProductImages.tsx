@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useState, useEffect, useRef, TouchEvent } from "react";
 import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut } from "lucide-react";
 import { useSwipeable } from "react-swipeable";
+//import Zoom from "react-medium-image-zoom";
 
 const ProductImages = ({ items }: { items: any[] }) => {
   const [index, setIndex] = useState(0);
@@ -201,6 +202,7 @@ const ProductImages = ({ items }: { items: any[] }) => {
         className="h-[400px] md:h-[570px] relative group"
         {...handlers}
       >
+        
         <Image
           src={items[index].image?.url}
           alt={items[index].image?.altText || "US Cartel product image"}
@@ -210,6 +212,7 @@ const ProductImages = ({ items }: { items: any[] }) => {
           className="object-cover object-center rounded-lg transition-transform duration-500 cursor-pointer"
           onClick={openModal}
         />
+        
 
         {/* Navigation Arrows */}
         {items.length > 1 && (

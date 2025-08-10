@@ -135,13 +135,13 @@ const Add = ({
         </div>
       </div>
 
-      <div className="flex flex-col gap-2 text-sm text-gray-800 font-semibold text-center border-2 border-gray-700 p-4 rounded-3xl">
+      <div className="flex flex-col gap-2 text-sm text-white font-semibold text-center border-2 bg-red-600 p-4 rounded-3xl shadow-xl">
         <span>
           Can't order anything from US Cartel for the time being, Please come
           back after a couple days.
         </span>
         <span>
-          We are working hard to bring you the best deals possible, Still then,
+          Currently we are out of stock on all products, We are working hard to bring you the best deals possible, Still then,
           Stay Tuned!
         </span>
       </div>

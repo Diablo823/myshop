@@ -1,6 +1,29 @@
 import ProductWrapper from "@/components/products/ProductWrapper";
 import Promotion from "@/components/Promotion";
 import React from "react";
+import { Metadata } from "next";
+
+export async function generateMetadata (): Promise<Metadata> {
+  return {
+    title: "Deals and Promotions",
+    description: "Discover the best deals and promotions on US Cartel. Get discounts on your favorite products every day, week, and month!",
+    openGraph: {
+      title: "Deals and Promotions - US Cartel",
+      description: "Discover the best deals and promotions on US Cartel. Get discounts on your favorite products every day, week, and month!",
+      url: "https://uscartel.com/deals",
+      siteName: "US Cartel",
+      images: [
+        {
+          url: "https://uscartel.com/images/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: "Deals and Promotions on US Cartel"
+        }
+      ],
+      type: "website"
+    }
+  }
+}
 
 const DealPage = () => {
   return (

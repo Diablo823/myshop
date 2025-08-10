@@ -75,7 +75,7 @@ const CartPage = () => {
   };
 
   const onSlugClick = (slug: string) => {
-    router.push(`/${encodeURIComponent(slug)}`);
+    router.push(`/products/${encodeURIComponent(slug)}`);
   };
 
   const getVariantInfo = (descriptionLines: DescriptionLine[]) => {

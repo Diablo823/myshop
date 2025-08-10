@@ -99,7 +99,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
   };
 
   const onSlugClick = (slug: string) => {
-    router.push(`/${encodeURIComponent(slug)}`);
+    router.push(`/products/${encodeURIComponent(slug)}`);
     onClose();
   };
 

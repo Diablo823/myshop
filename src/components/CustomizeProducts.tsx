@@ -8,34 +8,30 @@ const CustomizeProducts = ({
   productId,
   variants,
   productOptions,
+  selectedOptions,
+  setSelectedOptions,
 }: {
   productId: string;
   variants: products.Variant[];
   productOptions: products.ProductOption[];
+  selectedOptions: Record<string, string>;
+  setSelectedOptions: (options: Record<string, string>) => void;
 }) => {
+  // Early return if no real options or variants
+  if (
+    !productOptions || productOptions.length === 0 || 
+    !variants || variants.length === 0 ||
+    (variants.length === 1 && variants[0]._id === "00000000-0000-0000-0000-000000000000")
+  ) {
+    return (
+      <Add
+        productId={productId}
+        variantId="00000000-0000-0000-0000-000000000000"
+        stockNumber={0}
+      />
+    );
+  }
 
-  // NEW COMPONENT IF NO PRODUCT OPTIONS AND VARIANTS
-
-// Early return if no real options or variants
-if (
-  !productOptions || productOptions.length === 0 || 
-  !variants || variants.length === 0 ||
-  (variants.length === 1 && variants[0]._id === "00000000-0000-0000-0000-000000000000")
-) {
-  return (
-    <Add
-      productId={productId}
-      variantId="00000000-0000-0000-0000-000000000000"
-      stockNumber={0}
-    />
-  );
-}
-
-
-
-  const [selectedOptions, setSelectedOptions] = useState<{
-    [key: string]: string;
-  }>({});
   const [selectedVariant, setSelectedVariant] = useState<products.Variant>();
 
   useEffect(() => {
@@ -47,27 +43,31 @@ if (
       );
     });
     setSelectedVariant(variant);
-  }, [selectedOptions, variants]);
+
+    // If current selection is not in stock, try to find an alternative
+    if (!variant || !variant.stock?.inStock || !variant.stock?.quantity || variant.stock.quantity <= 0) {
+      // Find the first available variant that matches as many current selections as possible
+      const availableVariant = variants.find((v) => 
+        v.stock?.inStock && 
+        v.stock?.quantity && 
+        v.stock.quantity > 0 &&
+        v.choices
+      );
+
+      if (availableVariant && availableVariant.choices) {
+        // Only update if the current selection is actually unavailable
+        const currentIsUnavailable = !variant || !variant.stock?.inStock || !variant.stock?.quantity || variant.stock.quantity <= 0;
+        
+        if (currentIsUnavailable) {
+          setSelectedOptions(availableVariant.choices);
+        }
+      }
+    }
+  }, [selectedOptions, variants, setSelectedOptions]);
 
   const handleOptionSelect = (optionType: string, choice: string) => {
-    setSelectedOptions((prev) => ({ ...prev, [optionType]: choice }));
+    setSelectedOptions({ ...selectedOptions, [optionType]: choice });
   };
-
-  /* const isVariantInStock = (choices: { [key: string]: string }) => {
-    return variants.some((variant) => {
-      const variantChoices = variant.choices;
-      if (!variantChoices) return false;
-
-      return (
-        Object.entries(choices).every(
-          ([key, value]) => variantChoices[key] === value
-        ) &&
-        variant.stock?.inStock &&
-        variant.stock?.quantity &&
-        variant.stock?.quantity > 0
-      );
-    });
-  }; */
 
   const isVariantInStock = (choices: { [key: string]: string }) => {
     return variants.some((variant) => {

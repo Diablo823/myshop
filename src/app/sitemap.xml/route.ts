@@ -106,7 +106,7 @@ export async function GET() {
     allProducts.forEach(product => {
       if (product.slug) {
         urls.push({
-          loc: `https://www.uscartel.com/${product.slug}`,
+          loc: `https://www.uscartel.com/products/${product.slug}`,
           lastmod: today,
           priority: '0.7'
         });

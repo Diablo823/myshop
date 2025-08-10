@@ -3,7 +3,7 @@
 import Add from "@/components/Add";
 import CustomizeProducts from "@/components/CustomizeProducts";
 import ProductImages from "@/components/ProductImages";
-import React from "react";
+import React, { useState } from "react";
 import DOMPurify from "isomorphic-dompurify";
 import { Badge } from "@/components/ui/badge";
 import ShareUrlButton2 from "@/components/ShareUrlButton2";
@@ -24,6 +24,50 @@ interface ProductPageClientProps {
 }
 
 const ProductPageClient = ({ product }: ProductPageClientProps) => {
+
+  // Helper Function to find thfirst available variant
+  const getInitialSelectedOptions = () => {
+    if (!product.productOptions || !product.variants) {
+      return {};
+    }
+
+    // Check if this product has real variants (not just the default one)
+    const hasRealVariants = product.variants.length > 1 || 
+      (product.variants.length === 1 && 
+       product.variants[0]._id !== "00000000-0000-0000-0000-000000000000");
+
+    if (!hasRealVariants) {
+      return {};
+    }
+
+    const firstAvailableVariant = product.variants.find((variant: any) => 
+      variant.stock?.inStock && 
+      variant.stock?.quantity && 
+      variant.stock.quantity > 0 &&
+      variant._id !== "00000000-0000-0000-0000-000000000000"
+    );
+
+    if (firstAvailableVariant && firstAvailableVariant.choices) {
+      // Return the choices from the first available variant
+      return firstAvailableVariant.choices;
+    }
+
+    // Fallback to first choice of each option if no variants are available
+    return product.productOptions
+      ?.map((option: any) => ({
+        [option.name || ""]: option.choices?.[0].description || "",
+      }))
+      ?.reduce((acc: any, curr: any) => ({ ...acc, ...curr }), {}) || {};
+  }
+
+   // State to track selected options
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>(
+    product.productOptions
+      ?.map((option: any) => ({
+        [option.name || ""]: option.choices?.[0].description || "",
+      }))
+      ?.reduce((acc: any, curr: any) => ({ ...acc, ...curr }), {}) || {}
+  );
   // Configure DOMPurify once
   // Updated DOMPurify configuration to preserve HTML formatting
   const sanitizeConfig = {
@@ -69,11 +113,23 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
     (section.title === "" && section.description)
 );
 
+const selectedOptionsMedia = product.productOptions?.flatMap((option: any) => {
+    const selectedChoice = option.choices?.find(
+      (choice: any) => choice.description === selectedOptions[option.name || ""]
+    );
+    return selectedChoice?.media?.items ?? [];
+  });
+
+  // Determine which media to show
+  const mediaToShow = selectedOptionsMedia?.length > 0 
+    ? selectedOptionsMedia 
+    : product.media?.items;
+
   return (
-    <div className="min-h-[calc(100vh-80px)] px-2 md:px-8 lg:px-16 xl:px-32 relative flex flex-col lg:flex-row gap-16">
+    <div className="min-h-[calc(100vh-80px)] px-2 md:px-8 lg:px-16 xl:px-32 relative flex flex-col lg:flex-row gap-12">
       {/* IMAGES */}
       <div className="w-full lg:w-1/2 lg:sticky top-20 mt-5 h-max">
-        <ProductImages items={product.media?.items!} />
+        <ProductImages items={mediaToShow} />
       </div>
       {/* TEXT */}
       <div className="w-full lg:w-1/2 flex flex-col gap-4 lg:mt-5">
@@ -160,6 +216,8 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
             productId={product._id!}
             variants={product.variants}
             productOptions={product.productOptions}
+            selectedOptions={selectedOptions}
+            setSelectedOptions={setSelectedOptions}
           />
         ) : (
           <Add

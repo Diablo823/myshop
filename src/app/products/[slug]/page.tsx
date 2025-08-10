@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   );
   const currency = product.price?.currency || "USD";
   const inStock = product.stock?.inStock !== false;
-  const canonicalUrl = `https://uscartel.com/${params.slug}`;
+  const canonicalUrl = `https://uscartel.com/products/${params.slug}`;
 
   // SANITIZE AND PREPARE DESCRIPTION
   const rawDescription = product.description || `Buy ${product.name} at the best price from US Cartel`;
@@ -120,7 +120,7 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
     .eq("slug", decodedSlug)
     .find();
 
-  if (!products.items[0]) {
+  if (!products.items[0] || !products.items[0].visible) {
     return notFound();
   }
 
@@ -185,8 +185,26 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
           limit={20}
         />
       </div> */}
+
+      {/* <RelatedProducts productId={product._id!} /> */}
     </>
   );
 };
 
 export default SinglePage;
+
+/* interface RelatedProductsProps {
+  productId: string;
+}
+
+async function RelatedProducts({ productId }: RelatedProductsProps) {
+  const wixClient = await wixClientServer();
+  const algorithm = await wixClient.recommendations.listAvailableAlgorithms();
+
+  console.log(JSON.stringify(algorithm, null, 2));
+
+  return <div>
+
+  </div>
+  
+} */

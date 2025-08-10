@@ -99,7 +99,7 @@ const ProductsList = ({
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 sm:gap-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
         {products.map((product: products.Product) => (
           <Link
-            href={"/" + encodeURIComponent(product.slug || "")}
+            href={"/products/" + encodeURIComponent(product.slug || "")}
             className="group flex flex-col rounded-2xl border bg-slate-50 shadow-sm transition-all hover:shadow-md"
             key={product._id}
           >

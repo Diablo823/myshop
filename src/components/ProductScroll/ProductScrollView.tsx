@@ -37,7 +37,7 @@ const ProductScrollView = ({
       <div className="flex gap-4">
         {products.map((product: products.Product) => (
           <Link
-            href={"/" + encodeURIComponent(product.slug || "")}
+            href={"/products/" + encodeURIComponent(product.slug || "")}
             className="flex-none w-[15rem] bg-slate-50 rounded-2xl shadow-md hover:shadow-lg"
             key={product._id}
           >
