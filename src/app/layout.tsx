@@ -242,7 +242,7 @@ export default function RootLayout({
           <Navbar />
           {/* <NewNav /> */}
           <main className="pt-16 pb-20">
-            <Suspense fallback={<LoadingSpinner />}>{children}</Suspense>
+            {children}
           </main>
           <Toaster />
           <Footer />

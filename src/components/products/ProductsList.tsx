@@ -177,16 +177,18 @@ const ProductsList = ({
           >
             {loading && (
               <div className="relative flex flex-col items-center gap-2">
-                <div className="animate-pulse relative w-10 h-10">
-                  <Image
+                {/*<div className="animate-pulse relative w-10 h-10">
+                   <Image
                     src="https://ik.imagekit.io/5ok2lashts/loadlogo.png?updatedAt=1736980178600" // Replace with your image path
                     alt="Loading animation"
                     fill
                     sizes="(max-width: 768px) 96px, 96px"
                     priority // Since this is a loader, we want it to load immediately
                     className="object-contain"
-                  />
-                </div>
+                  /> 
+                </div>*/}
+                  <div className="w-6 h-6 border-4 border-gray-200 border-t-black rounded-full animate-spin" />
+                  <div className="text-black font-semibold text-xs">Loading More Products</div>
                 {/* <span className="text-xs font-semibold tracking-wide text-gray-800">Loading more...</span> */}
               </div>
             )}

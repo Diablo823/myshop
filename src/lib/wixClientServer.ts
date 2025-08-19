@@ -4,6 +4,8 @@ import { products, collections } from "@wix/stores";
 import { cookies } from "next/headers";
 import { members } from '@wix/members';
 
+//export type WixClient = ReturnType<typeof createClient>;
+
 export const wixClientServer = async () => {
   let refreshToken;
 

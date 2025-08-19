@@ -143,7 +143,7 @@ const selectedOptionsMedia = product.productOptions?.flatMap((option: any) => {
           </h2>
         ) : null}
         <div className="h-[2px] bg-gray-100" />
-        <h1 className="text-xl lg:text-2xl font-bold">{product.name}</h1>
+        <h1 className="text-lg lg:text-xl font-bold">{product.name}</h1>
         <div
           className="md:text-sm md:text-gray-900 md:block hidden"
           dangerouslySetInnerHTML={{
@@ -185,11 +185,11 @@ const selectedOptionsMedia = product.productOptions?.flatMap((option: any) => {
           </h2>
         ) : (
           <div className="flex items-center gap-4">
-            <h3 className="text-lg font-bold line-through text-gray-700">
-              ₹{product.priceData?.price}
-            </h3>
-            <h3 className="text-xl font-bold text-black">
+            <h3 className="text-xl font-bold text-">
               ₹{product.priceData?.discountedPrice}
+            </h3>
+            <h3 className="text-lg font-bold line-through text-red-600">
+              ₹{product.priceData?.price}
             </h3>
             <Badge className="bg-[#800020] hover:bg-[#800020] text-xs text-white">
               {calculateDiscount(
@@ -198,7 +198,7 @@ const selectedOptionsMedia = product.productOptions?.flatMap((option: any) => {
               )}
               % OFF
             </Badge>
-            <Badge className="bg-rose-900 hover:bg-rose-900 text-xs text-white">
+            <Badge className="bg-rose-700 hover:bg-rose-700 text-xs text-white">
               {product.ribbon}
             </Badge>
           </div>
