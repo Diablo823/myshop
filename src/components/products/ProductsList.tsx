@@ -8,6 +8,7 @@ import DOMPurify from "isomorphic-dompurify";
 import { products } from "@wix/stores";
 import { useInView } from "react-intersection-observer";
 import { useSearchParams } from "next/navigation";
+import { FaArrowDown } from "react-icons/fa";
 
 interface ProductsListProps {
   initialProducts: products.Product[];
@@ -96,20 +97,16 @@ const ProductsList = ({
 
   return (
     <div className="mt-4">
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 sm:gap-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-1 gap-y-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
         {products.map((product: products.Product) => (
           <Link
             href={"/products/" + encodeURIComponent(product.slug || "")}
-            className="group flex flex-col rounded-2xl border bg-slate-50 shadow-sm transition-all hover:shadow-md"
+            className="group flex flex-col rounded-lg border bg-white  transition-all"
             key={product._id}
           >
-            <div className="relative pb-[120%] w-full overflow-hidden rounded-t-2xl">
-              <Badge className="absolute right-2 top-2 z-20 bg-[#800020] px-2 py-1 text-xs text-white hover:bg-[#800020]">
-                {calculateDiscount(
-                  product.priceData?.price || 0,
-                  product.priceData?.discountedPrice || 0
-                )}
-                % OFF
+            <div className="relative pb-[120%] w-full overflow-hidden rounded-t-lg">
+              <Badge className="absolute right-2 top-2 z-20 bg-blue-100 px-2 py-1 text-xs text-blue-800 hover:bg-blue-100 rounded-lg">
+                {product.ribbon || null}
               </Badge>
               <Image
                 src={product.media?.mainMedia?.image?.url || "/product.png"}
@@ -130,30 +127,52 @@ const ProductsList = ({
                 />
               )} */}
             </div>
-            <div className="flex flex-row justify-between p-2 gap-4">
+            <div className="flex flex-col p-2 gap-y-0.5">
               <span className="text-xs md:text-sm font-bold">
+                {product.brand || "--------"}
+              </span>
+              <span className="text-xs text-gray-600">
                 {product?.name?.length && product.name.length > 20
                   ? `${product.name.substring(0, 25)}...`
                   : product?.name || "No Name"}
               </span>
-
-              {product.priceData?.price ===
-              product.priceData?.discountedPrice ? (
-                <span className="text-sm font-bold text-black">
-                  ₹{product.priceData?.price}
-                </span>
-              ) : (
-                <div className="mt-auto flex items-center justify-between">
-                  <div className="flex flex-col">
-                    <span className="font-bold text-sm text-black">
-                      ₹{product.priceData?.discountedPrice}
-                    </span>
-                    <span className="text-xs font-bold text-gray-500 line-through">
-                      ₹{product.priceData?.price}
-                    </span>
+              <div className="flex flex-row gap-2 items-center">
+                {product.priceData?.price ===
+                product.priceData?.discountedPrice ? (
+                  <span className="text-sm font-bold text-black">
+                    ₹{product.priceData?.price}
+                  </span>
+                ) : (
+                  <div className="mt-auto flex items-center justify-between">
+                    <div className="flex flex-row gap-2 items-center">
+                      <span className="font-bold text-sm text-black">
+                        ₹{product.priceData?.discountedPrice}
+                      </span>
+                      <span className="text-sm font-bold text-gray-500 line-through">
+                        ₹{product.priceData?.price}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+                
+                  {product.priceData?.price !==
+                    product.priceData?.discountedPrice && (
+                    <div className="flex flex-row items-center gap-1">
+                      <span className="text-green-600">
+                        <FaArrowDown size={12} />
+                      </span>
+
+                      <span className="text-xs font-semibold text-green-600">
+                        {calculateDiscount(
+                          product.priceData?.price || 0,
+                          product.priceData?.discountedPrice || 0
+                        )}
+                        % OFF
+                      </span>
+                    </div>
+                  )}
+                
+              </div>
             </div>
             {product.additionalInfoSections && (
               <div
@@ -169,15 +188,15 @@ const ProductsList = ({
             )}
           </Link>
         ))}
-</div>
-        {!limit && hasMore && (
-          <div
-            ref={ref}
-            className="w-full flex items-center justify-center p-1 mt-4"
-          >
-            {loading && (
-              <div className="relative flex flex-col items-center gap-2">
-                {/*<div className="animate-pulse relative w-10 h-10">
+      </div>
+      {!limit && hasMore && (
+        <div
+          ref={ref}
+          className="w-full flex items-center justify-center p-1 mt-4"
+        >
+          {loading && (
+            <div className="relative flex flex-col items-center gap-2">
+              {/*<div className="animate-pulse relative w-10 h-10">
                    <Image
                     src="https://ik.imagekit.io/5ok2lashts/loadlogo.png?updatedAt=1736980178600" // Replace with your image path
                     alt="Loading animation"
@@ -187,14 +206,15 @@ const ProductsList = ({
                     className="object-contain"
                   /> 
                 </div>*/}
-                  <div className="w-6 h-6 border-4 border-gray-200 border-t-black rounded-full animate-spin" />
-                  <div className="text-black font-semibold text-xs">Loading More Products</div>
-                {/* <span className="text-xs font-semibold tracking-wide text-gray-800">Loading more...</span> */}
+              <div className="w-6 h-6 border-4 border-gray-200 border-t-black rounded-full animate-spin" />
+              <div className="text-black font-semibold text-xs">
+                Loading More Products
               </div>
-            )}
-          </div>
-        )}
-      
+              {/* <span className="text-xs font-semibold tracking-wide text-gray-800">Loading more...</span> */}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

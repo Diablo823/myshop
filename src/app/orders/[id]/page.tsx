@@ -6,8 +6,13 @@ import { formatDistanceToNow } from "date-fns";
 
 type OrderType = orders.Order;
 
-export default async function OrderPage({ params }: { params: { id: string } }) {
-  const id = params.id;
+export default async function OrderPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  //const id = params.id;
+  const { id } = await params;
   const wixClient = await wixClientServer();
 
   let order: OrderType;
@@ -58,23 +63,26 @@ export default async function OrderPage({ params }: { params: { id: string } }) 
   };
 
   // Prepare the data to pass to the client component
-  const lineItems = order.lineItems?.map((item: any) => {
-    const { size, color } = getProductDetails(item.descriptionLines || []);
-    return {
-      _id: item._id || `item-${Math.random().toString(36).substr(2, 9)}`, // Ensuring _id is a string
-      productName: getProductName(item),
-      image: item.image ? transformWixImageUrl(item.image) : "/placeholder.jpg",
-      size: size || "N/A",
-      color: color || "N/A",
-      quantity: Number(item.quantity || 0), // Ensure quantity is a number
-      price: item.price?.formattedAmount || "N/A"
-    };
-  }) || [];
+  const lineItems =
+    order.lineItems?.map((item: any) => {
+      const { size, color } = getProductDetails(item.descriptionLines || []);
+      return {
+        _id: item._id || `item-${Math.random().toString(36).substr(2, 9)}`, // Ensuring _id is a string
+        productName: getProductName(item),
+        image: item.image
+          ? transformWixImageUrl(item.image)
+          : "/placeholder.jpg",
+        size: size || "N/A",
+        color: color || "N/A",
+        quantity: Number(item.quantity || 0), // Ensure quantity is a number
+        price: item.price?.formattedAmount || "N/A",
+      };
+    }) || [];
 
   const orderData = {
     order,
     formattedDate: formatDate(order.purchasedDate),
-    lineItems
+    lineItems,
   };
 
   return <OrderDetails orderData={orderData} />;

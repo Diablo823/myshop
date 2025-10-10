@@ -222,22 +222,32 @@ const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImages
   
   return (
     <div className="w-full">
-      {/* MAIN IMAGE */}
+      {/* MAIN IMAGE - WITH SLIDING ANIMATION */}
       <div 
-        className="h-[400px] md:h-[570px] relative group"
+        className="h-[400px] md:h-[570px] relative group overflow-hidden rounded-lg"
         {...handlers}
       >
-        
-        <Image
-          src={items[safeIndex]?.image?.url}
-          alt={items[safeIndex]?.image?.altText || "US Cartel product image"}
-          fill
-          sizes="50vw"
-          priority
-          className="object-cover object-center rounded-lg transition-transform duration-500 cursor-pointer"
-          onClick={openModal}
-        />
-        
+        <div 
+          className="flex h-full transition-transform duration-500 ease-out"
+          style={{ transform: `translateX(-${safeIndex * 100}%)` }}
+        >
+          {items.map((item: any, idx: number) => (
+            <div 
+              key={item._id || idx}
+              className="relative w-full h-full flex-shrink-0"
+            >
+              <Image
+                src={item.image?.url}
+                alt={item.image?.altText || "US Cartel product image"}
+                fill
+                sizes="50vw"
+                priority={idx === safeIndex}
+                className="object-cover object-center cursor-pointer"
+                onClick={openModal}
+              />
+            </div>
+          ))}
+        </div>
 
         {/* Navigation Arrows */}
         {items.length > 1 && (
@@ -248,7 +258,7 @@ const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImages
                 prevSlide();
               }}
               className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 
-                         transition-all duration-300 opacity-0 group-hover:opacity-100 focus:opacity-100"
+                         transition-all duration-300 opacity-0 group-hover:opacity-100 focus:opacity-100 z-10"
               aria-label="Previous image"
             >
               <ChevronLeft className="w-6 h-6 text-gray-800" />
@@ -259,7 +269,7 @@ const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImages
                 nextSlide();
               }}
               className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 
-                         transition-all duration-300 opacity-0 group-hover:opacity-100 focus:opacity-100"
+                         transition-all duration-300 opacity-0 group-hover:opacity-100 focus:opacity-100 z-10"
               aria-label="Next image"
             >
               <ChevronRight className="w-6 h-6 text-gray-800" />
@@ -269,7 +279,7 @@ const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImages
 
         {/* Image Counter */}
         {items.length > 1 && (
-          <div className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+          <div className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm z-10">
             {safeIndex + 1} / {items.length}
           </div>
         )}
@@ -299,7 +309,7 @@ const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImages
         ))}
       </div>
 
-      {/* MODAL - With touch pinch zoom support */}
+      {/* MODAL - WITH SLIDING ANIMATION */}
       {isModalOpen && (
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80"
@@ -349,55 +359,80 @@ const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImages
               </div>
             </div>
             
-            {/* Image container with touch support */}
+            {/* Image container with touch support and sliding */}
             <div className="relative h-[50vh] md:h-[60vh] overflow-hidden" ref={imageContainerRef}>
-              <div 
-                className="w-full h-full overflow-hidden"
-                onMouseDown={handleMouseDown}
-                onMouseMove={handleMouseMove}
-                onMouseUp={handleMouseUp}
-                onMouseLeave={handleMouseUp}
-                onTouchStart={handleTouchStart}
-                onTouchMove={handleTouchMove}
-                onTouchEnd={handleTouchEnd}
-                onTouchCancel={handleTouchEnd}
-              >
+              {zoomLevel === 1 ? (
+                // Sliding carousel when not zoomed
                 <div 
-                  className={`w-full h-full flex items-center justify-center ${zoomLevel > 1 ? 'cursor-move' : ''}`}
+                  className="flex h-full transition-transform duration-500 ease-out"
+                  style={{ transform: `translateX(-${safeIndex * 100}%)` }}
                 >
-                  <div
-                    style={{
-                      transform: `scale(${zoomLevel}) translate(${position.x}px, ${position.y}px)`,
-                      transition: isDragging ? 'none' : 'transform 0.1s ease',
-                      maxWidth: '100%',
-                      maxHeight: '100%'
-                    }}
+                  {items.map((item: any, idx: number) => (
+                    <div 
+                      key={item._id || idx}
+                      className="relative w-full h-full flex-shrink-0 flex items-center justify-center"
+                    >
+                      <Image
+                        src={item.image?.url}
+                        alt="modal image"
+                        width={550}
+                        height={550}
+                        className="object-contain"
+                        draggable={false}
+                      />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                // Zoom and pan when zoomed in
+                <div 
+                  className="w-full h-full overflow-hidden"
+                  onMouseDown={handleMouseDown}
+                  onMouseMove={handleMouseMove}
+                  onMouseUp={handleMouseUp}
+                  onMouseLeave={handleMouseUp}
+                  onTouchStart={handleTouchStart}
+                  onTouchMove={handleTouchMove}
+                  onTouchEnd={handleTouchEnd}
+                  onTouchCancel={handleTouchEnd}
+                >
+                  <div 
+                    className={`w-full h-full flex items-center justify-center ${zoomLevel > 1 ? 'cursor-move' : ''}`}
                   >
-                    <Image
-                      src={items[safeIndex]?.image?.url}
-                      alt="zoomed-img"
-                      width={550}
-                      height={550}
-                      className="object-contain touch-none"
-                      draggable={false}
-                    />
+                    <div
+                      style={{
+                        transform: `scale(${zoomLevel}) translate(${position.x}px, ${position.y}px)`,
+                        transition: isDragging ? 'none' : 'transform 0.1s ease',
+                        maxWidth: '100%',
+                        maxHeight: '100%'
+                      }}
+                    >
+                      <Image
+                        src={items[safeIndex]?.image?.url}
+                        alt="zoomed-img"
+                        width={550}
+                        height={550}
+                        className="object-contain touch-none"
+                        draggable={false}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
               
               {/* Navigation Arrows */}
               {items.length > 1 && (
                 <>
                   <button
                     onClick={prevSlide}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 cursor-pointer"
+                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 cursor-pointer z-10"
                     aria-label="Previous image"
                   >
                     <ChevronLeft className="w-6 h-6 text-gray-800" />
                   </button>
                   <button
                     onClick={nextSlide}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 cursor-pointer"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 cursor-pointer z-10"
                     aria-label="Next image"
                   >
                     <ChevronRight className="w-6 h-6 text-gray-800" />

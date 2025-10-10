@@ -1,11 +1,16 @@
 import { wixClientServer } from "@/lib/wixClientServer";
 import { notFound } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 import ProductPageClient from "./ProductPageClient";
 import ProductScrollWrapper from "@/components/ProductScroll/ProductScrollWrapper";
 import ProductWrapper from "@/components/products/ProductWrapper";
 import { Metadata } from "next";
 import  DomPurify  from "isomorphic-dompurify";
+import RelatedProductsWrapper from "@/components/products/RelatedProductsWrapper";
+import MultiCategoryRelatedWrapper from "@/components/multicategory/MultiCategoryProductWrapper";
+
+
+
 
 const sanitizeConfig = {
   ALLOWED_TAGS: [],
@@ -13,10 +18,11 @@ const sanitizeConfig = {
   KEEP_CONTETT: true,
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
 
   const wixClient = await wixClientServer();
-  const decodedSlug = decodeURIComponent(params.slug);
+  const { slug } = await params;
+  const decodedSlug = decodeURIComponent(slug);
 
   const products = await wixClient.products.queryProducts().eq("slug", decodedSlug).find();
 
@@ -37,7 +43,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   );
   const currency = product.price?.currency || "USD";
   const inStock = product.stock?.inStock !== false;
-  const canonicalUrl = `https://uscartel.com/products/${params.slug}`;
+  const canonicalUrl = `https://uscartel.com/products/${slug}`;
 
   // SANITIZE AND PREPARE DESCRIPTION
   const rawDescription = product.description || `Buy ${product.name} at the best price from US Cartel`;
@@ -110,10 +116,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-const SinglePage = async ({ params }: { params: { slug: string } }) => {
+const SinglePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const wixClient = await wixClientServer();
+  const { slug } = await params;
 
-  const decodedSlug = decodeURIComponent(params.slug)
+  const decodedSlug = decodeURIComponent(slug)
   
   const products = await wixClient.products
     .queryProducts()
@@ -125,7 +132,8 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
   }
 
   const product = products.items[0];
-
+  
+//console.log("Product Categories:", product.collectionIds);
   return (
     <>
       {/* Client Component for main product display */}
@@ -155,8 +163,34 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
       />
       
       {/* Server Components for product recommendations */}
-      <div className="px-2 md:px-8 lg:px-16 xl:px-32">
-        <h2 className="text-lg md:text-xl font-bold mt-8">More Picks</h2>
+      
+        {/* Related Products Section - Uses multiple algorithms */}
+      <div className="px-1 md:px-8 lg:px-16 xl:px-32">
+        <h2 className="px-3 text-lg md:text-xl font-bold mt-8">You May Also Like</h2>
+        <Suspense fallback={<RelatedProductsLoadingSkeleton />}>
+          <RelatedProductsWrapper
+            productId={product._id!}
+            limit={6}
+          />
+        </Suspense>
+      </div>
+      <div className="px-1 md:px-8 lg:px-16 xl:px-32">
+        <h2 className="px-3 text-lg md:text-xl font-bold mt-8">Recommended Products</h2>
+        <Suspense fallback={<RelatedProductsLoadingSkeleton />}>
+          <MultiCategoryRelatedWrapper 
+          categoryIds={product.collectionIds || []}
+          currentProductId={product._id!}
+          limit={6}
+          shuffle={true}
+          />
+        </Suspense>
+      </div>
+       
+      
+      
+      
+      <div className="px-1 md:px-8 lg:px-16 xl:px-32">
+        <h2 className="px-3 text-lg md:text-xl font-bold mt-8">More Picks</h2>
         <ProductWrapper
           categoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID!}
           limit={6}
@@ -170,8 +204,8 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
           limit={16}
         />
       </div>
-      <div className="px-2 md:px-8 lg:px-16 xl:px-32">
-        <h2 className="text-lg md:text-xl font-bold mt-8">More Selections</h2>
+      <div className="px-1 md:px-8 lg:px-16 xl:px-32">
+        <h2 className="px-3 text-lg md:text-xl font-bold mt-8">More Selections</h2>
         <ProductWrapper
           categoryId={process.env.NEXT_PUBLIC_POPULAR_PRDUCTS_CATEGORY_ID!}
           limit={10}
@@ -190,6 +224,24 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
     </>
   );
 };
+
+function RelatedProductsLoadingSkeleton() {
+  return (
+    <div className="mt-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 sm:gap-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="group flex flex-col rounded-2xl border bg-slate-50 shadow-sm animate-pulse">
+            <div className="relative pb-[120%] w-full overflow-hidden rounded-t-2xl bg-gray-200"></div>
+            <div className="flex flex-row justify-between p-2 gap-4">
+              <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+              <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default SinglePage;
 

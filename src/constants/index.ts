@@ -3,6 +3,8 @@ import { FaFacebookF, FaInstagram, FaPinterest, FaYoutube, FaGooglePay, FaCcMast
 import { FaXTwitter } from "react-icons/fa6"
 import { SiPhonepe, SiPaytm, SiVisa,  } from "react-icons/si";
 
+export const NEXT_PUBLIC_WIX_APP_ID_BACK_IN_STOCK_NOTIFICATIONS = "1380b703-ce81-ff05-f115-39571d94dfcd";
+
 
 export const navLinks = [
     {

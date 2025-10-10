@@ -19,6 +19,12 @@ const ThankYouPage = () => {
   const router = useRouter();
   const orderId = searchParams.get("orderId");
   const controls = useAnimation();
+  const [mounted, setMounted] = useState(false);
+
+  // Generate random positions only on client side after mount
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!orderId) return;
@@ -57,31 +63,35 @@ const ThankYouPage = () => {
         animate={controls}
         className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl p-2 sm:p-12 mx-4 max-w-lg w-full text-center z-10"
       >
-        {/* Floating hearts animation */}
+        {/* Floating hearts animation - only render after client mount */}
         <div className="absolute inset-0 overflow-hidden rounded-3xl">
-          {[...Array(6)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute text-pink-300/30 text-xl"
-              initial={{ y: "100%", x: Math.random() * 100 + "%" }}
-              animate={{
-                y: "-100%",
-                x: [
-                  Math.random() * 100 + "%",
-                  Math.random() * 100 + "%",
-                  Math.random() * 100 + "%",
-                ],
-              }}
-              transition={{
-                duration: 6 + Math.random() * 4,
-                repeat: Infinity,
-                delay: i * 0.8,
-                ease: "linear",
-              }}
-            >
-              <FaHeart />
-            </motion.div>
-          ))}
+          {mounted && [...Array(6)].map((_, i) => {
+            const randomX = Math.random() * 100;
+            const randomDuration = 6 + Math.random() * 4;
+            return (
+              <motion.div
+                key={i}
+                className="absolute text-pink-300/30 text-xl"
+                initial={{ y: "100%", x: randomX + "%" }}
+                animate={{
+                  y: "-100%",
+                  x: [
+                    randomX + "%",
+                    (randomX + 10) % 100 + "%",
+                    (randomX + 20) % 100 + "%",
+                  ],
+                }}
+                transition={{
+                  duration: randomDuration,
+                  repeat: Infinity,
+                  delay: i * 0.8,
+                  ease: "linear",
+                }}
+              >
+                <FaHeart />
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Success Icon with glow effect */}

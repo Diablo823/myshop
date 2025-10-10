@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Jost } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -13,9 +14,11 @@ import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
+import QueryClientProvider from "@/providers/QueryClientProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 const jost = Jost({ subsets: ["latin"] });
+const roboto = Roboto({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "US Cartel",
@@ -237,7 +240,8 @@ export default function RootLayout({
        
 
       </head>
-      <body className={`${jost.className}`}>
+      <body className={`${roboto.className}`}>
+        <QueryClientProvider>
         <WixClientContextProvider>
           <Navbar />
           {/* <NewNav /> */}
@@ -248,6 +252,7 @@ export default function RootLayout({
           <Footer />
           <MobNav />
         </WixClientContextProvider>
+        </QueryClientProvider>
         <Analytics />
         <SpeedInsights />
       </body>

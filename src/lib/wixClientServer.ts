@@ -1,16 +1,15 @@
-import { orders, recommendations } from "@wix/ecom";
+import { orders, recommendations, backInStockNotifications } from "@wix/ecom";
 import { createClient, OAuthStrategy } from "@wix/sdk";
 import { products, collections } from "@wix/stores";
 import { cookies } from "next/headers";
 import { members } from '@wix/members';
 
-//export type WixClient = ReturnType<typeof createClient>;
 
 export const wixClientServer = async () => {
   let refreshToken;
 
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     refreshToken = JSON.parse(cookieStore.get("refreshToken")?.value || "{}");
   } catch (error) {
     console.log(error);
@@ -22,7 +21,8 @@ export const wixClientServer = async () => {
       collections,
       orders,
       members,
-      recommendations
+      recommendations,
+      backInStockNotifications,
     },
     auth: OAuthStrategy({
       clientId: process.env.NEXT_PUBLIC_WIX_CLIENT_ID!,
@@ -38,3 +38,6 @@ export const wixClientServer = async () => {
 
   return wixClient;
 };
+  
+
+export type WixClient = ReturnType<typeof createClient>;

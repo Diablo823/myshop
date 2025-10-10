@@ -20,7 +20,7 @@ const MobNav = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { cart } = useCartStore();
-  const itemCount = cart.lineItems?.length || 0;
+  const itemCount = cart?.lineItems?.length || 0;
 
   //const isLoggedIn = wixClient.auth.loggedIn();
 
@@ -158,6 +158,7 @@ const MobNav = () => {
               ? "text-yellow-500"
               : "text-gray-900"
           }`}
+          suppressHydrationWarning
         >
           <FaUser size={22} />
           <span className="text-xs">Account</span>

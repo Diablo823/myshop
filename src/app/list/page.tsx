@@ -8,11 +8,29 @@ import Image from "next/image";
 import React, { Suspense } from "react";
 import { FaShoppingBag } from "react-icons/fa";
 
-const ListPage = async ({ searchParams }: { searchParams: any }) => {
+const ListPage = async ({ searchParams }: { searchParams: Promise<{
+    cat?: string;
+    name?: string;
+    type?: string;
+    min?: string;
+    max?: string;
+    sort?: string;
+  }>  }) => {
   const wixClient = await wixClientServer();
+  const params = await searchParams;
+
+  // Create a clean object to break the Next.js tracking
+  const cleanParams = {
+    cat: params.cat,
+    name: params.name,
+    type: params.type,
+    min: params.min,
+    max: params.max,
+    sort: params.sort,
+  };
 
   const cat = await wixClient.collections.getCollectionBySlug(
-    searchParams.cat || "all-products");
+    cleanParams.cat || "all-products");
 
 //   let cat;
 // try {
@@ -28,7 +46,7 @@ const ListPage = async ({ searchParams }: { searchParams: any }) => {
 
   return (
     
-    <div className="px-2 md:px-8 lg:px-16 xl:px-32 relative overflow-hidden">
+    <div className="px-1 md:px-8 lg:px-16 xl:px-32 relative overflow-hidden">
       {/* CAMPAIGN */}
       <div className="bg-pink-100 flex justify-between px-4 h-64 mt-5 rounded-2xl">
         {/* TEXT CONTAINER */}
@@ -62,15 +80,15 @@ const ListPage = async ({ searchParams }: { searchParams: any }) => {
       <Filter />
 
       {/* PRODUCTS */}
-      <h1 className="mt-12 text-2xl font-bold">{cat?.collection?.name}</h1>
-      <Suspense fallback={<LoadingSpinner />}>
+      <h1 className="mt-12 px-3 text-2xl font-bold">{cat?.collection?.name}</h1>
+      {/* <Suspense fallback={<LoadingSpinner />}> */}
         <ProductWrapper
           categoryId={
             cat.collection?._id || "00000000-000000-000000-000000000001"
           }
-          searchParams={searchParams}
+          searchParams={cleanParams}
         />
-      </Suspense>
+      {/* </Suspense> */}
     </div>
     
   );

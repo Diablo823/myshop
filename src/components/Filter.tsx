@@ -63,6 +63,7 @@ const Filter = () => {
       placeholder="min price"
       className="text-sm font-medium rounded-full pl-4 w-28 placeholder:font-semibold placeholder:text-gray-700"
       onChange={handleInputChange}
+      suppressHydrationWarning
     />
     <Input
       type="text"
@@ -70,6 +71,7 @@ const Filter = () => {
       placeholder="max price"
       className="text-sm font-medium rounded-full pl-4 w-28 placeholder:font-semibold placeholder:text-gray-700"
       onChange={handleInputChange}
+      suppressHydrationWarning
     />
 
     {/* <Select onValueChange={(value) => handleFilterChange("cat", value)}>

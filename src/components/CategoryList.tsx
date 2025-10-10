@@ -26,7 +26,7 @@ const CategoryList = async () => {
                 className="object-cover rounded-2xl hover:scale-105 transition-all duration-300"
               />
             </div>
-            <h1 className="mt-4 font-semibold text-lg tracking-wide">
+            <h1 className="mt-2 font-bold text-sm tracking-wide">
               {item.name}
             </h1>
           </Link>

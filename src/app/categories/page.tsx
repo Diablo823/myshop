@@ -9,11 +9,11 @@ const CategoryPage = async () => {
   const categories = await wixClient.collections.queryCollections().find();
 
   return (
-    <div className="px-4 max-w-7xl mx-auto">
+    <div className="px-2 max-w-7xl mx-auto">
       <div className="bg-pink-100 flex justify-between px-4 sm:px-8 h-64 sm:h-72 md:h-80 mt-5 rounded-2xl">
         {/* TEXT CONTAINER */}
         <div className="w-2/3 flex flex-col justify-center md:items-center md:text-center gap-4 md:gap-6">
-          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-950 leading-[38px] md:leading-[48px] lg:leading-[56px]">
+          <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-gray-950 leading-[38px] md:leading-[48px] lg:leading-[56px]">
             Shop by different categories{" "}
             <span className="hidden md:inline">             
               <br />
@@ -54,7 +54,7 @@ const CategoryPage = async () => {
                 className="object-cover rounded-2xl transition-transform duration-300 group-hover:scale-110"
               />
             </div>
-            <h1 className="font-semibold text-lg sm:text-xl md:text-2xl tracking-wide">
+            <h1 className="font-bold text-sm md:text-lg tracking-wide">
               {item.name?.length && item.name.length > 20
                 ? `${item.name.substring(0, 25)}...`
                 : item.name}

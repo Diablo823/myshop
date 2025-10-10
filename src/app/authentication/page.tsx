@@ -304,9 +304,10 @@ const LoginPage = () => {
                   <Input
                     type="text"
                     name="firstName"
-                    placeholder="Tyler"
+                    placeholder="First name"
                     required
                     onChange={(e) => setFirstName(e.target.value)}
+                    className="placeholder:text-xs"
                   />
                 </LabelInputContainer>
                 <LabelInputContainer>
@@ -314,8 +315,9 @@ const LoginPage = () => {
                   <Input
                     type="text"
                     name="lastName"
-                    placeholder="Durden"
+                    placeholder="Last name"
                     onChange={(e) => setLastName(e.target.value)}
+                    className="placeholder:text-xs"
                   />
                 </LabelInputContainer>
               </div>
@@ -350,13 +352,14 @@ const LoginPage = () => {
                   <Input
                     type="tel"
                     name="phoneNumber"
-                    placeholder="(000) 000-000"
-                    className="flex-1"
+                    placeholder="0000-000-000"
+                    className="flex-1 placeholder:text-xs"
                     required
                     //onChange={(e) => setphoneNumber(e.target.value)}
                     onChange={(e) =>
                       setphoneNumber(e.target.value.replace(/[^0-9]/g, ""))
                     }
+                    
                   />
                 </div>
               </LabelInputContainer>
@@ -369,9 +372,10 @@ const LoginPage = () => {
                 <Input
                   type="email"
                   name="email"
-                  placeholder="tylerdurden@gmail.com"
+                  placeholder="Your email address"
                   required
                   onChange={(e) => setEmail(e.target.value)}
+                  className="placeholder:text-xs"
                 />
               </LabelInputContainer>
             </div>
@@ -404,7 +408,7 @@ const LoginPage = () => {
                     type={showPassword ? "text" : "password"}
                     //type="password"
                     placeholder="Enter your password"
-                    className="pr-10"
+                    className="pr-10 placeholder:text-xs"
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <button

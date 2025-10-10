@@ -4,7 +4,7 @@ import ProductsList from './ProductsList';
 interface ProductWrapperProps {
   categoryId: string;
   limit?: number;
-  searchParams?: any;
+  searchParams?: any; // This now receives the resolved params object
 }
 
 export default async function ProductWrapper({ 
@@ -12,6 +12,7 @@ export default async function ProductWrapper({
   limit,
   searchParams 
 }: ProductWrapperProps) {
+  // searchParams is already awaited in the parent component
   const initialData = await getProducts({
     categoryId,
     limit,

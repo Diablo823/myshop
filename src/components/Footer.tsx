@@ -25,7 +25,7 @@ const Footer = () => {
     <div
       className={`${
         footRoutes.includes(pathname)
-          ? "px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 mt-20 bg-slate-100"
+          ? "px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 mt-20 bg-amber-400 text-black rounded-t-3xl"
           : "hidden"
       }`}
     >
@@ -138,19 +138,19 @@ const Footer = () => {
 
       {/* BOTTOM */}
       <div className="flex flex-col md:flex-row items-center md:justify-between gap-8 mt-12">
-        <div className="text-sm font-bold text-gray-800">
+        <div className="text-sm font-bold">
           &copy; 2025 US CARTEL All rights reserved
         </div>
         <div className="flex flex-col gap-4  mb-24 md:mb-2">
           <div className="flex gap-8">
-            <span className="text-sm font-semibold text-gray-800">Language</span>
-            <span className="text-sm font-semibold text-gray-800">
+            <span className="text-sm font-semibold ">Language</span>
+            <span className="text-sm font-semibold">
               United States | English
             </span>
           </div>
           <div className="flex gap-8">
-            <span className="text-sm font-semibold text-gray-800">Currency</span>
-            <span className="text-sm font-semibold text-gray-800">₹ INR</span>
+            <span className="text-sm font-semibold">Currency</span>
+            <span className="text-sm font-semibold">₹ INR</span>
           </div>
         </div>
       </div>

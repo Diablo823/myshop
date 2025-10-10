@@ -13,6 +13,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import BackInStockNotificationButton from "@/components/BackInStockNotificationButton";
+import { FaArrowDown, FaBox, FaTruck } from "react-icons/fa";
+import { FaClock } from "react-icons/fa6";
 
 interface AdditionalInfoSection {
   title?: string;
@@ -24,7 +27,6 @@ interface ProductPageClientProps {
 }
 
 const ProductPageClient = ({ product }: ProductPageClientProps) => {
-
   // Helper Function to find thfirst available variant
   const getInitialSelectedOptions = () => {
     if (!product.productOptions || !product.variants) {
@@ -32,19 +34,21 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
     }
 
     // Check if this product has real variants (not just the default one)
-    const hasRealVariants = product.variants.length > 1 || 
-      (product.variants.length === 1 && 
-       product.variants[0]._id !== "00000000-0000-0000-0000-000000000000");
+    const hasRealVariants =
+      product.variants.length > 1 ||
+      (product.variants.length === 1 &&
+        product.variants[0]._id !== "00000000-0000-0000-0000-000000000000");
 
     if (!hasRealVariants) {
       return {};
     }
 
-    const firstAvailableVariant = product.variants.find((variant: any) => 
-      variant.stock?.inStock && 
-      variant.stock?.quantity && 
-      variant.stock.quantity > 0 &&
-      variant._id !== "00000000-0000-0000-0000-000000000000"
+    const firstAvailableVariant = product.variants.find(
+      (variant: any) =>
+        variant.stock?.inStock &&
+        variant.stock?.quantity &&
+        variant.stock.quantity > 0 &&
+        variant._id !== "00000000-0000-0000-0000-000000000000"
     );
 
     if (firstAvailableVariant && firstAvailableVariant.choices) {
@@ -53,15 +57,19 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
     }
 
     // Fallback to first choice of each option if no variants are available
-    return product.productOptions
-      ?.map((option: any) => ({
-        [option.name || ""]: option.choices?.[0].description || "",
-      }))
-      ?.reduce((acc: any, curr: any) => ({ ...acc, ...curr }), {}) || {};
-  }
+    return (
+      product.productOptions
+        ?.map((option: any) => ({
+          [option.name || ""]: option.choices?.[0].description || "",
+        }))
+        ?.reduce((acc: any, curr: any) => ({ ...acc, ...curr }), {}) || {}
+    );
+  };
 
-   // State to track selected options
-  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>(
+  // State to track selected options
+  const [selectedOptions, setSelectedOptions] = useState<
+    Record<string, string>
+  >(
     product.productOptions
       ?.map((option: any) => ({
         [option.name || ""]: option.choices?.[0].description || "",
@@ -71,6 +79,42 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
 
   // State to track current image index
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Helper function to get current stock number
+  const getCurrentStockNumber = () => {
+    // If product has variants, find the selected variant's stock
+    if (
+      product.variants &&
+      product.variants.length > 0 &&
+      product.productOptions &&
+      product.productOptions.length > 0
+    ) {
+      const hasRealVariants =
+        product.variants.length > 1 ||
+        (product.variants.length === 1 &&
+          product.variants[0]._id !== "00000000-0000-0000-0000-000000000000");
+
+      if (hasRealVariants) {
+        // Find the variant that matches selected options
+        const selectedVariant = product.variants.find((variant: any) => {
+          if (!variant.choices) return false;
+
+          return Object.entries(selectedOptions).every(
+            ([optionName, choiceValue]) => {
+              return variant.choices[optionName] === choiceValue;
+            }
+          );
+        });
+
+        return selectedVariant?.stock?.quantity || 0;
+      }
+    }
+
+    // Fallback to product stock
+    return product.stock?.quantity || 0;
+  };
+
+  const currentStockNumber = getCurrentStockNumber();
 
   // Configure DOMPurify once
   // Updated DOMPurify configuration to preserve HTML formatting
@@ -112,38 +156,46 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
   };
 
   const filteredSections = product.additionalInfoSections?.filter(
-  (section: AdditionalInfoSection) =>
-    (section.title && section.description === "") ||
-    (section.title === "" && section.description)
-);
+    (section: AdditionalInfoSection) =>
+      (section.title && section.description === "") ||
+      (section.title === "" && section.description)
+  );
 
-const selectedOptionsMedia = product.productOptions?.flatMap((option: any) => {
-    const selectedChoice = option.choices?.find(
-      (choice: any) => choice.description === selectedOptions[option.name || ""]
-    );
-    return selectedChoice?.media?.items ?? [];
-  });
+  const selectedOptionsMedia = product.productOptions?.flatMap(
+    (option: any) => {
+      const selectedChoice = option.choices?.find(
+        (choice: any) =>
+          choice.description === selectedOptions[option.name || ""]
+      );
+      return selectedChoice?.media?.items ?? [];
+    }
+  );
 
   // Determine which media to show
-  const mediaToShow = selectedOptionsMedia?.length > 0 
-    ? selectedOptionsMedia 
-    : product.media?.items;
+  const mediaToShow =
+    selectedOptionsMedia?.length > 0
+      ? selectedOptionsMedia
+      : product.media?.items;
 
   return (
     <div className="min-h-[calc(100vh-80px)] px-2 md:px-8 lg:px-16 xl:px-32 relative flex flex-col lg:flex-row gap-12">
       {/* IMAGES */}
       <div className="w-full lg:w-1/2 lg:sticky top-20 mt-5 h-max">
-        <ProductImages items={mediaToShow} currentIndex={currentImageIndex} setCurrentIndex={setCurrentImageIndex}/>
+        <ProductImages
+          items={mediaToShow}
+          currentIndex={currentImageIndex}
+          setCurrentIndex={setCurrentImageIndex}
+        />
       </div>
       {/* TEXT */}
-      <div className="w-full lg:w-1/2 flex flex-col gap-4 lg:mt-5">
+      <div className="w-full lg:w-1/2 flex flex-col gap-3 lg:mt-5">
         {product.brand ? (
-          <h2 className="font-semibold tracking-wider text-black">
+          <h2 className="text-sm md:text-lg font-bold tracking-wider text-black">
             {product.brand}
           </h2>
         ) : null}
         <div className="h-[2px] bg-gray-100" />
-        <h1 className="text-lg lg:text-xl font-bold">{product.name}</h1>
+        <h1 className="text-base lg:text-lg font-bold">{product.name}</h1>
         <div
           className="md:text-sm md:text-gray-900 md:block hidden"
           dangerouslySetInnerHTML={{
@@ -191,14 +243,19 @@ const selectedOptionsMedia = product.productOptions?.flatMap((option: any) => {
             <h3 className="text-lg font-bold line-through text-red-600">
               ₹{product.priceData?.price}
             </h3>
-            <Badge className="bg-[#800020] hover:bg-[#800020] text-xs text-white">
-              {calculateDiscount(
-                product.priceData?.price || 0,
-                product.priceData?.discountedPrice || 0
-              )}
-              % OFF
-            </Badge>
-            <Badge className="bg-rose-700 hover:bg-rose-700 text-xs text-white">
+            <div className="text-xs text-green-600 font-bold flex flex-row gap-1 items-center">
+              <span>
+                <FaArrowDown />
+              </span>
+              <span>
+                {calculateDiscount(
+                  product.priceData?.price || 0,
+                  product.priceData?.discountedPrice || 0
+                )}
+                % OFF
+              </span>
+            </div>
+            <Badge className="bg-blue-100 hover:bg-blue-100 text-xs text-blue-800 rounded-lg">
               {product.ribbon}
             </Badge>
           </div>
@@ -230,6 +287,13 @@ const selectedOptionsMedia = product.productOptions?.flatMap((option: any) => {
             stockNumber={product.stock?.quantity || 0}
           />
         )}
+
+        {currentStockNumber === 0 ? (
+          <BackInStockNotificationButton
+            product={product}
+            selectedOptions={selectedOptions}
+          />
+        ) : null}
 
         <ShareUrlButton2 buttonText="Share this product" />
 
@@ -273,28 +337,47 @@ const selectedOptionsMedia = product.productOptions?.flatMap((option: any) => {
         {/* Additional Info Sections with either description or title */}
 
         {filteredSections && filteredSections.length > 0 && (
-  <div className="flex flex-col gap-4 p-4 bg-amber-50 rounded-2xl border-2 border-slate-100 shadow-md">
-    {filteredSections.map((section: AdditionalInfoSection) => {
-      if (section.title && section.description === "") {
-        return (
-          <div key={section.title} className="text-sm font-bold">
-            <ul className="list-disc pl-4">
-              <li>{section.title}</li>
-            </ul>
+          <div className="flex flex-col gap-4 p-4 bg-amber-50 rounded-2xl border-2 border-slate-100 shadow-md">
+            {filteredSections.map((section: AdditionalInfoSection) => {
+              if (section.title && section.description === "") {
+                return (
+                  <div key={section.title} className="text-sm font-bold">
+                    <ul className="list-disc pl-4">
+                      <li>{section.title}</li>
+                    </ul>
+                  </div>
+                );
+              } else if (section.title === "" && section.description) {
+                return (
+                  <div key={section.description} className="text-sm font-bold">
+                    <h4>{section.description}</h4>
+                  </div>
+                );
+              } else {
+                return null;
+              }
+            })}
           </div>
-        );
-      } else if (section.title === "" && section.description) {
-        return (
-          <div key={section.description} className="text-sm font-bold">
-            <h4>{section.description}</h4>
+        )}
+        <div className="mt-2 text-black font-semibold text-center border-2 p-4 rounded-3xl shadow-xl bg-gradient-to-r from-green-100 to-amber-100">
+          <div className="flex flex-row justify-center gap-8">
+            <span>
+              <FaBox size={32} />
+            </span>
+            <span>
+              <FaClock size={32} />
+            </span>
+            <span>
+              <FaTruck size={32} />
+            </span>
           </div>
-        );
-      } else {
-        return null;
-      }
-    })}
-  </div>
-)}
+          <div className="mt-4 text-xs md:text-sm">
+            We deliver all products through India Speed Post to ensure safe and
+            reliable delivery. Many customers have faced delays and issues with
+            private courier services, so we choose India Post for secure and
+            timely delivery of your order.
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -61,8 +61,8 @@ const HomePage = async () => {
         <VideoBannerGrid slides={videoSlides2} />
       </div> */}
 
-      <div className="mt-20 px-2 md:px-8 lg:px-16 xl:px-32">
-        <h2 className="text-2xl font-bold">New Arrivals</h2>
+      <div className="mt-20 px-1 md:px-8 lg:px-16 xl:px-32">
+        <h2 className="px-3 text-lg md:textxl font-bold">New Arrivals</h2>
         {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductWrapper
             categoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID!}
@@ -70,7 +70,7 @@ const HomePage = async () => {
           />
         
 
-        <h2 className="mt-5 text-2xl font-bold">Featured Products</h2>
+        <h2 className="mt-5 px-3 text-lg md:text-xl font-bold">Featured Products</h2>
         {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductWrapper
             categoryId={process.env.NEXT_PUBLIC_FEATURED_PRDUCTS_CATEGORY_ID!}
@@ -79,7 +79,7 @@ const HomePage = async () => {
         
         
 
-        <h2 className="mt-5 text-2xl font-bold">Popular Products</h2>
+        <h2 className="mt-5 px-3 text-lg md:text-xl font-bold">Popular Products</h2>
         {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductWrapper
             categoryId={process.env.NEXT_PUBLIC_POPULAR_PRDUCTS_CATEGORY_ID!}
@@ -103,7 +103,7 @@ const HomePage = async () => {
           className="mt-8 px-4 md:px-8 lg:px-16 xl:px-32"
         />
       </div>
-      <div className="mt-8 px-2 md:px-8 lg:px-16 xl:px-32">
+      <div className="mt-8 px-1 md:px-8 lg:px-16 xl:px-32">
         {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductWrapper
             categoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID!}
@@ -127,8 +127,8 @@ const HomePage = async () => {
         
       </div>
 
-      <div className="mt-20 px-2 md:px-8 lg:px-16 xl:px-32">
-        <h2 className="text-2xl font-bold">Facewash</h2>
+      <div className="mt-20 px-1 md:px-8 lg:px-16 xl:px-32">
+        <h2 className="px-3 text-lg md:text-xl font-bold">Facewash</h2>
         {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductWrapper
             categoryId={process.env.NEXT_PUBLIC_FACE_WASH_CATEGORY_ID!}
@@ -155,8 +155,8 @@ const HomePage = async () => {
         
       </div>
 
-      <div className="mt-20 px-2 md:px-8 lg:px-16 xl:px-32">
-        <h2 className="text-2xl font-bold">Hair Care</h2>
+      <div className="mt-20 px-1 md:px-8 lg:px-16 xl:px-32">
+        <h2 className="px-3 text-lg md:text-xl font-bold">Hair Care</h2>
         {/* <Suspense fallback={<LoadingSpinner />}> */}
           <ProductWrapper
             categoryId={process.env.NEXT_PUBLIC_HAIR_PRODUCTS_CATEGORY_ID!}

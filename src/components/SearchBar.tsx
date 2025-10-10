@@ -160,7 +160,11 @@ const SearchBar = () => {
         <div className="fixed md:absolute z-20 left-0 right-0 top-16 md:top-auto md:w-full md:mt-2 bg-white rounded-lg shadow-lg max-h-96 overflow-y-auto">
           {loading ? (
             <div className="relative flex flex-col items-center gap-2">
-              <div className="animate-pulse relative w-10 h-10">
+              
+              <div className="w-6 h-6 mt-2 border-4 border-gray-200 border-t-black rounded-full animate-spin" />
+              <div className="text-black font-semibold text-xs">Searching</div>
+
+              {/* <div className="animate-pulse relative w-10 h-10">
                 <Image
                   src="https://ik.imagekit.io/5ok2lashts/loadlogo.png?updatedAt=1736980178600"
                   alt="Loading animation"
@@ -169,7 +173,7 @@ const SearchBar = () => {
                   priority
                   className="object-contain"
                 />
-              </div>
+              </div> */}
             </div>
           ) : hasSearched ? (
             suggestions.length > 0 ? (

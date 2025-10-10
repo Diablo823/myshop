@@ -44,7 +44,7 @@ const Navbar = () => {
       className={`${
         pathName === "/success"
           ? "hidden"
-          : `fixed w-full h-16 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 bg-slate-50  z-30 transition-all duration-300 origin-top ${
+          : `fixed w-full h-16 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 bg-white z-30 transition-all duration-300 origin-top shadow-lg rounded-b-3xl ${
               visible
                 ? "h-16 transform-none opacity-100"
                 : "h-0 -translate-y-full opacity-0"
