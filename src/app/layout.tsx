@@ -15,6 +15,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 import QueryClientProvider from "@/providers/QueryClientProvider";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const inter = Inter({ subsets: ["latin"] });
 const jost = Jost({ subsets: ["latin"] });
@@ -245,9 +246,11 @@ export default function RootLayout({
         <WixClientContextProvider>
           <Navbar />
           {/* <NewNav /> */}
+          <ScrollToTop>
           <main className="pt-16 pb-20">
             {children}
           </main>
+          </ScrollToTop>
           <Toaster />
           <Footer />
           <MobNav />
