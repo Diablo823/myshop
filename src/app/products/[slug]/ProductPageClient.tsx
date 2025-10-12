@@ -209,7 +209,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
         <Accordion
           type="single"
           collapsible
-          className="px-2 bg-slate-50 rounded-xl md:hidden"
+          className="px-2 bg-gradient-to-r from-green-50 to-amber-50 rounded-xl md:hidden"
         >
           <AccordionItem value="product-description">
             <AccordionTrigger className="font-bold">
@@ -307,7 +307,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
                   <Accordion
                     type="single"
                     collapsible
-                    className="bg-amber-100 px-4 md:px-6 rounded-2xl shadow-md"
+                    className="bg-gradient-to-r from-green-50 to-amber-50 px-4 md:px-6 rounded-2xl shadow-md"
                   >
                     <AccordionItem value={section.title || "info"}>
                       <AccordionTrigger className="font-bold">
@@ -315,7 +315,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
                       </AccordionTrigger>
                       <AccordionContent>
                         <p
-                          className="text-gray-950"
+                          className="text-gray-950 text-sm"
                           dangerouslySetInnerHTML={{
                             __html: DOMPurify.sanitize(
                               section.description || "",
@@ -337,7 +337,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
         {/* Additional Info Sections with either description or title */}
 
         {filteredSections && filteredSections.length > 0 && (
-          <div className="flex flex-col gap-4 p-4 bg-amber-50 rounded-2xl border-2 border-slate-100 shadow-md">
+          <div className="flex flex-col gap-4 p-4 bg-gradient-to-r from-green-50 to-amber-50 rounded-2xl border-2 border-slate-100 shadow-md">
             {filteredSections.map((section: AdditionalInfoSection) => {
               if (section.title && section.description === "") {
                 return (
