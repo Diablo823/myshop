@@ -1,12 +1,17 @@
+// src/app/list/page.tsx
+
 import Filter from "@/components/Filter";
-import ProductList from "@/components/ProductList";
 import ProductWrapper from "@/components/products/ProductWrapper";
 import { Button } from "@/components/ui/button";
-import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { wixClientServer } from "@/lib/wixClientServer";
 import Image from "next/image";
 import React, { Suspense } from "react";
 import { FaShoppingBag } from "react-icons/fa";
+
+// CRITICAL: Add timeout config
+export const maxDuration = 10;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 const ListPage = async ({ searchParams }: { searchParams: Promise<{
     cat?: string;
@@ -16,10 +21,10 @@ const ListPage = async ({ searchParams }: { searchParams: Promise<{
     max?: string;
     sort?: string;
   }>  }) => {
-  const wixClient = await wixClientServer();
+  
   const params = await searchParams;
 
-  // Create a clean object to break the Next.js tracking
+  // Clean params object
   const cleanParams = {
     cat: params.cat,
     name: params.name,
@@ -29,23 +34,34 @@ const ListPage = async ({ searchParams }: { searchParams: Promise<{
     sort: params.sort,
   };
 
-  const cat = await wixClient.collections.getCollectionBySlug(
-    cleanParams.cat || "all-products");
-
-//   let cat;
-// try {
-//   cat = await wixClient.collections.getCollectionBySlug(
-//     searchParams.cat || "all-products"
-//   );
-  
-// } catch (error) {
-//   cat = await wixClient.collections.getCollection("00000000-0000-0000-0000-000000000001");
-// }
-
-  //console.log(cat);
+  // Fetch collection with timeout protection
+  let cat;
+  try {
+    const wixClient = await wixClientServer();
+    
+    // Add timeout for collection fetch (5 seconds max)
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Collection fetch timeout')), 5000)
+    );
+    
+    const collectionPromise = wixClient.collections.getCollectionBySlug(
+      cleanParams.cat || "all-products"
+    );
+    
+    cat = await Promise.race([collectionPromise, timeoutPromise]) as any;
+    
+  } catch (error) {
+    console.error('Error fetching collection:', error);
+    // Fallback to default collection
+    cat = {
+      collection: {
+        _id: "00000000-000000-000000-000000000001",
+        name: cleanParams.cat || "All Products",
+      }
+    };
+  }
 
   return (
-    
     <div className="px-1 md:px-8 lg:px-16 xl:px-32 relative overflow-hidden">
       {/* CAMPAIGN */}
       <div className="bg-pink-100 flex justify-between px-4 h-64 mt-5 rounded-2xl">
@@ -54,7 +70,6 @@ const ListPage = async ({ searchParams }: { searchParams: Promise<{
           <h1 className="text-2xl md:text-4xl font-semibold text-gray-950 leading-[38px] md:leading-[48px]">
             Get the Best Deals on {" "}
             <span className="hidden md:inline">
-              
               <br />
             </span>
             selected products
@@ -79,19 +94,40 @@ const ListPage = async ({ searchParams }: { searchParams: Promise<{
       {/* FILTER */}
       <Filter />
 
-      {/* PRODUCTS */}
-      <h1 className="mt-12 px-3 text-2xl font-bold">{cat?.collection?.name}</h1>
-      {/* <Suspense fallback={<LoadingSpinner />}> */}
+      {/* PRODUCTS - Wrapped in Suspense for streaming */}
+      <h1 className="mt-12 px-3 text-2xl font-bold">
+        {cat?.collection?.name || "Products"}
+      </h1>
+      
+      <Suspense fallback={<ProductsLoadingSkeleton />}>
         <ProductWrapper
           categoryId={
             cat.collection?._id || "00000000-000000-000000-000000000001"
           }
           searchParams={cleanParams}
         />
-      {/* </Suspense> */}
+      </Suspense>
     </div>
-    
   );
 };
+
+// Loading skeleton for better UX
+function ProductsLoadingSkeleton() {
+  return (
+    <div className="mt-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 sm:gap-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+        {Array.from({ length: 12 }).map((_, i) => (
+          <div key={i} className="group flex flex-col rounded-2xl border bg-slate-50 shadow-sm animate-pulse">
+            <div className="relative pb-[120%] w-full overflow-hidden rounded-t-2xl bg-gray-200"></div>
+            <div className="flex flex-row justify-between p-2 gap-4">
+              <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+              <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default ListPage;

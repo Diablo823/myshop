@@ -38,7 +38,7 @@ const CategoryPage = async () => {
         </div>
       </div>
 
-      <div className="mt-8 sm:mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+      <div className="mt-8 sm:mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-6 md:gap-8">
         {categories.items.map((item) => (
           <Link
             href={`/list?cat=${item.slug}`}
