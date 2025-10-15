@@ -34,6 +34,15 @@ export default function AboutUs() {
       <div className="container mx-auto py-12 max-w-4xl space-y-12">
         {/* Story Behind the Name */}
         <section>
+          <h1 className="text-xl md:text-2xl font-bold mb-6 text-center">About Myself</h1>
+          <p className="text-sm md:text-lg leading-relaxed text-center">
+            Hello, My name is Muruka Bhupathy M V and I'm the founder of US Cartel. I created US Cartel when I was 21 years old. I created US Cartel while I was in my final year of college. I am a BSc Computer Science graduate from University of Kerala. <br />
+            I just wanted to Introduce myself before saying more about US Cartel.
+            <br />
+             I created US Cartel with a vision to build a unique ecommerce brand that stands out from the crowd. The idea was to start something that could grow into a memorable brand known for quality and affordability.
+          </p>
+        </section>
+        <section>
           <h2 className="text-xl md:text-2xl font-bold mb-6 border-b-2 border-gray-200 pb-2">
             The Story Behind the Name
           </h2>
