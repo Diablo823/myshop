@@ -118,6 +118,24 @@ const SearchBar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Prevent body scroll when suggestions are open
+  useEffect(() => {
+    if (showSuggestions && searchTerm.length >= 1) {
+      // Save current scroll position
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    };
+  }, [showSuggestions, searchTerm]);
+
   const handleBlur = () => {
     // Only hide suggestions if no suggestion was clicked
     setTimeout(() => {
@@ -143,7 +161,7 @@ const SearchBar = () => {
           }}
           onFocus={() => setShowSuggestions(true)}
           placeholder="Search Products"
-          className="search-input flex-1 bg-white ring-1 ring-slate-300 focus:ring-slate-400 rounded-full placeholder:text-xs"
+          className="search-input flex-1 bg-white ring-1 ring-slate-300 focus:ring-slate-400 rounded-full placeholder:text-xs text-xs"
           suppressHydrationWarning
           onBlur={handleBlur}
         />

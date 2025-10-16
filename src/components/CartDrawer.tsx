@@ -311,6 +311,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
                     </Button>
                     <Button
                       onClick={handleCheckout}
+                      disabled
                       className="w-full rounded-xl bg-[#FFD700] text-gray-950 font-bold hover:bg-[#FFD700] hover:scale-105 disabled:bg-pink-200 disabled:text-white transition-all duration-300"
                     >
                       Checkout <FaShoppingBag className="ml-2" size={18} />

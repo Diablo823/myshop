@@ -112,7 +112,7 @@ const ProfileClient = ({ profileData }: { profileData: ProfileData }) => {
               <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-3 border-white shadow-lg"></div>
             </div>
             <div>
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+              <h2 className="text-lg md:text-xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
                 {member.profile?.nickname || "Profile Details"}
               </h2>
               <p className="text-sm text-gray-500 font-medium">

@@ -127,7 +127,7 @@ export default function ContactForm() {
                   <FormItem>
                     <FormLabel>First name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your first name" {...field} />
+                      <Input placeholder="Enter your first name" {...field} className="placeholder:text-xs" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -140,7 +140,7 @@ export default function ContactForm() {
                   <FormItem>
                     <FormLabel>Last name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your last name" {...field} />
+                      <Input placeholder="Enter your last name" {...field} className="placeholder:text-xs" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -155,7 +155,7 @@ export default function ContactForm() {
                   <FormItem>
                     <FormLabel>Email address</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="youremail@example.com" {...field} />
+                      <Input type="email" placeholder="Enter your email" {...field} className="placeholder:text-xs" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -193,7 +193,7 @@ export default function ContactForm() {
                   <FormItem className="flex-grow">
                     <FormLabel>Phone number</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your phone number" {...field} />
+                      <Input placeholder="Enter your phone number" {...field} className="placeholder:text-xs" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -207,7 +207,7 @@ export default function ContactForm() {
                 <FormItem>
                   <FormLabel>Message title</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter the title of your message" {...field} />
+                    <Input placeholder="Enter the subject of your message" {...field} className="placeholder:text-xs" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -220,7 +220,7 @@ export default function ContactForm() {
                 <FormItem>
                   <FormLabel>Your message</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Type your message here" className="min-h-[100px]" {...field} />
+                    <Textarea placeholder="Type your message here" className="min-h-[100px] placeholder:text-xs" {...field}  />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

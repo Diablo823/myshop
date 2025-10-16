@@ -11,7 +11,7 @@ import { socialIcons } from '@/constants';
 
 const ContactPage = () => {
   return (
-    <div className="min-h-screen bg-gray-50 px-4 md:px-8 lg:px-16 xl:px-32">
+    <div className="min-h-screen bg-gray-50 px-2 md:px-8 lg:px-16 xl:px-32">
       {/* Hero Section */}
       <div className="relative h-64 md:h-[24rem]">
         <Image

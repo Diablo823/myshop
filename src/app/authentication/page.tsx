@@ -72,6 +72,33 @@ const LoginPage = () => {
     "+64": "NZ",
   };
 
+  const isValidEmail = (email: string): boolean => {
+  // Basic email regex pattern
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+  // Check basic format
+  if (!emailRegex.test(email)) {
+    return false;
+  }
+  
+  // Additional checks for common fake patterns
+  const invalidPatterns = [
+    /test@test/i,
+    /fake@fake/i,
+    /example@example/i,
+    /@test\./i,
+    /@fake\./i,
+    /@example\./i,
+    /asdf@/i,
+    /qwerty@/i,
+    /^\d+@/,  // emails starting with only numbers
+    /@gmail\.con$/i,  // common typo
+    /@gmail\.cm$/i,   // common typo
+  ];
+  
+  return !invalidPatterns.some(pattern => pattern.test(email));
+};
+
   // FROM LAMA DEV
 
   // const isLoggedIn = wixClient.auth.loggedIn();
@@ -129,6 +156,18 @@ const LoginPage = () => {
     try {
       switch (mode) {
         case MODE.LOGIN:
+          // Validate email - THIS IS THE CALL
+  if (!isValidEmail(email)) {
+    setError("Please enter a valid email address");
+    setIsLoading(false);
+    return;
+  }
+//Validate Password Length
+  if (password.length < 8) {
+            setError("Password must be at least 8 characters long!");
+            setIsLoading(false);
+            return;
+          }
           response = await wixClient.auth.login({
             email,
             password,
@@ -136,6 +175,26 @@ const LoginPage = () => {
           break;
 
         case MODE.REGISTER:
+          //Validate phone number length
+          if (phoneNumber.length !== 10) {
+            setError("Phone number must be exactly 10 digits!");
+            setIsLoading(false);
+            return;
+          }
+
+          if (password.length < 8) {
+            setError("Password must be at least 8 characters long!");
+            setIsLoading(false);
+            return;
+          }
+
+          // Validate email - THIS IS THE CALL
+  if (!isValidEmail(email)) {
+    setError("Please enter a valid email address");
+    setIsLoading(false);
+    return;
+  }
+
           response = await wixClient.auth.register({
             email,
             password,
@@ -293,6 +352,7 @@ const LoginPage = () => {
         {mode === MODE.EMAIL_VERIFICATION && (
           <p className="text-neutral-600 text-xs md:text-sm max-w-sm dark:text-neutral-300">
             Enter the verification code sent to your email!
+            If you don't see it, please check your spam folder.
           </p>
         )}
         <form className="my-8" onSubmit={handleSubmit}>
@@ -355,11 +415,18 @@ const LoginPage = () => {
                     placeholder="0000-000-000"
                     className="flex-1 placeholder:text-xs"
                     required
-                    //onChange={(e) => setphoneNumber(e.target.value)}
-                    onChange={(e) =>
-                      setphoneNumber(e.target.value.replace(/[^0-9]/g, ""))
-                    }
-                    
+                    value={phoneNumber}
+                    // onChange={(e) =>
+                    //   setphoneNumber(e.target.value.replace(/[^0-9]/g, ""))
+                    // }
+                    onChange={(e) => {
+    const cleaned = e.target.value.replace(/[^0-9]/g, "");
+    // Only update if 10 digits or less
+    if (cleaned.length <= 10) {
+      setphoneNumber(cleaned);
+    }
+  }}
+  maxLength={10}
                   />
                 </div>
               </LabelInputContainer>
