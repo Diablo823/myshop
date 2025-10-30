@@ -273,23 +273,25 @@ const SinglePage = async ({
       </div>
 
       {/* SCROLL SECTION */}
-      <div className="px-2 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
+      {/* <div className="px-2 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <Suspense fallback={<RelatedProductsLoadingSkeleton />}>
         <ProductScrollWrapper
           categoryId={process.env.NEXT_PUBLIC_ALL_PRDUCTS_CATEGORY_ID!}
           limit={16}
         />
         </Suspense>
-      </div>
+      </div> */}
       <div className="px-1 md:px-8 lg:px-16 xl:px-32">
         <h2 className="px-3 text-lg md:text-xl font-bold mt-8">
           More Selections
         </h2>
         <Suspense fallback={<RelatedProductsLoadingSkeleton />}>
-        <ProductWrapper
-          categoryId={process.env.NEXT_PUBLIC_POPULAR_PRDUCTS_CATEGORY_ID!}
-          limit={10}
-        />
+          <MultiCategoryRelatedWrapper
+            categoryIds={product.collectionIds || []}
+            currentProductId={product._id!}
+            limit={12}
+            shuffle={true}
+          />
         </Suspense>
       </div>
 

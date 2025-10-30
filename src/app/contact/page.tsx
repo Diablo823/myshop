@@ -26,7 +26,7 @@ const ContactPage = () => {
       </div>
 
       {/* Main Content */}
-      <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 py-12">
+      <div className="px-2 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 py-12">
         {/* Introduction */}
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">At US Cartel</h2>

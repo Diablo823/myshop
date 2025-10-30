@@ -32,7 +32,7 @@ const RelatedProductsList = ({
         {productsList.map((product: products.Product) => (
           <Link
             href={"/products/" + encodeURIComponent(product.slug || "")}
-            className="group flex flex-col rounded-lg border bg-white shadow-md transition-all hover:shadow-lg"
+            className="group flex flex-col rounded-lg border bg-white transition-all"
             key={product._id}
           >
             <div className="relative pb-[120%] w-full overflow-hidden rounded-t-lg">

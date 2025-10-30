@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/select";
 import VerificationInput from "@/components/VerificationInput";
 import Image from "next/image";
+import { set } from "date-fns";
 
 enum MODE {
   LOGIN = "LOGIN",
@@ -54,6 +55,9 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
+  const [loginAttempts, setLoginAttempts] = useState(0);
+const [lockoutTime, setLockoutTime] = useState<number | null>(null);
+
   const countryCodes: CountryCode = {
     "+1": "US",
     "+44": "GB",
@@ -73,31 +77,31 @@ const LoginPage = () => {
   };
 
   const isValidEmail = (email: string): boolean => {
-  // Basic email regex pattern
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
-  // Check basic format
-  if (!emailRegex.test(email)) {
-    return false;
-  }
-  
-  // Additional checks for common fake patterns
-  const invalidPatterns = [
-    /test@test/i,
-    /fake@fake/i,
-    /example@example/i,
-    /@test\./i,
-    /@fake\./i,
-    /@example\./i,
-    /asdf@/i,
-    /qwerty@/i,
-    /^\d+@/,  // emails starting with only numbers
-    /@gmail\.con$/i,  // common typo
-    /@gmail\.cm$/i,   // common typo
-  ];
-  
-  return !invalidPatterns.some(pattern => pattern.test(email));
-};
+    // Basic email regex pattern
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Check basic format
+    if (!emailRegex.test(email)) {
+      return false;
+    }
+
+    // Additional checks for common fake patterns
+    const invalidPatterns = [
+      /test@test/i,
+      /fake@fake/i,
+      /example@example/i,
+      /@test\./i,
+      /@fake\./i,
+      /@example\./i,
+      /asdf@/i,
+      /qwerty@/i,
+      /^\d+@/, // emails starting with only numbers
+      /@gmail\.con$/i, // common typo
+      /@gmail\.cm$/i, // common typo
+    ];
+
+    return !invalidPatterns.some((pattern) => pattern.test(email));
+  };
 
   // FROM LAMA DEV
 
@@ -151,19 +155,27 @@ const LoginPage = () => {
     setIsLoading(true);
     setError("");
 
+    if (lockoutTime && Date.now() < lockoutTime) {
+      const remainingSeconds = Math.ceil((lockoutTime - Date.now()) / 1000);
+      setError(`Too many failed attempts. Please try again in ${remainingSeconds} seconds.`);
+      setIsLoading(false);
+      return;
+    }
+
     let response: any;
+
 
     try {
       switch (mode) {
         case MODE.LOGIN:
           // Validate email - THIS IS THE CALL
-  if (!isValidEmail(email)) {
-    setError("Please enter a valid email address");
-    setIsLoading(false);
-    return;
-  }
-//Validate Password Length
-  if (password.length < 8) {
+          if (!isValidEmail(email)) {
+            setError("Please enter a valid email address");
+            setIsLoading(false);
+            return;
+          }
+          //Validate Password Length
+          if (password.length < 8) {
             setError("Password must be at least 8 characters long!");
             setIsLoading(false);
             return;
@@ -175,6 +187,26 @@ const LoginPage = () => {
           break;
 
         case MODE.REGISTER:
+          //Validate first name
+          if (!firstName || firstName.trim().length < 2) {
+            setError("First name must be at least 2 characters long!");
+            setIsLoading(false);
+            return;
+          }
+
+          if (firstName.trim().length > 15) {
+            setError("First name is too long, try a shorter one!");
+            setIsLoading(false);
+            return;
+          }
+
+          //Validate last name
+          if (lastName && lastName.trim().length < 1) {
+            setError("Last name must be at least 1 character long!");
+            setIsLoading(false);
+            return;
+          }
+
           //Validate phone number length
           if (phoneNumber.length !== 10) {
             setError("Phone number must be exactly 10 digits!");
@@ -189,11 +221,11 @@ const LoginPage = () => {
           }
 
           // Validate email - THIS IS THE CALL
-  if (!isValidEmail(email)) {
-    setError("Please enter a valid email address");
-    setIsLoading(false);
-    return;
-  }
+          if (!isValidEmail(email)) {
+            setError("Please enter a valid email address");
+            setIsLoading(false);
+            return;
+          }
 
           response = await wixClient.auth.register({
             email,
@@ -219,7 +251,7 @@ const LoginPage = () => {
             window.location.href
           );
           setMessage("Password reset email sent! Check your email");
-
+          setEmail("");
           break;
 
         // case MODE.EMAIL_VERIFICATION:
@@ -255,6 +287,9 @@ const LoginPage = () => {
 
       switch (response?.loginState) {
         case LoginState.SUCCESS:
+          setLoginAttempts(0); // Reset on successful login
+          setLockoutTime(null);
+
           setMessage("Logged in successfully! Redirecting...");
           //const tokens = await wixClient.auth.getMemberTokensForDirectLogin(
           //  response.data.sessionToken!
@@ -264,28 +299,41 @@ const LoginPage = () => {
           //  expires: 10,
           //});
           //wixClient.auth.setTokens(tokens);
-         // router.push("/");
+          // router.push("/");
           //break;
           try {
-    if (response.data?.sessionToken) {
-      const tokens = await wixClient.auth.getMemberTokensForDirectLogin(
-        response.data.sessionToken
-      );
-      Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
-        expires: 10,
-      });
-      wixClient.auth.setTokens(tokens);
-      router.push("/");
-    } else {
-      setError("Authentication succeeded but no session token received");
-    }
-  } catch (error) {
-    console.error("Token retrieval error:", error);
-    setError("Youre logged in but something went wrong please try signing in again");
-  }
-  break;
+            if (response.data?.sessionToken) {
+              const tokens = await wixClient.auth.getMemberTokensForDirectLogin(
+                response.data.sessionToken
+              );
+              Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
+                expires: 10,
+              });
+              wixClient.auth.setTokens(tokens);
+              router.push("/");
+            } else {
+              setError(
+                "Authentication succeeded but no session token received"
+              );
+            }
+          } catch (error) {
+            console.error("Token retrieval error:", error);
+            setError(
+              "You're logged in but something went wrong please try signing in again"
+            );
+          }
+          break;
 
         case LoginState.FAILURE:
+          const newAttempts = loginAttempts + 1;
+          setLoginAttempts(newAttempts);
+
+          if (newAttempts >= 6) {
+            setLockoutTime(Date.now() + 3 * 60 * 1000); // 3 minutes lockout
+            setError("Too many failed attempts. Please try again in 3 minutes.");
+          } else {
+
+          
           if (
             response.errorCode === "invalidEmail" ||
             response.errorCode === "invalidPassword"
@@ -296,9 +344,10 @@ const LoginPage = () => {
           } else if (response.errorCode === "resetPassword") {
             setError("You need to reset your password");
           } else {
-            setError("Somathing went wrong!");
+            setError("Something went wrong!");
             //console.log(response.error);
           }
+        }
 
           break;
 
@@ -351,8 +400,8 @@ const LoginPage = () => {
         )}
         {mode === MODE.EMAIL_VERIFICATION && (
           <p className="text-neutral-600 text-xs md:text-sm max-w-sm dark:text-neutral-300">
-            Enter the verification code sent to your email!
-            If you don't see it, please check your spam folder.
+            Enter the verification code sent to your email! If you don't see it,
+            please check your spam folder.
           </p>
         )}
         <form className="my-8" onSubmit={handleSubmit}>
@@ -368,6 +417,7 @@ const LoginPage = () => {
                     required
                     onChange={(e) => setFirstName(e.target.value)}
                     className="placeholder:text-xs"
+                    maxLength={15}
                   />
                 </LabelInputContainer>
                 <LabelInputContainer>
@@ -378,6 +428,7 @@ const LoginPage = () => {
                     placeholder="Last name"
                     onChange={(e) => setLastName(e.target.value)}
                     className="placeholder:text-xs"
+                    maxLength={15}
                   />
                 </LabelInputContainer>
               </div>
@@ -420,13 +471,13 @@ const LoginPage = () => {
                     //   setphoneNumber(e.target.value.replace(/[^0-9]/g, ""))
                     // }
                     onChange={(e) => {
-    const cleaned = e.target.value.replace(/[^0-9]/g, "");
-    // Only update if 10 digits or less
-    if (cleaned.length <= 10) {
-      setphoneNumber(cleaned);
-    }
-  }}
-  maxLength={10}
+                      const cleaned = e.target.value.replace(/[^0-9]/g, "");
+                      // Only update if 10 digits or less
+                      if (cleaned.length <= 10) {
+                        setphoneNumber(cleaned);
+                      }
+                    }}
+                    maxLength={10}
                   />
                 </div>
               </LabelInputContainer>
@@ -441,7 +492,7 @@ const LoginPage = () => {
                   name="email"
                   placeholder="Your email address"
                   required
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value.trim())}
                   className="placeholder:text-xs"
                 />
               </LabelInputContainer>
