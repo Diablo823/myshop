@@ -135,7 +135,7 @@ const Add = ({
         </div>
       </div>
 
-      <div className="flex flex-col gap-2 text-sm text-white font-semibold text-center border-2 bg-red-600 p-4 rounded-3xl shadow-xl">
+      {/*<div className="flex flex-col gap-2 text-sm text-white font-semibold text-center border-2 bg-red-600 p-4 rounded-3xl shadow-xl">
         <span>
           Can't order anything from US Cartel for the time being, Please come
           back after a couple days.
@@ -144,28 +144,28 @@ const Add = ({
           Currently we are out of stock on all products, We are working hard to bring you the best deals possible, Still then,
           Stay Tuned!
         </span>
-      </div>
+      </div>*/}
       {stockNumber > 0 ? (
-<div className="flex flex-col gap-4 md:flex-row mt-6 pb-4">
-        <Button
-          onClick={() => addItem(wixClient, productId, variantId, quantity)}
-          disabled={stockNumber === 0}
-          className="md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-[#FFD700] text-black hover:bg-[#E6C200] disabled:hidden"
-        >
-          Add To Cart <FaShoppingCart />
-        </Button>
-        <Button
-          onClick={handleBuyNow}
-          disabled={stockNumber === 0}
-          //disabled
-          className="md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-purple-700 text-slate-100 hover:bg-purple-800 disabled:hidden"
-        >
-          Buy Now <FaShoppingBag />
-        </Button>
-      </div>
-      ): null}
+        <div className="flex flex-col gap-4 md:flex-row mt-6 pb-4">
+          <Button
+            onClick={() => addItem(wixClient, productId, variantId, quantity)}
+            disabled={stockNumber === 0}
+            className="md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-[#FFD700] text-black hover:bg-[#E6C200] disabled:hidden"
+          >
+            Add To Cart <FaShoppingCart />
+          </Button>
+          <Button
+            onClick={handleBuyNow}
+            disabled={stockNumber === 0}
+            //disabled
+            className="md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-purple-700 text-slate-100 hover:bg-purple-800 disabled:hidden"
+          >
+            Buy Now <FaShoppingBag />
+          </Button>
+        </div>
+      ) : null}
 
-      
+
     </div>
   );
 };
