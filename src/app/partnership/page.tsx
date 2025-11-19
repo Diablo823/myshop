@@ -40,8 +40,15 @@ export default function InvestorPage() {
             
             <div className="space-y-4 text-base md:text-lg">
               <p>
-                I'm Muruka Bhupathy, founder of US Cartel. I built this entire e-commerce platform from scratch (I know web development). The infrastructure is ready, the domain is premium, and the technical foundation is solid.
+                I'm Muruka Bhupathy, founder of US Cartel. I built this entire e-commerce platform from scratch (I know web development). 
               </p>
+              <p>
+                I built US Cartel with a vision to build a unique ecommerce brand that stands out from the crowd. The idea was to start something that could grow into a memorable brand known for quality and affordability.
+              </p>
+              <p>
+                The infrastructure is ready, the domain is premium, and the technical foundation is solid.
+              </p>
+              
               
               <p className="font-semibold text-lg md:text-xl mt-6 mb-3">
                 Here's where we stand:

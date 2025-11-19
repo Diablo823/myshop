@@ -239,15 +239,6 @@ const SinglePage = async ({
 
       {/* Server Components for product recommendations */}
 
-      {/* Related Products Section - Uses multiple algorithms */}
-      <div className="px-1 md:px-8 lg:px-16 xl:px-32">
-        <h2 className="px-3 text-lg md:text-xl font-bold mt-8">
-          You May Also Like
-        </h2>
-        <Suspense fallback={<RelatedProductsLoadingSkeleton />}>
-          <RelatedProductsWrapper productId={product._id!} limit={6} />
-        </Suspense>
-      </div>
       <div className="px-1 md:px-8 lg:px-16 xl:px-32">
         <h2 className="px-3 text-lg md:text-xl font-bold mt-8">
           Recommended Products
@@ -256,7 +247,8 @@ const SinglePage = async ({
           <MultiCategoryRelatedWrapper
             categoryIds={product.collectionIds || []}
             currentProductId={product._id!}
-            limit={6}
+            limit={12}
+            productsPerCategory={20}
             shuffle={true}
           />
         </Suspense>
@@ -265,10 +257,10 @@ const SinglePage = async ({
       <div className="px-1 md:px-8 lg:px-16 xl:px-32">
         <h2 className="px-3 text-lg md:text-xl font-bold mt-8">More Picks</h2>
         <Suspense fallback={<RelatedProductsLoadingSkeleton />}>
-        <ProductWrapper
-          categoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID!}
-          limit={6}
-        />
+          <ProductWrapper
+            categoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID!}
+            limit={8}
+          />
         </Suspense>
       </div>
 
@@ -292,6 +284,16 @@ const SinglePage = async ({
             limit={12}
             shuffle={true}
           />
+        </Suspense>
+      </div>
+
+      {/* Related Products Section - Uses multiple algorithms */}
+      <div className="px-1 md:px-8 lg:px-16 xl:px-32">
+        <h2 className="px-3 text-lg md:text-xl font-bold mt-8">
+          You May Also Like
+        </h2>
+        <Suspense fallback={<RelatedProductsLoadingSkeleton />}>
+          <RelatedProductsWrapper productId={product._id!} limit={6} />
         </Suspense>
       </div>
 

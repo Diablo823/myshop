@@ -23,6 +23,7 @@ import {
 import VerificationInput from "@/components/VerificationInput";
 import Image from "next/image";
 import { set } from "date-fns";
+import { HourglassMediumIcon } from "@phosphor-icons/react";
 
 enum MODE {
   LOGIN = "LOGIN",
@@ -56,7 +57,7 @@ const LoginPage = () => {
   const [message, setMessage] = useState("");
 
   const [loginAttempts, setLoginAttempts] = useState(0);
-const [lockoutTime, setLockoutTime] = useState<number | null>(null);
+  const [lockoutTime, setLockoutTime] = useState<number | null>(null);
 
   const countryCodes: CountryCode = {
     "+1": "US",
@@ -157,13 +158,14 @@ const [lockoutTime, setLockoutTime] = useState<number | null>(null);
 
     if (lockoutTime && Date.now() < lockoutTime) {
       const remainingSeconds = Math.ceil((lockoutTime - Date.now()) / 1000);
-      setError(`Too many failed attempts. Please try again in ${remainingSeconds} seconds.`);
+      setError(
+        `Too many failed attempts. Please try again in ${remainingSeconds} seconds.`
+      );
       setIsLoading(false);
       return;
     }
 
     let response: any;
-
 
     try {
       switch (mode) {
@@ -330,24 +332,24 @@ const [lockoutTime, setLockoutTime] = useState<number | null>(null);
 
           if (newAttempts >= 6) {
             setLockoutTime(Date.now() + 3 * 60 * 1000); // 3 minutes lockout
-            setError("Too many failed attempts. Please try again in 3 minutes.");
+            setError(
+              "Too many failed attempts. Please try again in 3 minutes."
+            );
           } else {
-
-          
-          if (
-            response.errorCode === "invalidEmail" ||
-            response.errorCode === "invalidPassword"
-          ) {
-            setError("Invalid Email or Password");
-          } else if (response.errorCode === "emailAlreadyExists") {
-            setError("Email already exists");
-          } else if (response.errorCode === "resetPassword") {
-            setError("You need to reset your password");
-          } else {
-            setError("Something went wrong!");
-            //console.log(response.error);
+            if (
+              response.errorCode === "invalidEmail" ||
+              response.errorCode === "invalidPassword"
+            ) {
+              setError("Invalid Email or Password");
+            } else if (response.errorCode === "emailAlreadyExists") {
+              setError("Email already exists");
+            } else if (response.errorCode === "resetPassword") {
+              setError("You need to reset your password");
+            } else {
+              setError("Something went wrong!");
+              //console.log(response.error);
+            }
           }
-        }
 
           break;
 
@@ -546,10 +548,19 @@ const [lockoutTime, setLockoutTime] = useState<number | null>(null);
           ) : null}
 
           <Button
-            className="mt-4 w-full rounded-lg bg-black hover:bg-gray-950 text-sm font-semibold disabled:bg-pink-200 disabled:cursor-not-allowed"
+            className="mt-4 w-full rounded-lg bg-black hover:bg-gray-950 text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={isLoading}
           >
-            {isLoading ? "Loading..." : buttonTitle}
+            {isLoading ? (
+              <span className="flex items-center gap-2">
+                <span className="animate-spin">
+                  <HourglassMediumIcon size={22} weight="bold" />
+                </span>
+                Loading...
+              </span>
+            ) : (
+              buttonTitle
+            )}
           </Button>
 
           {error && <div className="text-sm text-red-600 mt-3">{error}</div>}

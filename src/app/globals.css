@@ -78,10 +78,10 @@
   scrollbar-width: none;
 }
 
-.image-container img {
+/* .image-container img {
   width: auto;
   height: auto;
-}
+} */
 
 /* Ensure safe area insets are accounted for */
 @supports (padding: max(0px)) {

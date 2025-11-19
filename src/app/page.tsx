@@ -23,7 +23,7 @@ const categories = {
   "cat-10" : process.env.NEXT_PUBLIC_TOP_PICKS_CATEGORY_ID,
   "cat-11" : process.env.NEXT_PUBLIC_ESSENTIAL_PRODUCTS_CATEGORY_ID,
   "cat-12" : process.env.NEXT_PUBLIC_TRENDING_NOW_CATEGORY_ID,
-
+  "cat-13" : process.env.NEXT_PUBLIC_TECH_UTILITIES_CATEGORY_ID,
 }
 
 const HomePage = async () => {

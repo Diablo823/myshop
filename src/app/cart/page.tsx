@@ -129,6 +129,7 @@ const CartPage = () => {
                             )}
                             alt={item.productName?.original || "Product"}
                             fill
+                            sizes="(max-width: 768px) 100px, 140px"
                             className="object-cover hover:scale-105 transition-transform duration-300"
                             onClick={() => onSlugClick(slug)}
                           />
@@ -239,7 +240,7 @@ const CartPage = () => {
                 
                 <Button
                   onClick={handleCheckout}
-                  disabled
+                  //disabled
                   className="w-full mt-4 rounded-2xl bg-[#FFD700] text-gray-950 font-bold hover:bg-[#FFD700] disabled:bg-pink-200 disabled:text-white hover:scale-105 transition-all duration-300"
                 >
                   Proceed to Checkout <FaShoppingBag className="ml-2" />

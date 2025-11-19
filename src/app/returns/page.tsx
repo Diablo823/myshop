@@ -360,7 +360,7 @@ export default function ReturnAndRefundPolicy() {
               <ul className="list-disc pl-5 space-y-1 text-sm">
                 <li>
                   <strong>Email (General Inquiries):</strong>{" "}
-                  uscartelofficial@gmail.com
+                  hello@uscartel.com
                 </li>
                 <li>
                   <strong>Email (Support):</strong> support@uscartel.com
@@ -532,7 +532,7 @@ export default function ReturnAndRefundPolicy() {
                 <ul className="list-disc pl-5 space-y-1">
                   <li>
                     <strong>Email (General Inquiries):</strong>{" "}
-                    uscartelofficial@gmail.com
+                    hello@uscartel.com
                   </li>
                   <li>
                     <strong>Email (Support):</strong> support@uscartel.com

@@ -146,13 +146,17 @@ const OrderDetails = ({ orderData }: { orderData: OrderDataProps }) => {
           <div key={item._id} className="bg-white rounded-2xl p-2 mb-4 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="w-full md:w-1/4 flex justify-center md:justify-start">
-                <div className="relative group">
+                <div className="relative group w-full max-w-[200px] h-[250px]">
                   <Image
                     src={item.image}
                     alt={item.productName}
-                    width={200}
-                    height={200}
-                    className="rounded-xl w-full max-w-[200px] object-cover shadow-md group-hover:scale-105 transition-transform duration-300"
+                    // width={200}
+                    // height={200}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 
+           (max-width: 1200px) 50vw, 
+           200px"
+                    className="rounded-xl object-cover shadow-md group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 rounded-xl transition-all duration-300"></div>
                 </div>
@@ -256,20 +260,20 @@ const OrderDetails = ({ orderData }: { orderData: OrderDataProps }) => {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-6">
+          <div className="flex flex-row items-center justify-center gap-2 mt-6">
             <Link href="/">
-              <Button className="w-full sm:w-auto bg-gradient-to-r from-[#453B27] to-[#342C1D] hover:from-[#342C1D] hover:to-[#2A231A] text-white px-8 py-3 font-semibold shadow-lg rounded-lg hover:shadow-xl transition-all duration-200 hover:transform hover:scale-105">
+              <Button className="w-full sm:w-auto bg-gradient-to-r from-yellow-500 to-gray-900 hover:from-gray-900  hover:to-yellow-500 duration-500 text-white px-8 py-3 font-semibold shadow-lg rounded-lg hover:shadow-xl transition-all hover:transform hover:scale-105">
                 Continue
               </Button>
             </Link>
 
             {isOrderCanceled ? (
-              <Button variant="notAllowed" className="w-full sm:w-auto bg-gray-400 text-white px-8 py-3 font-semibold rounded-lg">
+              <Button variant="notAllowed" className="w-auto bg-gray-400 text-white px-8 py-3 font-semibold rounded-lg">
                 Order Cancelled
               </Button>
             ) : order.fulfillmentStatus === 'FULFILLED' ? (
-              <Button variant="notAllowed" className="w-full sm:w-auto bg-gray-400 text-xs text-white px-8 py-3 font-semibold rounded-lg">
-                Order Fulfilled (Cannot Cancel)
+              <Button variant="notAllowed" className="w-auto bg-gray-400 text-xs text-white px-8 py-3 font-semibold rounded-lg">
+                Order Fulfilled
               </Button>
             ) : (
               <CancellationRequestForm 

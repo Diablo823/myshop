@@ -13,6 +13,7 @@ import CartDrawer from "./CartDrawer";
 import { FaShoppingCart } from "react-icons/fa";
 import { useCartStore } from "@/hooks/useCartStore";
 import { useWixClient } from "@/hooks/useWixClient";
+import { ShoppingCartIcon } from "@phosphor-icons/react";
 
 const NavIcons = dynamic(() => import("./NavIcons"), { ssr: false });
 
@@ -73,8 +74,9 @@ const Navbar = () => {
             className="relative cursor-pointer"
             onClick={() => setIsCartOpen((prev) => !prev)}
           >
-            <FaShoppingCart size={20} className="text-gray-900" />
-            <div className="absolute -top-4 -right-3 bg-black rounded-full w-5 h-5 flex items-center justify-center text-sm text-white">
+            {/* <FaShoppingCart size={20} className="text-gray-900" /> */}
+            <ShoppingCartIcon size={22} weight="bold" />
+            <div className="absolute -top-3 -right-3 bg-black rounded-full w-5 h-5 flex items-center justify-center text-xs text-white">
               {counter}
             </div>
           </div>

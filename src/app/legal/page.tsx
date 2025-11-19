@@ -102,7 +102,7 @@ const LegalPrivacyPage = () => {
                 <h2 className="text-lg md:text-xl font-bold mb-4">7. Contact Information</h2>
                 <p className="text-gray-700 mb-4 text-sm">If you have any questions or concerns about this policy or our practices, please feel free to reach out:</p>
                 <ul className="list-none space-y-2 text-gray-700 text-sm">
-                  <li>Email (General Inquiries): uscartelofficial@gmail.com</li>
+                  <li>Email (General Inquiries): hello@uscartel.com</li>
                   <li>Email (Support): support@uscartel.com</li>
                   <li>Physical Address: Eramalloor, Alappuzha, Kerala, India</li>
                 </ul>

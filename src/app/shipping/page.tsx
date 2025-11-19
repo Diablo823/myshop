@@ -27,7 +27,7 @@ export default function ShippingPolicy() {
               <h1 className="text-3xl md:text-4xl font-bold text-white text-center px-4">Shipping Policy</h1>
             </div>
           </div>
-          <p className="text-gray-500 text-center italic">Last Updated: {currentDate}</p>
+          <p className="text-gray-500 text-center italic">Last Updated: November 14, 2025</p>
         </div>
 
         {/* Introduction */}
@@ -65,13 +65,17 @@ export default function ShippingPolicy() {
               <h2 className="text-lg md:text-xl font-bold mb-4">1. Order Processing</h2>
               <ul className="list-disc pl-5 space-y-2 text-sm">
                 <li>
-                  <strong>Processing Time:</strong> All orders are processed within 1-2 business days 
+                  <strong>Processing Time:</strong> All orders are processed on the same day
                   after your order is placed. Please note that processing times may be slightly longer 
                   during peak periods or promotional events.
                 </li>
                 <li>
                   <strong>Order Confirmation:</strong> Once your order is confirmed, you will receive an email 
-                  notification with your order details. You can use this email to track the progress of your order.
+                  notification with your order details.
+                </li>
+                <li>
+                  <strong>Order Tracking:</strong> Once your order is dispatched, you will receive an email 
+                  notification with your order tracking number with the name of the respective courier service provider. You can use this email to track the progress of your order on their platform.
                 </li>
               </ul>
             </div>
@@ -93,8 +97,8 @@ export default function ShippingPolicy() {
                 <li>
                   <strong>Domestic Shipping:</strong> We currently ship within India. Delivery times vary based on your location:
                   <ul className="list-disc pl-8 mt-2 space-y-1">
-                    <li><strong>Metro Cities:</strong> 2-4 business days</li>
-                    <li><strong>Tier 2 Cities & Smaller Towns:</strong> 4-7 business days</li>
+                    <li><strong>Metro Cities:</strong> 3-5 business days</li>
+                    <li><strong>Tier 2 Cities & Smaller Towns:</strong> 5-9 business days</li>
                   </ul>
                 </li>
                 <li>
@@ -103,8 +107,11 @@ export default function ShippingPolicy() {
                   considered in the future.
                 </li>
                 <li>
-                  <strong>Shipping Carriers:</strong> We partner with reliable courier services to ensure your 
-                  order is delivered safely. A tracking number will be provided once your order is shipped.
+                  <strong>Shipping Carriers:</strong> We primarily choose IndiaPost to ship your orders to ensure reliable 
+                  and timely delivery. Your orders will be shipped via SpeedPost.
+                </li>
+                <li>
+                  <strong>Other Carriers:</strong> We will also choose other carriers to ship your orders in certain cases. We choose IndiaPost over other carriers because we saw many people complaining on social medias about delayed deliveries and lost packages when shipped via other carriers. 
                 </li>
               </ul>
             </div>
@@ -202,7 +209,7 @@ export default function ShippingPolicy() {
               </p>
               <ul className="list-disc pl-5 space-y-1 text-sm">
                 <li>
-                  <strong>Email (General Inquiries):</strong> uscartelofficial@gmail.com
+                  <strong>Email (General Inquiries):</strong> hello@uscartel.com
                 </li>
                 <li>
                   <strong>Email (Support):</strong> support@uscartel.com
@@ -233,8 +240,8 @@ export default function ShippingPolicy() {
               <AccordionContent>
                 <ul className="list-disc pl-5 space-y-2">
                   <li>
-                    <strong>Processing Time:</strong> All orders are processed within 1-2 business days 
-                    after your order is placed. Please note that processing times may be slightly longer 
+                    <strong>Processing Time:</strong> All orders are processed on the same day 
+                    after your order is placed. <br /><strong>Rare Case: </strong> Please note that processing times may be slightly longer 
                     during peak periods or promotional events.
                   </li>
                   <li>
@@ -252,8 +259,8 @@ export default function ShippingPolicy() {
                   <li>
                     <strong>Domestic Shipping:</strong> We currently ship within India. Delivery times vary based on your location:
                     <ul className="list-disc pl-8 mt-2 space-y-1">
-                      <li><strong>Metro Cities:</strong> 2-4 business days</li>
-                      <li><strong>Tier 2 Cities & Smaller Towns:</strong> 4-7 business days</li>
+                      <li><strong>Metro Cities:</strong> 3-5 business days</li>
+                      <li><strong>Tier 2 Cities & Smaller Towns:</strong> 5-9 business days</li>
                     </ul>
                   </li>
                   <li>
@@ -262,8 +269,7 @@ export default function ShippingPolicy() {
                     considered in the future.
                   </li>
                   <li>
-                    <strong>Shipping Carriers:</strong> We partner with reliable courier services to ensure your 
-                    order is delivered safely. A tracking number will be provided once your order is shipped.
+                    <strong>Shipping Carriers:</strong> We primarily choose IndiaPost to ship your orders to ensure reliable and timely delivery. Your orders will be shipped via SpeedPost.
                   </li>
                 </ul>
               </AccordionContent>
@@ -325,7 +331,7 @@ export default function ShippingPolicy() {
                 </p>
                 <ul className="list-disc pl-5 space-y-1">
                   <li>
-                    <strong>Email (General Inquiries):</strong> uscartelofficial@gmail.com
+                    <strong>Email (General Inquiries):</strong> hello@uscartel.com
                   </li>
                   <li>
                     <strong>Email (Support):</strong> support@uscartel.com

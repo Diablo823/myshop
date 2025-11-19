@@ -4,6 +4,7 @@ import { orders } from "@wix/ecom";
 
 export type Order = orders.Order;
 export type OrderLineItem = orders.OrderLineItem;
+
 export type Address = {
   _id: string;
   addressLine: string;
@@ -16,14 +17,16 @@ export type Address = {
 export type ProfileData = {
   isAuthenticated: boolean;
   member: members.Member | null;
-  ordersList: Order[];
+  initialOrders: Order[];
+  nextCursor: string | null;
 };
 
 export async function getProfileData(): Promise<ProfileData> {
   const wixClient = await wixClientServer();
   let isAuthenticated = false;
   let member: members.Member | null = null;
-  let ordersList: Order[] = [];
+  let initialOrders: Order[] = [];
+  let nextCursor: string | null = null;
 
   try {
     isAuthenticated = await wixClient.auth.loggedIn();
@@ -34,14 +37,19 @@ export async function getProfileData(): Promise<ProfileData> {
       });
       
       member = memberResponse.member ?? null;
-
+      
       if (member?.contactId) {
         const orderResponse = await wixClient.orders.searchOrders({
           search: {
             filter: { "buyerInfo.contactId": { $eq: member.contactId } },
+            cursorPaging: {
+              limit: 5,
+            },
           },
         });
-        ordersList = orderResponse.orders || [];
+        
+        initialOrders = orderResponse.orders || [];
+        nextCursor = orderResponse.metadata?.cursors?.next || null;
       }
     }
   } catch (error) {
@@ -52,6 +60,7 @@ export async function getProfileData(): Promise<ProfileData> {
   return {
     isAuthenticated,
     member,
-    ordersList
+    initialOrders,
+    nextCursor,
   };
 }

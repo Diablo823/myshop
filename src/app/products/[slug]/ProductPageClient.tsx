@@ -16,6 +16,7 @@ import {
 import BackInStockNotificationButton from "@/components/BackInStockNotificationButton";
 import { FaArrowDown, FaBox, FaTruck } from "react-icons/fa";
 import { FaClock } from "react-icons/fa6";
+import ProcessingBox from "@/components/ProcessingBox";
 
 interface AdditionalInfoSection {
   title?: string;
@@ -359,7 +360,17 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
             })}
           </div>
         )}
-        <div className="mt-2 text-black font-semibold text-center border-2 p-4 rounded-3xl shadow-xl bg-gradient-to-r from-green-100 to-amber-100">
+
+        <ProcessingBox
+          processingText="Processing"
+          processingValue="0 Days"
+          dispatchingText="Shipping"
+          dispatchValue="1 Day"
+          deliveryText="Delivery"
+          deliveryValue="5 - 9 Days"
+        />
+
+        {/* <div className="mt-2 text-black font-semibold text-center border-2 p-4 rounded-3xl shadow-xl bg-gradient-to-r from-green-100 to-amber-100">
           <div className="flex flex-row justify-center gap-8">
             <span>
               <FaBox size={32} />
@@ -377,7 +388,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
             private courier services, so we choose India Post for secure and
             timely delivery of your order.
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

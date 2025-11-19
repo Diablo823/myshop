@@ -93,7 +93,7 @@ const Add = ({
         <div className="flex items-center gap-4">
           <div className="flex items-center justify-between w-36">
             <Button
-              className="bg-gray-800 hover:bg-gray-900 text-white rounded-xl"
+              className="bg-black text-white rounded-xl"
               onClick={() => handleQuantity("d")}
             >
               <FaMinus />
@@ -102,7 +102,7 @@ const Add = ({
               {stockNumber === 0 ? 0 : quantity}
             </span>
             <Button
-              className="bg-gray-800 hover:bg-gray-900 text-white rounded-xl"
+              className="bg-black text-white rounded-xl"
               onClick={() => handleQuantity("i")}
             >
               <FaPlus />
@@ -156,8 +156,8 @@ const Add = ({
         </Button>
         <Button
           onClick={handleBuyNow}
-          //disabled={stockNumber === 0}
-          disabled
+          disabled={stockNumber === 0}
+          //disabled
           className="md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-purple-700 text-slate-100 hover:bg-purple-800 disabled:hidden"
         >
           Buy Now <FaShoppingBag />

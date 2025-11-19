@@ -11,6 +11,9 @@ import { useCartStore } from '@/hooks/useCartStore';
 import { useWixClient } from '@/hooks/useWixClient';
 import Cookies from "js-cookie";
 import { FaStore } from 'react-icons/fa6';
+import { CirclesFourIcon, HouseIcon, HouseLineIcon, LayoutIcon, ShoppingCartIcon, StorefrontIcon, UserIcon } from '@phosphor-icons/react'
+import { LayoutDashboard } from 'lucide-react';
+
 
 const MobNav = () => {
 
@@ -89,29 +92,29 @@ const MobNav = () => {
 
 
   return (
-    <div className={`${pathname === '/success' ? "hidden" : "md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 pb-safe z-20"}`}>
+    <div className={`${pathname === '/success' ? "hidden" : "md:hidden fixed bottom-0 left-0 right-0 bg-white border-gray-200 pb-safe z-20 mb-1 shadow-xl shadow-black rounded-2xl"}`}>
 
       <div className="flex items-center justify-around h-16">
         {/* Home */}
         <Link 
           href="/"
-          className={`flex flex-col items-center space-y-1 ${
-            pathname === '/' ? 'text-yellow-500' : 'text-gray-900'
-          }`}
+          className={`flex flex-col items-center space-y-1`}
         >
-          <FaHome size={22} />
+          {/* <FaHome size={22} /> */}
+          <HouseIcon size={22} weight={pathname === "/" ? "fill" : "bold"} />
           <span className="text-xs">Home</span>
         </Link>
 
         {/* Categories */}
         <Link 
           href="/categories" 
-          className={`flex flex-col items-center space-y-1 relative ${
-            pathname === '/categories' ? 'text-yellow-500' : 'text-gray-900'
-          }`}
+          className={`flex flex-col items-center space-y-1`}
         >
           
-            <BiSolidCategory  size={22} />
+            {/* <BiSolidCategory  size={22} /> */}
+            {/* <LayoutIcon size={22} weight={pathname === "/categories" ? "fill" : "bold"} /> */}
+            <LayoutDashboard size={22} 
+            fill={pathname === '/categories' ? 'currentColor' : 'none'} />
           
           <span className="text-xs">Categories</span>
         </Link>
@@ -119,12 +122,11 @@ const MobNav = () => {
         {/* Deals */}
         <Link 
           href="/deals" 
-          className={`flex flex-col items-center space-y-1 relative ${
-            pathname === '/deals' ? 'text-yellow-500' : 'text-gray-900'
-          }`}
+          className={`flex flex-col items-center space-y-1`}
         >
           
-            <FaStore  size={22} />
+            {/* <FaStore  size={22} /> */}
+            <StorefrontIcon size={22} weight={pathname === "/deals" ? "fill" : "bold"} />
           
           <span className="text-xs">Deals</span>
         </Link>
@@ -133,14 +135,12 @@ const MobNav = () => {
         {/* Cart */}
         <Link 
           href="/cart" 
-          className={`flex flex-col items-center space-y-1 relative ${
-            pathname === '/cart' ? 'text-yellow-500' : 'text-gray-900'
-          }`}
+          className={`flex flex-col items-center space-y-1 relative`}
         >
           <div className="relative">
-            {/* <RiShoppingCart2Fill size={24} /> */}
-            {/* <HiShoppingCart size={24} /> */}
-            <FaShoppingCart size={22} />
+            
+            {/* <FaShoppingCart size={22} /> */}
+            <ShoppingCartIcon size={22} weight={pathname === "/cart" ? "fill" : "bold"} />
             {itemCount > 0 && (
               <span className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
                 {itemCount}
@@ -153,15 +153,12 @@ const MobNav = () => {
 
         <button
           onClick={handleProfile}
-          className={`flex flex-col items-center space-y-1 ${
-            pathname === "/authentication" || pathname === "/profile"
-              ? "text-yellow-500"
-              : "text-gray-900"
-          }`}
+          className={`flex flex-col items-center space-y-1`}
           suppressHydrationWarning
         >
-          <FaUser size={22} />
-          <span className="text-xs">Account</span>
+          {/* <FaUser size={22} /> */}
+          <UserIcon size={22} weight={pathname === "/authentication" || pathname === "/profile" ? "fill" : "bold"} />
+          <span className="text-xs">Profile</span>
         </button>
         {/* <button
           onClick={handleLogout}

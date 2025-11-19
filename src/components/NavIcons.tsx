@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 import { useCartStore } from "@/hooks/useCartStore";
 import CartDrawer from "./CartDrawer";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
+import { ShoppingCartIcon, UserIcon } from "@phosphor-icons/react";
 
 const NavIcons = () => {
   const wixClient = useWixClient();
@@ -107,10 +108,16 @@ const NavIcons = () => {
 
   return (
     <div className="flex gap-4 items-center xl:gap-6 relative nav-icon-container">
-      <FaUser 
-        size={24} 
-        className="cursor-pointer text-gray-900" 
-        onClick={handleProfile} 
+      {/* <FaUser
+        size={24}
+        className="cursor-pointer text-gray-900"
+        onClick={handleProfile}
+      /> */}
+      <UserIcon
+        size={24}
+        className="cursor-pointer"
+        onClick={handleProfile}
+        weight="bold"
       />
 
       {/* <Image
@@ -145,7 +152,8 @@ const NavIcons = () => {
         className="relative cursor-pointer"
         onClick={() => setIsCartOpen((prev) => !prev)}
       >
-        <FaShoppingCart size={24} className="text-gray-900" />
+        {/* <FaShoppingCart size={24} className="text-gray-900" /> */}
+        <ShoppingCartIcon size={24} weight="bold" />
         <div className="absolute -top-4 -right-3 bg-black rounded-full w-5 h-5 flex items-center justify-center text-sm text-white">
           {counter}
         </div>

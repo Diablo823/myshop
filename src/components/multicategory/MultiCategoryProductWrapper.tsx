@@ -2,26 +2,37 @@ import { getMultiCategoryProducts } from './getMultiCategoryProducts';
 import ProductsList from '../products/ProductsList'; 
 
 interface MultiCategoryRelatedWrapperProps {
-  categoryIds: string[]; // Multiple categories
+  categoryIds: string[];
   currentProductId?: string;
   limit?: number;
-  shuffle?: boolean; // Mix products from different categories
+  shuffle?: boolean;
+  productsPerCategory?: number; // How many to fetch from each category
 }
 
 export default async function MultiCategoryRelatedWrapper({ 
   categoryIds,
   currentProductId,
-  limit = 6,
-  shuffle = true
+  limit = 12,
+  shuffle = true,
+  productsPerCategory = 15
 }: MultiCategoryRelatedWrapperProps) {
-  const categoryProducts = await getMultiCategoryProducts(categoryIds, currentProductId, shuffle);
+  // Fetch more products than needed for variety
+  const categoryProducts = await getMultiCategoryProducts(
+    categoryIds, 
+    currentProductId, 
+    shuffle,
+    productsPerCategory
+  );
 
   if (!categoryProducts.length) {
     return null;
   }
 
+  // Take only the limit we need
+  const limitedProducts = categoryProducts.slice(0, limit);
+
   const mockData = {
-    items: categoryProducts.slice(0, limit),
+    items: limitedProducts,
     currentPage: 0,
     hasNext: () => false
   };

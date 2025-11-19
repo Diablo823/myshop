@@ -25,7 +25,7 @@ const Footer = () => {
     <div
       className={`${
         footRoutes.includes(pathname)
-          ? "px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 mt-20 bg-amber-400 text-black rounded-t-3xl"
+          ? "px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 mt-20 bg-neutral-50 text-black rounded-t-3xl"
           : "hidden"
       }`}
     >

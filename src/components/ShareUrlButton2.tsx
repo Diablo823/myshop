@@ -59,7 +59,7 @@ interface ShareUrlButtonProps {
 
 const ShareUrlButton2: React.FC<ShareUrlButtonProps> = ({
   url,
-  title = "Share this page",
+  title = "Share this product",
   buttonText = "Share",
   buttonVariant = "outline",
 }) => {
@@ -178,7 +178,7 @@ const ShareUrlButton2: React.FC<ShareUrlButtonProps> = ({
           {isWebShareSupported && (
             <div className="space-y-2">
               <label className="text-sm font-medium">
-                Share via your device
+                Share via your installed apps
               </label>
               <Button
                 onClick={handleNativeShare}
@@ -217,19 +217,19 @@ const ShareUrlButton2: React.FC<ShareUrlButtonProps> = ({
                 ? "Or share directly"
                 : "Share on social media"}
             </label>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="w-full grid grid-cols-4 gap-2 justify-center items-center">
               {socialPlatforms.map((platform) => {
                 const IconComponent = platform.icon;
                 return (
-                  <Button
+                  <button
                     key={platform.key}
-                    variant="outline"
-                    className={`flex items-center justify-center gap-2 h-12 ${platform.bgColor} ${platform.textColor} border-0 hover:scale-105 transition-transform`}
+                    //variant="outline"
+                    className={`w-full flex items-center justify-center gap-2 h-12 ${platform.bgColor} ${platform.textColor} border-0 hover:scale-105 transition-transform rounded-full`}
                     onClick={() => handleSocialShare(platform.key)}
                   >
-                    <IconComponent className="w-4 h-4" />
-                    <span className="text-sm font-medium">{platform.name}</span>
-                  </Button>
+                    <IconComponent className="w-6 h-6" />
+                    {/* <span className="text-sm font-medium">{platform.name}</span> */}
+                  </button>
                 );
               })}
             </div>

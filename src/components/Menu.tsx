@@ -7,6 +7,7 @@ import { navLinksMenu } from "@/constants";
 import { FaTimes } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { TextIndentIcon, TextOutdentIcon } from "@phosphor-icons/react";
 
 const Menu = () => {
   const [open, setOpen] = useState(false);
@@ -51,10 +52,11 @@ const Menu = () => {
     <>
       {/* Menu Icon */}
       <div className="menu-container relative z-30">
-        <GiHamburgerMenu
+        <TextOutdentIcon
           size={22}
           onClick={() => setOpen((prev) => !prev)}
           className="cursor-pointer"
+          weight="bold"
         />
       </div>
 
@@ -82,7 +84,8 @@ const Menu = () => {
             onClick={() => setOpen(false)}
             className="text-black transition-colors"
           >
-            <FaTimes size={20} />
+            {/* <FaTimes size={20} /> */}
+            <TextIndentIcon size={22} weight="bold" />
           </button>
         </div>
 

@@ -191,6 +191,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
                               )}
                               alt={item.productName?.original || "Product"}
                               fill
+                              sizes="90px"
                               className="object-cover hover:scale-105 transition-transform duration-300"
                               onClick={() => onSlugClick(slug)}
                             />
@@ -311,7 +312,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
                     </Button>
                     <Button
                       onClick={handleCheckout}
-                      disabled
+                      //disabled
                       className="w-full rounded-xl bg-[#FFD700] text-gray-950 font-bold hover:bg-[#FFD700] hover:scale-105 disabled:bg-pink-200 disabled:text-white transition-all duration-300"
                     >
                       Checkout <FaShoppingBag className="ml-2" size={18} />

@@ -14,7 +14,7 @@ import Link from "next/link";
 
 export default function AboutUs() {
   return (
-    <div className="min-h-screen px-4 md:px-8 lg:px-16 xl:px-32 bg-white text-gray-800 overflow-hidden">
+    <div className="min-h-screen px-2 md:px-8 lg:px-16 xl:px-32 bg-white text-gray-800 overflow-hidden">
       {/* Hero Section */}
       <div className="relative h-64 md:h-[24rem] w-full">
         <Image
@@ -36,7 +36,7 @@ export default function AboutUs() {
         <section>
           <h1 className="text-xl md:text-2xl font-bold mb-6 text-center">About Myself</h1>
           <p className="text-sm md:text-lg leading-relaxed text-center">
-            Hello, My name is Muruka Bhupathy M V and I'm the founder of US Cartel. I created US Cartel when I was 21 years old. I created US Cartel while I was in my final year of college. I am a BSc Computer Science graduate from University of Kerala. <br />
+            Hello, My name is Muruka Bhupathy M V and I am the founder of US Cartel. I created US Cartel when I was 21 years old while I was in my final year of college. I am a BSc Computer Science graduate from University of Kerala. <br />
             I just wanted to Introduce myself before saying more about US Cartel.
             <br />
              I created US Cartel with a vision to build a unique ecommerce brand that stands out from the crowd. The idea was to start something that could grow into a memorable brand known for quality and affordability.
