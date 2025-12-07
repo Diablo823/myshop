@@ -88,7 +88,12 @@ const ProfileClient = ({ profileData }: { profileData: ProfileData }) => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 p-2 relative">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Profile Section */}
-        <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl pt-2 px-2 md:top-20 md:sticky self-start border border-white/20">
+        <div className="bg-white/95 rounded-3xl shadow-2xl pt-2 px-2 md:top-20 md:sticky self-start border border-white/20"
+          style={{
+            willChange: 'transform',
+            transform: 'translateZ(0)',
+          }}
+        >
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-4">
               <div className="relative">
@@ -102,7 +107,7 @@ const ProfileClient = ({ profileData }: { profileData: ProfileData }) => {
                   {member.profile?.nickname || "Profile Details"}
                 </h2>
                 <p className="text-sm text-gray-500 font-medium">
-                  Member since {formatDate(member._createdDate)}
+                  Shopper since {formatDate(member._createdDate)}
                 </p>
               </div>
             </div>
@@ -240,11 +245,17 @@ const ProfileClient = ({ profileData }: { profileData: ProfileData }) => {
         </div>
 
         {/* Orders Section */}
-        <OrdersList 
-          initialOrders={initialOrders} 
-          initialCursor={nextCursor}
-          contactId={member.contactId!}
-        />
+        <div style={{
+          willChange: 'transform',
+          transform: 'translateZ(0)',
+        }}>
+
+          <OrdersList
+            initialOrders={initialOrders}
+            initialCursor={nextCursor}
+            contactId={member.contactId!}
+          />
+        </div>
       </div>
     </div>
   );

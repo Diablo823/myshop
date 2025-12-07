@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   FaShoppingBag,
@@ -18,6 +18,7 @@ import LoadingSpinner from "./ui/LoadingSpinner";
 import Link from "next/link";
 import { Badge } from "./ui/badge";
 import { currentCart } from "@wix/ecom";
+import { HourglassMediumIcon } from "@phosphor-icons/react";
 
 interface CartDrawerProps {
   open: boolean;
@@ -41,11 +42,14 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
   const { cart, isLoading, removeItem } = useCartStore();
   const router = useRouter();
 
+  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
+
   const showEmptyCart =
     !isLoading && (!cart || !cart.lineItems || cart.lineItems.length === 0);
 
   const handleCheckout = async () => {
     try {
+      setIsCheckoutLoading(true);
       const checkout =
         await wixClient.currentCart.createCheckoutFromCurrentCart({
           channelType: currentCart.ChannelType.WEB,
@@ -65,6 +69,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
       }
     } catch (error) {
       console.log(error);
+      setIsCheckoutLoading(false);
     }
   };
 
@@ -124,17 +129,15 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
     <>
       {/* Overlay */}
       <div
-        className={`fixed inset-0 bg-black transition-opacity duration-300 z-40 ${
-          open ? "opacity-50" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 bg-black transition-opacity duration-300 z-40 ${open ? "opacity-50" : "opacity-0 pointer-events-none"
+          }`}
         onClick={onClose}
       />
 
       {/* Drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-full max-w-sm sm:max-w-md bg-gradient-to-b from-slate-50 to-white shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${
-          open ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-0 right-0 h-full w-full max-w-sm sm:max-w-md bg-gradient-to-b from-slate-50 to-white shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${open ? "translate-x-0" : "translate-x-full"
+          }`}
         onClick={handleDrawerClick}
       >
         {/* Header */}
@@ -237,37 +240,37 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
                               <div className="flex items-center gap-2">
                                 {item.fullPrice?.formattedConvertedAmount !==
                                   item.price?.formattedConvertedAmount && (
-                                  <p className="text-xs text-gray-700 line-through">
-                                    {item.fullPrice?.formattedConvertedAmount}
-                                  </p>
-                                )}
+                                    <p className="text-xs text-gray-700 line-through">
+                                      {item.fullPrice?.formattedConvertedAmount}
+                                    </p>
+                                  )}
                                 <p className="text-base font-bold text-gray-900">
                                   {item.price?.formattedConvertedAmount}
                                 </p>
                                 {item.fullPrice?.formattedConvertedAmount !==
                                   item.price?.formattedConvertedAmount && (
-                                  <div className="flex items-center gap-1">
-                                    <FaArrowDown
-                                      className="text-green-600"
-                                      size={14}
-                                    />
-                                    <span className="text-xs font-bold text-green-600">
-                                      {Math.round(
-                                        ((parseFloat(
-                                          item.fullPrice?.amount || "0"
-                                        ) -
-                                          parseFloat(
-                                            item.price?.amount || "0"
-                                          )) /
-                                          parseFloat(
-                                            item.fullPrice?.amount || "1"
-                                          )) *
+                                    <div className="flex items-center gap-1">
+                                      <FaArrowDown
+                                        className="text-green-600"
+                                        size={14}
+                                      />
+                                      <span className="text-xs font-bold text-green-600">
+                                        {Math.round(
+                                          ((parseFloat(
+                                            item.fullPrice?.amount || "0"
+                                          ) -
+                                            parseFloat(
+                                              item.price?.amount || "0"
+                                            )) /
+                                            parseFloat(
+                                              item.fullPrice?.amount || "1"
+                                            )) *
                                           100
-                                      )}
-                                      % OFF
-                                    </span>
-                                  </div>
-                                )}
+                                        )}
+                                        % OFF
+                                      </span>
+                                    </div>
+                                  )}
                               </div>
                               <Badge className="h-5 px-2 text-[10px] font-medium rounded-md bg-gray-900 text-white">
                                 Qty: {item.quantity}
@@ -306,16 +309,28 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
                   <div className="flex flex-col gap-2.5 pt-2">
                     <Button
                       onClick={handleViewCart}
-                      className="w-full rounded-xl bg-[#800020] text-slate-100 font-bold hover:bg-[#800023] hover:text-slate-200 hover:scale-105 transition-all duration-300"
+                      className="w-full rounded-xl bg-[#800020] text-white font-bold hover:bg-[#800023] hover:scale-105 transition-all duration-300"
                     >
                       View Cart <FaShoppingCart className="ml-2" size={18} />
                     </Button>
                     <Button
                       onClick={handleCheckout}
                       //disabled
-                      className="w-full rounded-xl bg-[#FFD700] text-gray-950 font-bold hover:bg-[#FFD700] hover:scale-105 disabled:bg-pink-200 disabled:text-white transition-all duration-300"
+                      className={`w-full rounded-xl bg-[#FFD700] text-gray-950 font-bold hover:bg-[#FFD700] hover:scale-105 disabled:bg-pink-200 disabled:text-white transition-all duration-300 ${isCheckoutLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
-                      Checkout <FaShoppingBag className="ml-2" size={18} />
+                      {isCheckoutLoading ? (
+                        <div className="flex flex-row gap-2 justify-center items-center">
+                          <span>Checking Out... </span>
+                          <span className="animate-spin">
+                            <HourglassMediumIcon className="w-5 h-5" />
+                          </span>
+                        </div>
+                      ) : (
+                        <div className="flex flex-row gap-2 justify-center items-center">
+                          <span>Checkout</span>
+                          <span><FaShoppingBag className="ml-2" /></span>
+                        </div>
+                      )}
                     </Button>
                   </div>
                 </div>

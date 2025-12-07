@@ -38,7 +38,7 @@ const OrdersList = ({ initialOrders, initialCursor, contactId }: OrdersListProps
 
   const handleLoadMore = async () => {
     if (!cursor || !contactId || isLoadingMore) return;
-    
+
     setIsLoadingMore(true);
     try {
       const response = await fetch("/api/profile/orders", {

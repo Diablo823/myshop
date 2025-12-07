@@ -181,7 +181,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
   return (
     <div className="min-h-[calc(100vh-80px)] px-2 md:px-8 lg:px-16 xl:px-32 relative flex flex-col lg:flex-row gap-12">
       {/* IMAGES */}
-      <div className="w-full lg:w-1/2 lg:sticky top-20 mt-5 h-max">
+      <div className="w-full lg:w-2/5 lg:sticky top-20 mt-5 h-max">
         <ProductImages
           items={mediaToShow}
           currentIndex={currentImageIndex}
@@ -189,7 +189,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
         />
       </div>
       {/* TEXT */}
-      <div className="w-full lg:w-1/2 flex flex-col gap-3 lg:mt-5">
+      <div className="w-full lg:w-3/5 flex flex-col gap-3 lg:mt-5">
         {product.brand ? (
           <h2 className="text-sm md:text-lg font-bold tracking-wider text-black">
             {product.brand}
@@ -210,7 +210,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
         <Accordion
           type="single"
           collapsible
-          className="px-2 bg-gradient-to-r from-green-50 to-amber-50 rounded-xl md:hidden"
+          className="px-2 bg-gradient-to-r from-neutral-50 to-slate-50 rounded-xl md:hidden"
         >
           <AccordionItem value="product-description">
             <AccordionTrigger className="font-bold">
@@ -267,12 +267,12 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
         {/* NEW COMPONENT MODIFIED FOR OPTIONS AND VARIANTS  */}
 
         {product.variants &&
-        product.variants.length > 0 &&
-        product.productOptions &&
-        product.productOptions.length > 0 &&
-        (product.variants.length > 1 ||
-          (product.variants.length === 1 &&
-            product.variants[0]._id !==
+          product.variants.length > 0 &&
+          product.productOptions &&
+          product.productOptions.length > 0 &&
+          (product.variants.length > 1 ||
+            (product.variants.length === 1 &&
+              product.variants[0]._id !==
               "00000000-0000-0000-0000-000000000000")) ? (
           <CustomizeProducts
             productId={product._id!}
@@ -308,7 +308,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
                   <Accordion
                     type="single"
                     collapsible
-                    className="bg-gradient-to-r from-green-50 to-amber-50 px-4 md:px-6 rounded-2xl shadow-md"
+                    className="bg-gradient-to-r from-neutral-50 to-slate-50 px-4 md:px-6 rounded-2xl shadow-md"
                   >
                     <AccordionItem value={section.title || "info"}>
                       <AccordionTrigger className="font-bold">
@@ -338,7 +338,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
         {/* Additional Info Sections with either description or title */}
 
         {filteredSections && filteredSections.length > 0 && (
-          <div className="flex flex-col gap-4 p-4 bg-gradient-to-r from-green-50 to-amber-50 rounded-2xl border-2 border-slate-100 shadow-md">
+          <div className="flex flex-col gap-4 p-2 bg-gradient-to-r from-neutral-50 to-slate-50 rounded-2xl border-2 border-slate-100 shadow-md">
             {filteredSections.map((section: AdditionalInfoSection) => {
               if (section.title && section.description === "") {
                 return (
@@ -367,7 +367,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
           dispatchingText="Shipping"
           dispatchValue="1 Day"
           deliveryText="Delivery"
-          deliveryValue="5 - 9 Days"
+          deliveryValue="4 - 7 Days"
         />
 
         {/* <div className="mt-2 text-black font-semibold text-center border-2 p-4 rounded-3xl shadow-xl bg-gradient-to-r from-green-100 to-amber-100">

@@ -105,7 +105,7 @@ const ProductsList = ({
             key={product._id}
           >
             <div className="relative pb-[120%] w-full overflow-hidden rounded-t-lg">
-              <Badge className="absolute right-2 top-2 z-20 bg-blue-100 px-2 py-1 text-xs text-blue-800 hover:bg-blue-100 rounded-lg">
+              <Badge className="absolute right-2 top-2 z-10 bg-blue-100 px-2 py-1 text-xs text-blue-800 hover:bg-blue-100 rounded-lg">
                 {product.ribbon || null}
               </Badge>
               <Image
@@ -138,7 +138,7 @@ const ProductsList = ({
               </span>
               <div className="flex flex-row gap-2 items-center">
                 {product.priceData?.price ===
-                product.priceData?.discountedPrice ? (
+                  product.priceData?.discountedPrice ? (
                   <span className="text-sm font-bold text-black">
                     ₹{product.priceData?.price}
                   </span>
@@ -154,9 +154,9 @@ const ProductsList = ({
                     </div>
                   </div>
                 )}
-                
-                  {product.priceData?.price !==
-                    product.priceData?.discountedPrice && (
+
+                {product.priceData?.price !==
+                  product.priceData?.discountedPrice && (
                     <div className="flex flex-row items-center gap-1">
                       <span className="text-green-600">
                         <FaArrowDown size={12} />
@@ -171,7 +171,7 @@ const ProductsList = ({
                       </span>
                     </div>
                   )}
-                
+
               </div>
             </div>
             {product.additionalInfoSections && (

@@ -19,40 +19,42 @@ const MobNav = () => {
 
   const wixClient = useWixClient();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
+
   const router = useRouter();
   const pathname = usePathname();
   const { cart } = useCartStore();
   const itemCount = cart?.lineItems?.length || 0;
+  const isProductSlugPage = /^\/products\/[^/]+$/.test(pathname);
+  const isHidden = pathname === '/success' || isProductSlugPage;
 
   //const isLoggedIn = wixClient.auth.loggedIn();
 
   useEffect(() => {
-      const checkLoginStatus = async () => {
-        const status = await wixClient.auth.loggedIn();
-        setIsLoggedIn(status);
-      }
-      checkLoginStatus();
-    }, [wixClient])
+    const checkLoginStatus = async () => {
+      const status = await wixClient.auth.loggedIn();
+      setIsLoggedIn(status);
+    }
+    checkLoginStatus();
+  }, [wixClient])
 
   // useEffect(() => {
   //   const checkLoginStatus = async () => {
   //     const status = await wixClient.auth.loggedIn();
   //     setIsLoggedIn(status);
   //   }
-    
+
   //   // Check immediately
   //   checkLoginStatus();
-    
+
   //   // Set up an interval to check periodically
   //   const interval = setInterval(checkLoginStatus, 1000);
-    
+
   //   // Cleanup interval on unmount
   //   return () => clearInterval(interval);
   // }, [wixClient])
 
   const handleProfile = async () => {
-    const loginStatus =  await wixClient.auth.loggedIn();
+    const loginStatus = await wixClient.auth.loggedIn();
     if (!loginStatus) {
       router.push("/authentication");
     } else {
@@ -60,31 +62,31 @@ const MobNav = () => {
     }
   }
 
-  const handleLogout = async () => {    
+  const handleLogout = async () => {
     try {
       // First, remove the refresh token
       Cookies.remove("refreshToken");
-      
+
       // Get the logout URL
       const { logoutUrl } = await wixClient.auth.logout(window.location.href);
-      
+
       // If we're on the profile page, navigate home first
       if (pathname === '/profile') {
-        
-        
+
+
         // Navigate to home page
         router.push('/');
-        
+
         // Wait a brief moment for the navigation to complete
         await new Promise(resolve => setTimeout(resolve, 100));
       }
-      
+
       // Finally, redirect to the Wix logout URL
       window.location.href = logoutUrl;
       setIsLoggedIn(false)
     } catch (error) {
       console.error('Logout error:', error);
-        
+
       // If logout fails, just redirect to home
       router.push('/');
     }
@@ -92,11 +94,11 @@ const MobNav = () => {
 
 
   return (
-    <div className={`${pathname === '/success' ? "hidden" : "md:hidden fixed bottom-0 left-0 right-0 bg-white border-gray-200 pb-safe z-20 mb-1 shadow-xl shadow-black rounded-2xl"}`}>
+    <div className={`${isHidden ? "hidden" : "md:hidden fixed bottom-0 left-0 right-0 bg-white border-gray-200 pb-safe z-20 mb-1 shadow-xl shadow-black rounded-2xl"}`}>
 
       <div className="flex items-center justify-around h-16">
         {/* Home */}
-        <Link 
+        <Link
           href="/"
           className={`flex flex-col items-center space-y-1`}
         >
@@ -106,39 +108,39 @@ const MobNav = () => {
         </Link>
 
         {/* Categories */}
-        <Link 
-          href="/categories" 
+        <Link
+          href="/categories"
           className={`flex flex-col items-center space-y-1`}
         >
-          
-            {/* <BiSolidCategory  size={22} /> */}
-            {/* <LayoutIcon size={22} weight={pathname === "/categories" ? "fill" : "bold"} /> */}
-            <LayoutDashboard size={22} 
+
+          {/* <BiSolidCategory  size={22} /> */}
+          {/* <LayoutIcon size={22} weight={pathname === "/categories" ? "fill" : "bold"} /> */}
+          <LayoutDashboard size={22}
             fill={pathname === '/categories' ? 'currentColor' : 'none'} />
-          
+
           <span className="text-xs">Categories</span>
         </Link>
 
         {/* Deals */}
-        <Link 
-          href="/deals" 
+        <Link
+          href="/deals"
           className={`flex flex-col items-center space-y-1`}
         >
-          
-            {/* <FaStore  size={22} /> */}
-            <StorefrontIcon size={22} weight={pathname === "/deals" ? "fill" : "bold"} />
-          
+
+          {/* <FaStore  size={22} /> */}
+          <StorefrontIcon size={22} weight={pathname === "/deals" ? "fill" : "bold"} />
+
           <span className="text-xs">Deals</span>
         </Link>
 
-        
+
         {/* Cart */}
-        <Link 
-          href="/cart" 
+        <Link
+          href="/cart"
           className={`flex flex-col items-center space-y-1 relative`}
         >
           <div className="relative">
-            
+
             {/* <FaShoppingCart size={22} /> */}
             <ShoppingCartIcon size={22} weight={pathname === "/cart" ? "fill" : "bold"} />
             {itemCount > 0 && (

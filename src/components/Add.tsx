@@ -1,11 +1,38 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { FaMinus, FaPlus, FaShoppingBag, FaShoppingCart } from "react-icons/fa";
 import { useWixClient } from "@/hooks/useWixClient";
 import { useCartStore } from "@/hooks/useCartStore";
 import { currentCart } from "@wix/ecom";
+import { EyesIcon, HourglassMediumIcon, ShoppingCartIcon } from "@phosphor-icons/react";
+import Link from "next/link";
+
+// Function to generate consistent viewer count based on time window
+const getViewerCount = (productId: string, timeWindowMinutes: number = 5) => {
+  // Get current time rounded to the nearest time window
+  const now = new Date();
+  const timeWindow = Math.floor(now.getTime() / (timeWindowMinutes * 60 * 1000));
+
+  // Create a seed from productId and timeWindow for consistency
+  const seed = `${productId}-${timeWindow}`;
+
+  // Simple hash function to generate pseudo-random number from seed
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    const char = seed.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32-bit integer
+  }
+
+  // Generate viewer count between 15-85 based on hash
+  const min = 15;
+  const max = 95;
+  const viewerCount = min + (Math.abs(hash) % (max - min + 1));
+
+  return viewerCount;
+};
 
 const Add = ({
   productId,
@@ -17,12 +44,31 @@ const Add = ({
   stockNumber: number;
 }) => {
   const wixClient = useWixClient();
-  const { addItem } = useCartStore();
+  const { addItem, cart } = useCartStore();
 
   const [quantity, setQuantity] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [viewerCount, setViewerCount] = useState(0);
+
+  const itemCount = cart?.lineItems?.length || 0;
 
   // Temporary
   // const stock = 4;
+
+  useEffect(() => {
+    const updateViewers = () => {
+      setViewerCount(getViewerCount(productId, 5));
+    };
+
+    // Initial update
+    updateViewers();
+
+    // Update every 5 minutes
+    const interval = setInterval(updateViewers, 5 * 60 * 1000);
+
+    return () => clearInterval(interval);
+  }, [productId]);
 
   const handleQuantity = (type: "d" | "i") => {
     if (type === "d" && quantity > 1) {
@@ -35,6 +81,7 @@ const Add = ({
 
   const handleBuyNow = async () => {
     try {
+      setIsLoading(true);
       // First add to cart
       //await addItem(wixClient, productId, variantId, quantity);
 
@@ -68,6 +115,7 @@ const Add = ({
       }
     } catch (error) {
       console.error("Error during buy now:", error);
+      setIsLoading(false);
     }
   };
 
@@ -88,6 +136,12 @@ const Add = ({
 
   return (
     <div className="flex flex-col gap-4">
+      {/* Viewer Count Display */}
+      <div className="flex items-center gap-2 text-sm text-gray-700 bg-gray-100 px-4 py-2 rounded-lg w-fit">
+        <EyesIcon size={24} className="text-blue-600" />
+        <span className="font-semibold">{viewerCount} people</span>
+        <span className="text-gray-600">are viewing this product right now</span>
+      </div>
       <h4 className="font-medium">Choose a Quantity</h4>
       <div className="flex items-center gap-8">
         <div className="flex items-center gap-4">
@@ -145,7 +199,8 @@ const Add = ({
           Stay Tuned!
         </span>
       </div>*/}
-      {stockNumber > 0 ? (
+
+      {/* {stockNumber > 0 ? (
         <div className="flex flex-col gap-4 md:flex-row mt-6 pb-4">
           <Button
             onClick={() => addItem(wixClient, productId, variantId, quantity)}
@@ -158,11 +213,109 @@ const Add = ({
             onClick={handleBuyNow}
             disabled={stockNumber === 0}
             //disabled
-            className="md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-purple-700 text-slate-100 hover:bg-purple-800 disabled:hidden"
+            className={`md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-purple-700 text-slate-100 hover:bg-purple-800 disabled:hidden ${isLoading ? 'opacity-50' : ''}`}
           >
-            Buy Now <FaShoppingBag />
+            {isLoading ? (
+              <div className="flex flex-row gap-2 justify-center items-center">
+                <span>Buying Now</span>
+                <span className="animate-spin">
+                  <HourglassMediumIcon weight="bold" />
+                </span>
+              </div>
+            ) : (
+              <div className="flex flex-row gap-2 justify-center items-center">
+                <span>Buy Now</span>
+                <span><FaShoppingBag /></span>
+              </div>
+            )}
+
           </Button>
         </div>
+      ) : null} */}
+
+      {stockNumber > 0 ? (
+        <>
+
+          <div className="hidden md:flex md:gap-4 md:flex-row md:mt-6 md:pb-4">
+            <Button
+              onClick={() => addItem(wixClient, productId, variantId, quantity)}
+              disabled={stockNumber === 0}
+              className="md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-[#FFD700] text-black hover:bg-[#E6C200] disabled:hidden"
+            >
+              Add To Cart <FaShoppingCart />
+            </Button>
+            <Button
+              onClick={handleBuyNow}
+              disabled={stockNumber === 0}
+              className={`md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-purple-800 text-slate-100 hover:bg-purple-900 disabled:hidden ${isLoading ? 'opacity-50' : ''}`}
+            >
+              {isLoading ? (
+                <div className="flex flex-row gap-2 justify-center items-center">
+                  <span>Buying Now</span>
+                  <span className="animate-spin">
+                    <HourglassMediumIcon className="w-5 h-5" />
+                  </span>
+                </div>
+              ) : (
+                <div className="flex flex-row gap-2 justify-center items-center">
+                  <span>Buy Now</span>
+                  <span><FaShoppingBag /></span>
+                </div>
+              )}
+            </Button>
+          </div>
+
+
+          <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t px-1 py-1.5 z-20 rounded-t-2xl shadow-xl shadow-black">
+            <div className="flex gap-1 max-w-screen-xl mx-auto">
+              <Link href="/cart" className="flex flex-col items-center space-y-1 relative">
+                <button
+                  className="h-12 rounded-xl border border-gray-300 bg-white shadow-sm px-4 flex items-center justify-center hover:bg-gray-50"
+                >
+                  <div className="relative">
+                    <ShoppingCartIcon size={22} weight="bold" className="shrink-0" />
+                    {itemCount > 0 && (
+                      <span className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                        {itemCount}
+                      </span>
+                    )}
+                  </div>
+                </button>
+              </Link>
+
+
+              <Button
+                onClick={() => addItem(wixClient, productId, variantId, quantity)}
+                disabled={stockNumber === 0}
+                className="w-1/2 h-12 text-xs font-bold rounded-xl bg-[#FFD700] text-black hover:bg-[#E6C200] disabled:hidden"
+              >
+                Add To Cart <FaShoppingCart />
+              </Button>
+              <Button
+                onClick={handleBuyNow}
+                disabled={stockNumber === 0}
+                className={`w-1/2 h-12 text-xs font-bold rounded-xl bg-purple-800 text-slate-100 hover:bg-purple-900 disabled:hidden ${isLoading ? 'opacity-50' : ''}`}
+              >
+                {isLoading ? (
+                  <div className="flex flex-row gap-2 justify-center items-center">
+                    <span>Buying Now</span>
+                    <span className="animate-spin">
+                      <HourglassMediumIcon className="w-5 h-5" />
+                    </span>
+                  </div>
+                ) : (
+                  <div className="flex flex-row gap-2 justify-center items-center">
+                    <span>Buy Now</span>
+                    <span><FaShoppingBag /></span>
+                  </div>
+                )}
+              </Button>
+            </div>
+          </div>
+
+
+          <div className="md:hidden h-1"></div>
+        </>
       ) : null}
 
 

@@ -10,7 +10,7 @@ interface ProductImagesProps {
   setCurrentIndex?: (index: number) => void;
 }
 
-const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImagesProps) => {
+const ProductImages = ({ items, currentIndex = 0, setCurrentIndex }: ProductImagesProps) => {
   const [index, setIndex] = useState(currentIndex);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
@@ -110,16 +110,16 @@ const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImages
   // Handle touch start for pinch zoom
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     e.preventDefault(); // Prevent browser's default zoom
-    
+
     if (e.touches.length === 2) {
       // Initialize for pinch zoom
       setTouchDistance(getDistance(e.touches));
     } else if (e.touches.length === 1 && zoomLevel > 1) {
       // Initialize for drag
       setIsDragging(true);
-      setDragStart({ 
-        x: e.touches[0].clientX, 
-        y: e.touches[0].clientY 
+      setDragStart({
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY
       });
     }
   };
@@ -127,16 +127,16 @@ const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImages
   // Handle touch move for pinch zoom and drag
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     e.preventDefault(); // Prevent browser's default behaviors
-    
+
     if (e.touches.length === 2 && touchDistance !== null) {
       // Handle pinch zoom
       const currentDistance = getDistance(e.touches);
       const scaleFactor = 0.01; // Adjust sensitivity
-      
+
       // Calculate new zoom level based on touch distance change
       const touchDelta = currentDistance - touchDistance;
       const newZoomLevel = Math.max(1, Math.min(3, zoomLevel + (touchDelta * scaleFactor)));
-      
+
       setZoomLevel(newZoomLevel);
       setTouchDistance(currentDistance);
     } else if (e.touches.length === 1 && isDragging && zoomLevel > 1) {
@@ -145,12 +145,12 @@ const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImages
         x: e.touches[0].clientX,
         y: e.touches[0].clientY
       };
-      
+
       setPosition({
         x: position.x + (currentTouch.x - dragStart.x),
         y: position.y + (currentTouch.y - dragStart.y)
       });
-      
+
       setDragStart(currentTouch);
     }
   };
@@ -189,7 +189,7 @@ const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImages
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isModalOpen) return;
-      
+
       switch (e.key) {
         case 'Escape':
           closeModal();
@@ -219,20 +219,20 @@ const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImages
 
   // Safety check to ensure index is within bounds
   const safeIndex = Math.max(0, Math.min(index, items.length - 1));
-  
+
   return (
     <div className="w-full">
       {/* MAIN IMAGE - WITH SLIDING ANIMATION */}
-      <div 
+      <div
         className="h-[400px] md:h-[570px] relative group overflow-hidden rounded-lg"
         {...handlers}
       >
-        <div 
+        <div
           className="flex h-full transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${safeIndex * 100}%)` }}
         >
           {items.map((item: any, idx: number) => (
-            <div 
+            <div
               key={item._id || idx}
               className="relative w-full h-full flex-shrink-0"
             >
@@ -289,11 +289,10 @@ const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImages
       <div className="flex gap-4 mt-4 pt-1 px-2 overflow-x-auto pb-1 scrollbar-hide">
         {items.map((item: any, idx: number) => (
           <div
-            className={`w-16 h-16 relative flex-shrink-0 transition-all duration-300 ${
-              idx === safeIndex 
-                ? "ring-2 ring-pink-300 rounded-lg ring-offset-2" 
+            className={`w-16 h-16 relative flex-shrink-0 transition-all duration-300 ${idx === safeIndex
+                ? "ring-2 ring-pink-300 rounded-lg ring-offset-2"
                 : "opacity-70 hover:opacity-100"
-            }`}
+              }`}
             key={item._id || idx}
             onClick={() => handleIndexChange(idx)}
           >
@@ -311,12 +310,12 @@ const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImages
 
       {/* MODAL - WITH SLIDING ANIMATION */}
       {isModalOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80"
           onClick={closeModal}
         >
           {/* Modal Content */}
-          <div 
+          <div
             className="relative bg-white rounded-lg overflow-hidden w-full max-w-3xl max-h-[90vh] md:max-h-[80vh]"
             onClick={(e: React.MouseEvent) => e.stopPropagation()}
           >
@@ -325,7 +324,7 @@ const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImages
               <div className="text-lg font-medium">
                 Image {safeIndex + 1} of {items.length}
               </div>
-              
+
               {/* Zoom controls */}
               <div className="flex items-center gap-2">
                 <button
@@ -347,7 +346,7 @@ const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImages
                 >
                   <ZoomIn className="w-5 h-5" />
                 </button>
-                
+
                 {/* Close button */}
                 <button
                   onClick={closeModal}
@@ -358,17 +357,17 @@ const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImages
                 </button>
               </div>
             </div>
-            
+
             {/* Image container with touch support and sliding */}
             <div className="relative h-[50vh] md:h-[60vh] overflow-hidden" ref={imageContainerRef}>
               {zoomLevel === 1 ? (
                 // Sliding carousel when not zoomed
-                <div 
+                <div
                   className="flex h-full transition-transform duration-500 ease-out"
                   style={{ transform: `translateX(-${safeIndex * 100}%)` }}
                 >
                   {items.map((item: any, idx: number) => (
-                    <div 
+                    <div
                       key={item._id || idx}
                       className="relative w-full h-full flex-shrink-0 flex items-center justify-center"
                     >
@@ -385,7 +384,7 @@ const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImages
                 </div>
               ) : (
                 // Zoom and pan when zoomed in
-                <div 
+                <div
                   className="w-full h-full overflow-hidden"
                   onMouseDown={handleMouseDown}
                   onMouseMove={handleMouseMove}
@@ -396,7 +395,7 @@ const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImages
                   onTouchEnd={handleTouchEnd}
                   onTouchCancel={handleTouchEnd}
                 >
-                  <div 
+                  <div
                     className={`w-full h-full flex items-center justify-center ${zoomLevel > 1 ? 'cursor-move' : ''}`}
                   >
                     <div
@@ -419,7 +418,7 @@ const ProductImages = ({items, currentIndex = 0, setCurrentIndex}: ProductImages
                   </div>
                 </div>
               )}
-              
+
               {/* Navigation Arrows */}
               {items.length > 1 && (
                 <>

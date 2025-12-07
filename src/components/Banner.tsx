@@ -65,7 +65,7 @@ const Banner = ({
 
     resetProgress();
     progressStartTimeRef.current = Date.now();
-    
+
     progressTimerRef.current = setInterval(() => {
       if (progressStartTimeRef.current) {
         const elapsed = Date.now() - progressStartTimeRef.current;
@@ -78,7 +78,7 @@ const Banner = ({
   // Handle the "snap back" when reaching cloned slides
   const handleTransitionEnd = useCallback(() => {
     if (!transitionRef.current) return;
-    
+
     // If we're at the last clone (end), jump to the real first slide
     if (currentIndex >= slidesRef.current.length - 1) {
       transitionRef.current = false;
@@ -87,7 +87,7 @@ const Banner = ({
         transitionRef.current = true;
       }, 50);
     }
-    
+
     // If we're at the first clone (beginning), jump to the real last slide
     if (currentIndex <= 0) {
       transitionRef.current = false;
@@ -96,7 +96,7 @@ const Banner = ({
         transitionRef.current = true;
       }, 50);
     }
-    
+
     setIsTransitioning(false);
   }, [currentIndex]);
 
@@ -134,7 +134,7 @@ const Banner = ({
 
   useEffect(() => {
     startProgressTimer();
-    
+
     return () => {
       if (progressTimerRef.current) {
         clearInterval(progressTimerRef.current);
@@ -197,31 +197,30 @@ const Banner = ({
           </Link>
         ))}
       </div>
-      
+
       {/* Multiple progress indicators - one for each real slide */}
       {slides.length > 1 && (
         <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 px-4">
           <div className="flex gap-1 md:gap-2">
             {slides.map((_, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="w-12 md:w-16"
                 onClick={() => goToSlide(index)}
               >
-                <Progress 
-                  value={index === realIndex ? progress : (index < realIndex ? 100 : 0)} 
-                  className={`h-1 cursor-pointer ${
-                    index === realIndex 
-                      ? "bg-gray-300 bg-opacity-50" 
-                      : "bg-gray-300 bg-opacity-30"
-                  }`}
+                <Progress
+                  value={index === realIndex ? progress : (index < realIndex ? 100 : 0)}
+                  className={`h-1 cursor-pointer ${index === realIndex
+                    ? "bg-gray-300 bg-opacity-50"
+                    : "bg-gray-300 bg-opacity-30"
+                    }`}
                 />
               </div>
             ))}
           </div>
         </div>
       )}
-      
+
       {showControls && slides.length > 1 && (
         <>
           <button

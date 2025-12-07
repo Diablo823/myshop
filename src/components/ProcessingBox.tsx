@@ -31,7 +31,7 @@ const ProcessingBox: React.FC<InfoBoxProps> = ({
         {items.map((item, index) => (
           <div
             key={index}
-            className="flex flex-col items-center bg-white/60 p-4 rounded-2xl shadow-md bg-gradient-to-r from-green-50 to-amber-50"
+            className="flex flex-col items-center bg-white/60 p-4 rounded-2xl shadow-md bg-gradient-to-r from-neurtal-50 to-slate-50"
           >
             <span className="mb-2">{item.icon}</span>
             <span className="font-semibold text-xs">

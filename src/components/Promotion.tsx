@@ -3,73 +3,51 @@ import React, { useEffect, useState } from 'react';
 
 interface PromotionProps {
   days: number;
+  startDate: string; // ISO date string format: 'YYYY-MM-DDTHH:mm:ssZ'
   title?: string;
   description?: string;
   className?: string;
 }
 
+// Function to calculate a shared target date that's the same for all visitors
+const getSharedTargetDate = (startDate: string, days: number): Date => {
+  const START_DATE = new Date(startDate);
+
+  // Calculate the end date by adding the specified days
+  const targetDate = new Date(START_DATE.getTime() + (days * 24 * 60 * 60 * 1000));
+  return targetDate;
+};
+
 const Promotion = ({
   days,
+  startDate,
   title = "Deals of the Month",
   description = "Get ready for a shopping experience like never before with our Deals of the Month! Every purchase comes with exclusive perks and offers, making this month a celebration of savvy choices and amazing deals. Don't miss out.",
   className = "",
 }: PromotionProps) => {
   const [isClient, setIsClient] = useState(false);
   const [time, setTime] = useState({
-    days,
+    days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
   });
 
-  const [targetDate, setTargetDate] = useState<Date | null>(null);
-
   useEffect(() => {
     setIsClient(true);
-
-    // Check localStorage only on client-side
-    if (typeof window !== 'undefined') {
-      const savedTimerData = localStorage.getItem(`promotion-${days}`);
-      const savedTargetDate = localStorage.getItem(`promotionTarget-${days}`);
-
-      if (savedTimerData && savedTargetDate) {
-        const parsedTime = JSON.parse(savedTimerData);
-        setTime(parsedTime);
-        setTargetDate(new Date(savedTargetDate));
-        return;
-      }
-    }
-
-    // If no saved data, create initial target date
-    const initialTargetDate = new Date();
-    initialTargetDate.setDate(initialTargetDate.getDate() + days);
-    setTargetDate(initialTargetDate);
-  }, [days]);
+  }, []);
 
   useEffect(() => {
-    if (!isClient || !targetDate) return;
+    if (!isClient) return;
 
     const updateTimeRemaining = () => {
+      const targetDate = getSharedTargetDate(startDate, days);
       const now = new Date();
       const difference = targetDate.getTime() - now.getTime();
 
       if (difference <= 0) {
-        const newTargetDate = new Date();
-        newTargetDate.setDate(newTargetDate.getDate() + days);
-        setTargetDate(newTargetDate);
-        
-        const resetTime = {
-          days,
-          hours: 0,
-          minutes: 0,
-          seconds: 0,
-        };
-        setTime(resetTime);
-        
-        if (typeof window !== 'undefined') {
-          localStorage.removeItem(`promotion-${days}`);
-          localStorage.removeItem(`promotionTarget-${days}`);
-        }
+        // Countdown has ended
+        setTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       } else {
         const totalSeconds = Math.floor(difference / 1000);
         const remainingDays = Math.floor(totalSeconds / (3600 * 24));
@@ -77,27 +55,24 @@ const Promotion = ({
         const minutes = Math.floor((totalSeconds % 3600) / 60);
         const seconds = totalSeconds % 60;
 
-        const newTime = {
+        setTime({
           days: remainingDays,
           hours,
           minutes,
           seconds,
-        };
-
-        setTime(newTime);
-
-        if (typeof window !== 'undefined') {
-          localStorage.setItem(`promotion-${days}`, JSON.stringify(newTime));
-          localStorage.setItem(`promotionTarget-${days}`, targetDate.toISOString());
-        }
+        });
       }
     };
 
+    // Initial update
+    updateTimeRemaining();
+
+    // Update every second
     const timerId = setInterval(updateTimeRemaining, 1000);
     return () => clearInterval(timerId);
-  }, [isClient, targetDate, days]);
+  }, [isClient, days, startDate]);
 
-  // Render initial state on server, client state after hydration
+  // Render initial state on server
   if (!isClient) {
     return (
       <section className={`flex flex-col md:flex-row items-center justify-between gap-8 ${className}`}>
@@ -105,7 +80,7 @@ const Promotion = ({
           <h3 className="text-2xl md:text-3xl font-normal">{title}</h3>
           <p className="text-sm md:text-lg">{description}</p>
           <div className="flex gap-2">
-            <StatBox label="Days" value={days} />
+            <StatBox label="Days" value={0} />
             <StatBox label="Hours" value={0} />
             <StatBox label="Minutes" value={0} />
             <StatBox label="Seconds" value={0} />

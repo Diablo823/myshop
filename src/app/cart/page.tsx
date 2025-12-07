@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { FaTrashAlt, FaShoppingBag, FaArrowDown } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
 import { currentCart } from "@wix/ecom";
 import { paymentIcons } from "@/constants";
+import { HourglassMediumIcon } from "@phosphor-icons/react";
 
 interface DescriptionLine {
   name?: {
@@ -30,11 +31,14 @@ const CartPage = () => {
   const { cart, isLoading, removeItem } = useCartStore();
   const router = useRouter();
 
+  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
+
   const showEmptyCart =
     !isLoading && (!cart || !cart.lineItems || cart.lineItems.length === 0);
 
   const handleCheckout = async () => {
     try {
+      setIsCheckoutLoading(true);
       const checkout =
         await wixClient.currentCart.createCheckoutFromCurrentCart({
           channelType: currentCart.ChannelType.WEB,
@@ -54,6 +58,7 @@ const CartPage = () => {
       }
     } catch (error) {
       console.log(error);
+      setIsCheckoutLoading(false);
     }
   };
 
@@ -142,7 +147,7 @@ const CartPage = () => {
                             className="cursor-pointer space-y-1"
                             onClick={() => onSlugClick(slug)}
                           >
-                            
+
                             <h3 className="text-xs md:text-sm leading-tight line-clamp-2 font-semibold">
                               {item.productName?.original}
                             </h3>
@@ -181,27 +186,27 @@ const CartPage = () => {
                         <div className="flex items-center gap-2 pt-2">
                           {item.fullPrice?.formattedConvertedAmount !==
                             item.price?.formattedConvertedAmount && (
-                            <p className="text-sm text-gray-600 font-semibold line-through">
-                              {item.fullPrice?.formattedConvertedAmount}
-                            </p>
-                          )}
+                              <p className="text-sm text-gray-600 font-semibold line-through">
+                                {item.fullPrice?.formattedConvertedAmount}
+                              </p>
+                            )}
                           <p className="text-lg md:text-xl font-bold text-gray-900">
                             {item.price?.formattedConvertedAmount}
                           </p>
                           {item.fullPrice?.formattedConvertedAmount !==
                             item.price?.formattedConvertedAmount && (
-                            <div className="flex items-center gap-x-0.5">
-                              <FaArrowDown className="text-green-600" size={12} />
-                              <span className="text-xs font-bold text-green-600">
-                                {Math.round(
-                                  ((parseFloat(item.fullPrice?.amount || "0") -
-                                    parseFloat(item.price?.amount || "0")) /
-                                    parseFloat(item.fullPrice?.amount || "1")) *
+                              <div className="flex items-center gap-x-0.5">
+                                <FaArrowDown className="text-green-600" size={12} />
+                                <span className="text-xs font-bold text-green-600">
+                                  {Math.round(
+                                    ((parseFloat(item.fullPrice?.amount || "0") -
+                                      parseFloat(item.price?.amount || "0")) /
+                                      parseFloat(item.fullPrice?.amount || "1")) *
                                     100
-                                )}% OFF
-                              </span>
-                            </div>
-                          )}
+                                  )}% OFF
+                                </span>
+                              </div>
+                            )}
                         </div>
                       </div>
                     </div>
@@ -228,29 +233,41 @@ const CartPage = () => {
                     At checkout
                   </span>
                 </div>
-                
+
                 <div className="h-px bg-gray-200 my-4" />
-                
+
                 <div className="flex justify-between items-center font-bold text-xl">
                   <span className="text-gray-900">Total</span>
                   <span className="text-gray-900">
                     {(cart as any).subtotal?.formattedConvertedAmount}
                   </span>
                 </div>
-                
+
                 <Button
                   onClick={handleCheckout}
                   //disabled
-                  className="w-full mt-4 rounded-2xl bg-[#FFD700] text-gray-950 font-bold hover:bg-[#FFD700] disabled:bg-pink-200 disabled:text-white hover:scale-105 transition-all duration-300"
+                  className={`w-full mt-4 rounded-2xl bg-[#FFD700] text-gray-950 font-bold hover:bg-[#FFD700] disabled:bg-pink-200 disabled:text-white hover:scale-105 transition-all duration-300 ${isCheckoutLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
-                  Proceed to Checkout <FaShoppingBag className="ml-2" />
+                  {isCheckoutLoading ? (
+                    <div className="flex flex-row gap-2 justify-center items-center">
+                      <span>Checking Out... </span>
+                      <span className="animate-spin">
+                        <HourglassMediumIcon className="w-5 h-5" />
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="flex flex-row gap-2 justify-center items-center">
+                      <span>Proceed to Checkout</span>
+                      <span><FaShoppingBag className="ml-2" /></span>
+                    </div>
+                  )}
                 </Button>
-                
+
                 <p className="text-gray-800 text-center font-medium mt-4 text-xs">
                   🔒 Secure checkout powered by Razorpay
                 </p>
-                
-                <div className="flex gap-3 justify-center mt-4 pt-4 border-t border-gray-100">
+
+                <div className="flex gap-3 justify-center mt-4 pt-2 border-t border-gray-100">
                   {paymentIcons.map((payment) => (
                     <div key={payment.id} className="">
                       <payment.icon size={28} />
