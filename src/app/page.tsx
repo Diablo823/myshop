@@ -77,7 +77,24 @@ const HomePage = async () => {
           categoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID!}
           limit={12}
         />
+      </div>
 
+      <div className="mt-10 px-2 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
+        <h2 className="flex items-center justify-center gap-12 text-lg md:text-2xl font-bold">
+          <span>
+            <FaArrowLeft />
+          </span>
+          Discover Categories{" "}
+          <span>
+            <FaArrowRight />
+          </span>
+        </h2>
+
+        <CategoryList />
+      </div>
+
+
+      <div className="mt-20 px-1 md:px-8 lg:px-16 xl:px-32">
         <h2 className="mt-5 px-3 text-lg md:textxl font-bold">Picked For You</h2>
 
         <ShuffledCategoryWrapper
@@ -172,19 +189,6 @@ const HomePage = async () => {
         />
       </div> */}
 
-      <div className="mt-20 px-2 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
-        <h2 className="flex items-center justify-center gap-12 text-lg md:text-2xl font-bold">
-          <span>
-            <FaArrowLeft />
-          </span>
-          Discover Categories{" "}
-          <span>
-            <FaArrowRight />
-          </span>
-        </h2>
-
-        <CategoryList />
-      </div>
 
       <div className="mt-20 px-1 md:px-8 lg:px-16 xl:px-32">
         <h2 className="px-3 text-lg md:text-xl font-bold">Facewash</h2>

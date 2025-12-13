@@ -9,7 +9,7 @@ const CategoryList = async () => {
 
 
   return (
-    <div className="mt-12 p-2 overflow-x-scroll scrollbar-hide">
+    <div className="mt-6 p-2 overflow-x-scroll scrollbar-hide">
       <div className="flex gap-3">
         {categories.items.map((item) => (
           <Link
