@@ -2,6 +2,7 @@
 
 import Filter from "@/components/Filter";
 import ProductWrapper from "@/components/products/ProductWrapper";
+import SanityBanner from "@/components/SanityBanner";
 import { Button } from "@/components/ui/button";
 import { wixClientServer } from "@/lib/wixClientServer";
 import Image from "next/image";
@@ -13,15 +14,17 @@ export const maxDuration = 10;
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
-const ListPage = async ({ searchParams }: { searchParams: Promise<{
+const ListPage = async ({ searchParams }: {
+  searchParams: Promise<{
     cat?: string;
     name?: string;
     type?: string;
     min?: string;
     max?: string;
     sort?: string;
-  }>  }) => {
-  
+  }>
+}) => {
+
   const params = await searchParams;
 
   // Clean params object
@@ -38,18 +41,18 @@ const ListPage = async ({ searchParams }: { searchParams: Promise<{
   let cat;
   try {
     const wixClient = await wixClientServer();
-    
+
     // Add timeout for collection fetch (5 seconds max)
-    const timeoutPromise = new Promise((_, reject) => 
+    const timeoutPromise = new Promise((_, reject) =>
       setTimeout(() => reject(new Error('Collection fetch timeout')), 5000)
     );
-    
+
     const collectionPromise = wixClient.collections.getCollectionBySlug(
       cleanParams.cat || "all-products"
     );
-    
+
     cat = await Promise.race([collectionPromise, timeoutPromise]) as any;
-    
+
   } catch (error) {
     console.error('Error fetching collection:', error);
     // Fallback to default collection
@@ -63,9 +66,9 @@ const ListPage = async ({ searchParams }: { searchParams: Promise<{
 
   return (
     <div className="px-1 md:px-8 lg:px-16 xl:px-32 relative overflow-hidden">
-      {/* CAMPAIGN */}
+      {/* CAMPAIGN
       <div className="bg-pink-100 flex justify-between px-4 h-64 mt-5 rounded-2xl">
-        {/* TEXT CONTAINER */}
+        TEXT CONTAINER
         <div className="w-2/3 flex flex-col justify-center md:items-center md:text-center gap-6">
           <h1 className="text-2xl md:text-4xl font-semibold text-gray-950 leading-[38px] md:leading-[48px]">
             Get the Best Deals on {" "}
@@ -79,7 +82,7 @@ const ListPage = async ({ searchParams }: { searchParams: Promise<{
             <FaShoppingBag />
           </Button>
         </div>
-        {/* IMAGE CONTAINER */}
+        MAGE CONTAINER
         <div className="w-1/3 relative">
           <Image
             src="https://ik.imagekit.io/5ok2lashts/US%20CARTEL/campaign1.png?updatedAt=1741333459170"
@@ -89,6 +92,11 @@ const ListPage = async ({ searchParams }: { searchParams: Promise<{
             className="object-contain"
           />
         </div>
+      </div> */}
+      <div className="mt-3">
+        <SanityBanner bannerName="dealbanner1"
+          height="h-[12rem] md:h-[24rem]"
+        />
       </div>
 
       {/* FILTER */}
@@ -98,7 +106,7 @@ const ListPage = async ({ searchParams }: { searchParams: Promise<{
       <h1 className="mt-12 px-3 text-2xl font-bold">
         {cat?.collection?.name || "Products"}
       </h1>
-      
+
       <Suspense fallback={<ProductsLoadingSkeleton />}>
         <ProductWrapper
           categoryId={

@@ -24,7 +24,7 @@ const roboto = Roboto({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "US Cartel",
   description:
-    "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel, US Cartel store",
+    "US Cartel is the ecommerce marketplace founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel, US Cartel store",
   keywords: [
     "US Cartel",
     "US Cartel shop",
@@ -34,6 +34,8 @@ export const metadata: Metadata = {
     "US Cartel online store",
     "US Cartel company",
     "US Cartel corporation",
+    "Muruka Bhupathy",
+    "US Cartel founder",
     "fashion marketplace",
     "cosmetics online",
     "gadgets",
@@ -59,7 +61,7 @@ export const metadata: Metadata = {
     title:
       "US Cartel - Marketplace for Fashion, Cosmetics, Gadgets, Household essentials & More",
     description:
-      "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel, Ecommerce marketplace, US Cartel store",
+      "US Cartel is the ecommerce marketplace founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel, Ecommerce marketplace, US Cartel store",
     url: "https://uscartel.com",
     siteName: "US Cartel",
     locale: "en_US",
@@ -78,7 +80,7 @@ export const metadata: Metadata = {
     title:
       "US Cartel - Marketplace for Fashion, Cosmetics, Gadgets, Household essentials & More",
     description:
-      "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel, Ecommerce marketplace, US Cartel store",
+      "US Cartel is the ecommerce marketplace founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel, Ecommerce marketplace, US Cartel store",
     images: ["/og-image.png"], // Same image as OpenGraph
     creator: "@uscartelcompany", // Replace with your actual Twitter handle if you have one
   },
@@ -238,23 +240,23 @@ export default function RootLayout({
           }}
         />
 
-       
+
 
       </head>
       <body className={`${roboto.className}`}>
         <QueryClientProvider>
-        <WixClientContextProvider>
-          <Navbar />
-          {/* <NewNav /> */}
-          <ScrollToTop>
-          <main className="pt-16 pb-20">
-            {children}
-          </main>
-          </ScrollToTop>
-          <Toaster />
-          <Footer />
-          <MobNav />
-        </WixClientContextProvider>
+          <WixClientContextProvider>
+            <Navbar />
+            {/* <NewNav /> */}
+            <ScrollToTop>
+              <main className="pt-16 pb-20">
+                {children}
+              </main>
+            </ScrollToTop>
+            <Toaster />
+            <Footer />
+            <MobNav />
+          </WixClientContextProvider>
         </QueryClientProvider>
         <Analytics />
         <SpeedInsights />

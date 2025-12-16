@@ -6,7 +6,7 @@ import { FaMinus, FaPlus, FaShoppingBag, FaShoppingCart } from "react-icons/fa";
 import { useWixClient } from "@/hooks/useWixClient";
 import { useCartStore } from "@/hooks/useCartStore";
 import { currentCart } from "@wix/ecom";
-import { EyesIcon, HourglassMediumIcon, ShoppingCartIcon } from "@phosphor-icons/react";
+import { EyesIcon, HourglassMediumIcon, ShoppingCartIcon, TrendUpIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 
 // Function to generate consistent viewer count based on time window
@@ -34,6 +34,27 @@ const getViewerCount = (productId: string, timeWindowMinutes: number = 5) => {
   return viewerCount;
 };
 
+const getMonthlyPurchaseCount = (productId: string) => {
+  const now = new Date();
+  // Create a monthly window based on year and month
+  const monthWindow = `${now.getFullYear()}-${now.getMonth()}`;
+  const seed = `purchases-${productId}-${monthWindow}`;
+
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    const char = seed.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+
+  // Generate purchase count between 50-500 based on hash
+  const min = 125;
+  const max = 900;
+  const purchaseCount = min + (Math.abs(hash) % (max - min + 1));
+
+  return purchaseCount;
+};
+
 const Add = ({
   productId,
   variantId,
@@ -50,6 +71,7 @@ const Add = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const [viewerCount, setViewerCount] = useState(0);
+  const [purchaseCount, setPurchaseCount] = useState(0);
 
   const itemCount = cart?.lineItems?.length || 0;
 
@@ -66,6 +88,22 @@ const Add = ({
 
     // Update every 5 minutes
     const interval = setInterval(updateViewers, 5 * 60 * 1000);
+
+    return () => clearInterval(interval);
+  }, [productId]);
+
+  // Update purchase count once per month
+  useEffect(() => {
+    const updatePurchases = () => {
+      setPurchaseCount(getMonthlyPurchaseCount(productId));
+    };
+
+    updatePurchases();
+
+    // Check for month change every hour
+    const interval = setInterval(() => {
+      updatePurchases();
+    }, 60 * 60 * 1000);
 
     return () => clearInterval(interval);
   }, [productId]);
@@ -136,12 +174,26 @@ const Add = ({
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Viewer Count Display */}
-      <div className="flex items-center gap-2 text-sm text-gray-700 bg-gray-100 px-4 py-2 rounded-lg w-fit">
-        <EyesIcon size={24} className="text-blue-600" />
-        <span className="font-semibold">{viewerCount} people</span>
-        <span className="text-gray-600">are viewing this product right now</span>
+
+      {/* Stats Display */}
+      <div className="flex flex-col gap-2">
+        {/* Viewer Count Display */}
+        <div className="flex items-center gap-2 text-sm text-gray-700 bg-gray-100 px-4 py-2 rounded-lg w-fit">
+          <EyesIcon size={24} className="text-blue-600" />
+          <span className="font-semibold">{viewerCount} people</span>
+          <span className="text-gray-600">are viewing this product right now</span>
+        </div>
+
+        {/* Monthly Purchase Count Display */}
+        <div className="flex items-center gap-2 text-sm text-gray-700 bg-green-50 px-4 py-2 rounded-lg w-fit">
+          <TrendUpIcon size={24} className="text-green-600" weight="bold" />
+          <span className="font-semibold">{purchaseCount}+ purchases</span>
+          <span className="text-gray-600">last month</span>
+        </div>
+
       </div>
+
+
       <h4 className="font-medium">Choose a Quantity</h4>
       <div className="flex items-center gap-8">
         <div className="flex items-center gap-4">
