@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { currentCart } from "@wix/ecom";
 import { paymentIcons } from "@/constants";
 import { HourglassMediumIcon } from "@phosphor-icons/react";
+import { useToast } from "@/hooks/use-toast";
 
 interface DescriptionLine {
   name?: {
@@ -29,6 +30,7 @@ interface DescriptionLine {
 const CartPage = () => {
   const wixClient = useWixClient();
   const { cart, isLoading, removeItem } = useCartStore();
+  const { toast } = useToast();
   const router = useRouter();
 
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
@@ -38,6 +40,16 @@ const CartPage = () => {
 
   const handleCheckout = async () => {
     try {
+      // Check for Out of Stock items
+      const outOfStockItems = cart?.lineItems?.filter((item) => item.quantity === 0);
+      if (outOfStockItems && outOfStockItems.length > 0) {
+        toast({
+          variant: "destructive",
+          title: "Some items in your cart has been already Sold Out",
+          description: "Please remove them from your cart to proceed to checkout.",
+        })
+        return;
+      }
       setIsCheckoutLoading(true);
       const checkout =
         await wixClient.currentCart.createCheckoutFromCurrentCart({

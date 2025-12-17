@@ -15,31 +15,32 @@ const Loading = () => {
         <div className="relative">
           {/* Outermost glow ring */}
           <div className="absolute inset-0 w-20 h-20 md:w-32 md:h-32 rounded-full bg-gradient-to-r from-amber-200/30 to-yellow-300/30 blur-xl animate-pulse"></div>
-          
+
           {/* Outer ring - Gold */}
-          <div 
+          <div
             className="absolute inset-0 w-20 h-20 md:w-32 md:h-32 rounded-full border-2 border-amber-400/50 animate-spin"
             style={{ animationDuration: '4s' }}
           ></div>
-          
+
           {/* Middle ring - Gray */}
-          <div 
+          <div
             className="absolute inset-1.5 w-17 h-17 md:inset-2 md:w-28 md:h-28 rounded-full border-2 border-gray-300/50 animate-spin"
             style={{ animationDuration: '3s', animationDirection: 'reverse' }}
           ></div>
-          
+
           {/* Inner ring - Gold accent */}
-          <div 
+          <div
             className="absolute inset-3 w-14 h-14 md:inset-4 md:w-24 md:h-24 rounded-full border border-amber-500/40 animate-spin"
             style={{ animationDuration: '2s' }}
           ></div>
-          
+
           {/* Logo container with premium backdrop */}
           <div className="relative w-20 h-20 md:w-32 md:h-32 flex items-center justify-center">
             <div className="absolute inset-0 bg-white/80 backdrop-blur-sm rounded-full border border-amber-200/50 shadow-lg"></div>
             <div className="relative w-11 h-11 md:w-18 md:h-18 animate-pulse">
               <Image
-                src="https://ik.imagekit.io/5ok2lashts/loadlogo.png?updatedAt=1736980178600"
+                //src="https://ik.imagekit.io/5ok2lashts/loadlogo.png?updatedAt=1736980178600"
+                src='/logo.webp'
                 alt="Loading animation"
                 fill
                 sizes="(max-width: 768px) 44px, 72px"
@@ -57,15 +58,15 @@ const Loading = () => {
               LOADING
             </span>
             <div className="flex gap-1 md:gap-1.5">
-              <div 
+              <div
                 className="w-1 h-1 md:w-1.5 md:h-1.5 bg-amber-500 rounded-full animate-bounce shadow-[0_0_6px_rgba(212,175,55,0.4)]"
                 style={{ animationDelay: '0ms' }}
               ></div>
-              <div 
+              <div
                 className="w-1 h-1 md:w-1.5 md:h-1.5 bg-amber-500 rounded-full animate-bounce shadow-[0_0_6px_rgba(212,175,55,0.4)]"
                 style={{ animationDelay: '150ms' }}
               ></div>
-              <div 
+              <div
                 className="w-1 h-1 md:w-1.5 md:h-1.5 bg-amber-500 rounded-full animate-bounce shadow-[0_0_6px_rgba(212,175,55,0.4)]"
                 style={{ animationDelay: '300ms' }}
               ></div>

@@ -93,19 +93,20 @@ const ListPage = async ({ searchParams }: {
           />
         </div>
       </div> */}
-      <div className="mt-3">
+      {/* <div className="mt-3">
         <SanityBanner bannerName="dealbanner1"
           height="h-[12rem] md:h-[24rem]"
         />
       </div>
+ */}
+      {/* PRODUCTS - Wrapped in Suspense for streaming */}
+      <h1 className="mt-6 px-3 text-lg md:text-2xl font-bold">
+        {cat?.collection?.name || "Products"}
+      </h1>
 
       {/* FILTER */}
       <Filter />
 
-      {/* PRODUCTS - Wrapped in Suspense for streaming */}
-      <h1 className="mt-12 px-3 text-2xl font-bold">
-        {cat?.collection?.name || "Products"}
-      </h1>
 
       <Suspense fallback={<ProductsLoadingSkeleton />}>
         <ProductWrapper

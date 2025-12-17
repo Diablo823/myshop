@@ -19,6 +19,7 @@ import Link from "next/link";
 import { Badge } from "./ui/badge";
 import { currentCart } from "@wix/ecom";
 import { HourglassMediumIcon } from "@phosphor-icons/react";
+import { useToast } from "@/hooks/use-toast";
 
 interface CartDrawerProps {
   open: boolean;
@@ -40,6 +41,7 @@ interface DescriptionLine {
 const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
   const wixClient = useWixClient();
   const { cart, isLoading, removeItem } = useCartStore();
+  const { toast } = useToast();
   const router = useRouter();
 
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
@@ -49,6 +51,18 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
 
   const handleCheckout = async () => {
     try {
+
+      // Check for out of stock items
+      const outOfStockItems = cart?.lineItems?.filter((item) => item.quantity === 0);
+
+      if (outOfStockItems && outOfStockItems.length > 0) {
+        toast({
+          variant: "destructive",
+          title: "Some items in your cart has been already Sold Out",
+          description: "Please remove them from your cart to proceed to checkout.",
+        })
+        return;
+      }
       setIsCheckoutLoading(true);
       const checkout =
         await wixClient.currentCart.createCheckoutFromCurrentCart({

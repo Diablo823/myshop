@@ -10,29 +10,29 @@ import { EyesIcon, HourglassMediumIcon, ShoppingCartIcon, TrendUpIcon } from "@p
 import Link from "next/link";
 
 // Function to generate consistent viewer count based on time window
-const getViewerCount = (productId: string, timeWindowMinutes: number = 5) => {
-  // Get current time rounded to the nearest time window
-  const now = new Date();
-  const timeWindow = Math.floor(now.getTime() / (timeWindowMinutes * 60 * 1000));
+// const getViewerCount = (productId: string, timeWindowMinutes: number = 5) => {
+//   // Get current time rounded to the nearest time window
+//   const now = new Date();
+//   const timeWindow = Math.floor(now.getTime() / (timeWindowMinutes * 60 * 1000));
 
-  // Create a seed from productId and timeWindow for consistency
-  const seed = `${productId}-${timeWindow}`;
+//   // Create a seed from productId and timeWindow for consistency
+//   const seed = `${productId}-${timeWindow}`;
 
-  // Simple hash function to generate pseudo-random number from seed
-  let hash = 0;
-  for (let i = 0; i < seed.length; i++) {
-    const char = seed.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash = hash & hash; // Convert to 32-bit integer
-  }
+//   // Simple hash function to generate pseudo-random number from seed
+//   let hash = 0;
+//   for (let i = 0; i < seed.length; i++) {
+//     const char = seed.charCodeAt(i);
+//     hash = ((hash << 5) - hash) + char;
+//     hash = hash & hash; // Convert to 32-bit integer
+//   }
 
-  // Generate viewer count between 15-85 based on hash
-  const min = 15;
-  const max = 95;
-  const viewerCount = min + (Math.abs(hash) % (max - min + 1));
+//   // Generate viewer count between 15-85 based on hash
+//   const min = 15;
+//   const max = 95;
+//   const viewerCount = min + (Math.abs(hash) % (max - min + 1));
 
-  return viewerCount;
-};
+//   return viewerCount;
+// };
 
 const getMonthlyPurchaseCount = (productId: string) => {
   const now = new Date();
@@ -78,19 +78,19 @@ const Add = ({
   // Temporary
   // const stock = 4;
 
-  useEffect(() => {
-    const updateViewers = () => {
-      setViewerCount(getViewerCount(productId, 5));
-    };
+  // useEffect(() => {
+  //   const updateViewers = () => {
+  //     setViewerCount(getViewerCount(productId, 5));
+  //   };
 
-    // Initial update
-    updateViewers();
+  //   // Initial update
+  //   updateViewers();
 
-    // Update every 5 minutes
-    const interval = setInterval(updateViewers, 5 * 60 * 1000);
+  //   // Update every 5 minutes
+  //   const interval = setInterval(updateViewers, 5 * 60 * 1000);
 
-    return () => clearInterval(interval);
-  }, [productId]);
+  //   return () => clearInterval(interval);
+  // }, [productId]);
 
   // Update purchase count once per month
   useEffect(() => {
@@ -178,16 +178,16 @@ const Add = ({
       {/* Stats Display */}
       <div className="flex flex-col gap-2">
         {/* Viewer Count Display */}
-        <div className="flex items-center gap-2 text-sm text-gray-700 bg-gray-100 px-4 py-2 rounded-lg w-fit">
+        {/* <div className="flex items-center gap-2 text-sm text-gray-700 bg-gray-100 px-4 py-2 rounded-lg w-fit">
           <EyesIcon size={24} className="text-blue-600" />
           <span className="font-semibold">{viewerCount} people</span>
           <span className="text-gray-600">are viewing this product right now</span>
-        </div>
+        </div> */}
 
         {/* Monthly Purchase Count Display */}
         <div className="flex items-center gap-2 text-sm text-gray-700 bg-green-50 px-4 py-2 rounded-lg w-fit">
           <TrendUpIcon size={24} className="text-green-600" weight="bold" />
-          <span className="font-semibold">{purchaseCount}+ purchases</span>
+          <span className="font-semibold">{purchaseCount}+ bought this</span>
           <span className="text-gray-600">last month</span>
         </div>
 
