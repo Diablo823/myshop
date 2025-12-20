@@ -187,8 +187,8 @@ const Add = ({
         {/* Monthly Purchase Count Display */}
         <div className="flex items-center gap-2 text-sm text-gray-700 bg-green-50 px-4 py-2 rounded-lg w-fit">
           <TrendUpIcon size={24} className="text-green-600" weight="bold" />
-          <span className="font-semibold">{purchaseCount}+ bought this</span>
-          <span className="text-gray-600">last month</span>
+          <span className="font-semibold">{purchaseCount}+ bought in</span>
+          <span className="text-gray-600">past month</span>
         </div>
 
       </div>
