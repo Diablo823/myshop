@@ -4,6 +4,8 @@ import React from "react";
 import { Metadata } from "next";
 import SanityBanner from "@/components/SanityBanner";
 
+export const revalidate = 60; // seconds (Regenerates page every 60 seconds)
+
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Deals and Promotions",
