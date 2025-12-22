@@ -48,7 +48,7 @@ const DealPage = () => {
           height="h-[12rem] md:h-[24rem]"
         />
       </div>
-      <div className="mt-3">
+      {/* <div className="mt-3">
         <SanityBanner bannerName="dealbanner1"
           height="h-[12rem] md:h-[24rem]"
         />
@@ -57,7 +57,7 @@ const DealPage = () => {
         <SanityBanner bannerName="dealbanner2"
           height="h-[12rem] md:h-[24rem]"
         />
-      </div>
+      </div> */}
 
       {/* <div>
         <ProductWrapper
