@@ -16,6 +16,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 import QueryClientProvider from "@/providers/QueryClientProvider";
 import ScrollToTop from "@/components/ScrollToTop";
+import { GA4 } from "./ga";
 
 const inter = Inter({ subsets: ["latin"] });
 const jost = Jost({ subsets: ["latin"] });
@@ -24,7 +25,7 @@ const roboto = Roboto({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "US Cartel",
   description:
-    "US Cartel is the ecommerce marketplace founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel, US Cartel store",
+    "US Cartel is India's new ecommerce marketplace founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials. Shop smart and Shop quality products online at US Cartel, US Cartel store",
   keywords: [
     "US Cartel",
     "US Cartel shop",
@@ -61,7 +62,7 @@ export const metadata: Metadata = {
     title:
       "US Cartel - Marketplace for Fashion, Cosmetics, Gadgets, Household essentials & More",
     description:
-      "US Cartel is the ecommerce marketplace founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel, Ecommerce marketplace, US Cartel store",
+      "US Cartel is India's new ecommerce marketplace founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials. Shop smart and Shop quality products online at US Cartel, US Cartel store",
     url: "https://uscartel.com",
     siteName: "US Cartel",
     locale: "en_US",
@@ -80,7 +81,7 @@ export const metadata: Metadata = {
     title:
       "US Cartel - Marketplace for Fashion, Cosmetics, Gadgets, Household essentials & More",
     description:
-      "US Cartel is the ecommerce marketplace founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel, Ecommerce marketplace, US Cartel store",
+      "US Cartel is India's new ecommerce marketplace founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials. Shop smart and Shop quality products online at US Cartel, US Cartel store",
     images: ["/og-image.png"], // Same image as OpenGraph
     creator: "@uscartelcompany", // Replace with your actual Twitter handle if you have one
   },
@@ -181,7 +182,7 @@ export default function RootLayout({
               url: "https://uscartel.com",
 
               description:
-                "US Cartel is the ecommerce marketplace offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials, tech gadgets. Shop quality products online at US Cartel, Ecommerce marketplace, US Cartel store",
+                "US Cartel is India's new ecommerce marketplace founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials. Shop smart and Shop quality products online at US Cartel, US Cartel store",
               foundingDate: "2025", // Update with your actual founding date
               sameAs: [
                 // Add your social media URLs here when you create them
@@ -244,6 +245,7 @@ export default function RootLayout({
 
       </head>
       <body className={`${roboto.className}`}>
+        <GA4 />
         <QueryClientProvider>
           <WixClientContextProvider>
             <Navbar />
