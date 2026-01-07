@@ -47,7 +47,7 @@ const HomePage = async () => {
   return (
     <div className="w-full min-h-screen">
       {/* <Slider /> */}
-      <div className="mt-2 px-2 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 max-w-[100vw] overflow-x-hidden">
+      <div className="hidden sm:block mt-2 px-2 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 max-w-[100vw] overflow-x-hidden">
         {/* <Banner
           slides={slides1}
           autoPlayInterval={7000}
@@ -59,6 +59,15 @@ const HomePage = async () => {
           autoPlayInterval={7000}
           showControls={false}
           height="h-[12rem] md:h-[24rem]"
+          fallbackSlides={slides1} // Fallback slides if no banner found
+        />
+      </div>
+      <div className="mt-2 px-2 overflow-x-hidden sm:hidden">
+        <SanityBanner
+          bannerName="homebannermobile"
+          autoPlayInterval={7000}
+          showControls={false}
+          height="h-[12rem]"
           fallbackSlides={slides1} // Fallback slides if no banner found
         />
       </div>

@@ -40,8 +40,15 @@ const DealPage = () => {
           description="The Offers You've Never Seen Are Coming!"
         />
       </div>
-      <div className="mt-3">
+      {/* Big Screens */}
+      <div className="hidden sm:block mt-3">
         <SanityBanner bannerName="dealbanner1"
+          height="h-[12rem] md:h-[24rem]"
+        />
+      </div>
+      {/* Small Screens */}
+      <div className="block mt-3 sm:hidden">
+        <SanityBanner bannerName="dealbannermobile1"
           height="h-[12rem] md:h-[24rem]"
         />
       </div>

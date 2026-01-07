@@ -95,6 +95,52 @@ const ProductsList = ({
     }
   }, [inView, loading, hasMore, page, categoryId, searchParams, limit]);
 
+  // Empty state when no products
+  if (products.length === 0) {
+    return (
+      <div className="mt-4 flex flex-col items-center justify-center min-h-[400px] px-4">
+        <div className="relative w-48 h-48 mb-4 opacity-80">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full animate-pulse"></div>
+          <div className="absolute inset-4 flex items-center justify-center">
+            <svg
+              className="w-24 h-24 md:w-32 md:h-32 text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+              />
+            </svg>
+          </div>
+        </div>
+        <h3 className="text-lg md:text-2xl font-bold text-gray-800 mb-2">
+          No Products Found
+        </h3>
+        <p className="text-gray-500 text-center text-sm max-w-md mb-6">
+          We couldn't find any products matching your criteria. Try adjusting your filters or check back later for new arrivals.
+        </p>
+        <div className="flex gap-3">
+          <Link
+            href="/"
+            className="px-6 py-2.5 bg-black text-sm text-white rounded-lg hover:bg-gray-800 transition-colors font-medium"
+          >
+            Go Back
+          </Link>
+          <Link
+            href="/categories"
+            className="px-6 py-2.5 text-sm border-2 border-gray-300 text-gray-700 rounded-lg hover:border-gray-400 hover:bg-gray-50 transition-colors font-medium"
+          >
+            Browse Collections
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="mt-4">
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-1 gap-y-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
@@ -110,22 +156,12 @@ const ProductsList = ({
               </Badge>
               <Image
                 src={product.media?.mainMedia?.image?.url || "/product.png"}
-                alt="product"
+                alt={product.media?.mainMedia?.image?.altText || "product"}
                 fill
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 loading="lazy"
                 className="object-cover hover:scale-105 transition-all duration-300"
               />
-              {/* {product.media?.items && (
-                <Image
-                  src={product.media?.items[1]?.image?.url || "/product.png"}
-                  alt="product"
-                  fill
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  loading="lazy"
-                  className="object-cover"
-                />
-              )} */}
             </div>
             <div className="flex flex-col p-2 gap-y-0.5">
               <span className="text-xs md:text-sm font-bold">
@@ -133,7 +169,7 @@ const ProductsList = ({
               </span>
               <span className="text-xs text-gray-600">
                 {product?.name?.length && product.name.length > 20
-                  ? `${product.name.substring(0, 25)}...`
+                  ? `${product.name.substring(0, 32)}...`
                   : product?.name || "No Name"}
               </span>
               <div className="flex flex-row gap-2 items-center">
@@ -196,21 +232,10 @@ const ProductsList = ({
         >
           {loading && (
             <div className="relative flex flex-col items-center gap-2">
-              {/*<div className="animate-pulse relative w-10 h-10">
-                   <Image
-                    src="https://ik.imagekit.io/5ok2lashts/loadlogo.png?updatedAt=1736980178600" // Replace with your image path
-                    alt="Loading animation"
-                    fill
-                    sizes="(max-width: 768px) 96px, 96px"
-                    priority // Since this is a loader, we want it to load immediately
-                    className="object-contain"
-                  /> 
-                </div>*/}
               <div className="w-6 h-6 border-4 border-gray-200 border-t-black rounded-full animate-spin" />
               <div className="text-black font-semibold text-xs">
                 Loading More Products
               </div>
-              {/* <span className="text-xs font-semibold tracking-wide text-gray-800">Loading more...</span> */}
             </div>
           )}
         </div>
