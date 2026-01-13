@@ -4,7 +4,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Badge } from "./ui/badge"; 
+import { Badge } from "./ui/badge";
 import DOMPurify from "isomorphic-dompurify";
 import { products } from "@wix/stores";
 import { FaArrowDown } from "react-icons/fa";
@@ -32,11 +32,11 @@ const RelatedProductsList = ({
         {productsList.map((product: products.Product) => (
           <Link
             href={"/products/" + encodeURIComponent(product.slug || "")}
-            className="group flex flex-col rounded-lg border bg-white transition-all"
+            className="group flex flex-col rounded-xl bg-white transition-all"
             key={product._id}
           >
-            <div className="relative pb-[120%] w-full overflow-hidden rounded-t-lg">
-              <Badge className="absolute right-2 top-2 z-20 bg-blue-100 px-2 py-1 text-xs text-blue-800 hover:bg-blue-100 rounded-lg">
+            <div className="relative pb-[120%] w-full overflow-hidden rounded-xl">
+              <Badge className="absolute left-2 bottom-2 z-10 bg-pink-900 px-2 text-[10px] text-white hover:bg-pink-900 rounded-md">
                 {product.ribbon || null}
               </Badge>
               <Image
@@ -69,7 +69,7 @@ const RelatedProductsList = ({
               </span>
               <div className="flex flex-row gap-2 items-center">
                 {product.priceData?.price ===
-                product.priceData?.discountedPrice ? (
+                  product.priceData?.discountedPrice ? (
                   <span className="text-sm font-bold text-black">
                     ₹{product.priceData?.price}
                   </span>
@@ -85,9 +85,9 @@ const RelatedProductsList = ({
                     </div>
                   </div>
                 )}
-                
-                  {product.priceData?.price !==
-                    product.priceData?.discountedPrice && (
+
+                {product.priceData?.price !==
+                  product.priceData?.discountedPrice && (
                     <div className="flex flex-row items-center gap-1">
                       <span className="text-green-600">
                         <FaArrowDown size={12} />
@@ -102,7 +102,7 @@ const RelatedProductsList = ({
                       </span>
                     </div>
                   )}
-                
+
               </div>
             </div>
             {product.additionalInfoSections && (

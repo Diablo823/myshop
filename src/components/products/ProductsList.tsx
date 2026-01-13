@@ -147,11 +147,11 @@ const ProductsList = ({
         {products.map((product: products.Product) => (
           <Link
             href={"/products/" + encodeURIComponent(product.slug || "")}
-            className="group flex flex-col rounded-lg border bg-white  transition-all"
+            className="group flex flex-col rounded-xl bg-white  transition-all"
             key={product._id}
           >
-            <div className="relative pb-[120%] w-full overflow-hidden rounded-t-lg">
-              <Badge className="absolute right-2 top-2 z-10 bg-blue-100 px-2 py-1 text-xs text-blue-800 hover:bg-blue-100 rounded-lg">
+            <div className="relative pb-[120%] w-full overflow-hidden rounded-xl">
+              <Badge className="absolute left-2 bottom-2 z-10 bg-pink-900 px-2 text-[10px] text-white hover:bg-pink-900 rounded-md">
                 {product.ribbon || null}
               </Badge>
               <Image
