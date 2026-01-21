@@ -112,9 +112,9 @@ export async function generateMetadata({
     image: productImage,
     brand: product.brand
       ? {
-          "@type": "Brand",
-          name: product.brand,
-        }
+        "@type": "Brand",
+        name: product.brand,
+      }
       : undefined,
     offers: {
       "@type": "Offer",
@@ -142,21 +142,21 @@ export async function generateMetadata({
       url: canonicalUrl,
       images: productImage
         ? [
-            {
-              url: `${productImage}?w=1200&h=630&fit=crop`,
-              width: 1200,
-              height: 630,
-              alt: product.name || "Product of US Cartel",
-            },
-          ]
+          {
+            url: `${productImage}?w=1200&h=630&fit=crop`,
+            width: 1200,
+            height: 630,
+            alt: product.name || "Product of US Cartel",
+          },
+        ]
         : [
-            {
-              url: "https://uscartel.com/og-image.png",
-              width: 1200,
-              height: 630,
-              alt: "US Cartel - Your one-stop shop for the best products",
-            },
-          ],
+          {
+            url: "https://uscartel.com/og-image.png",
+            width: 1200,
+            height: 630,
+            alt: "US Cartel - Your one-stop shop for the best products",
+          },
+        ],
       type: "website",
     },
     twitter: {
@@ -240,7 +240,7 @@ const SinglePage = async ({
       {/* Server Components for product recommendations */}
 
       <div className="px-1 md:px-8 lg:px-16 xl:px-32">
-        <h2 className="px-3 text-lg md:text-xl font-bold mt-8">
+        <h2 className="px-3 text-lg md:text-xl font-bold mt-6">
           Recommended Products
         </h2>
         <Suspense fallback={<RelatedProductsLoadingSkeleton />}>

@@ -81,6 +81,11 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
   // State to track current image index
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  // State to track active tab
+  const [activeTab, setActiveTab] = useState<"specifications" | "delivery" | "features">(
+    "delivery"
+  );
+
   // Helper function to get current stock number
   const getCurrentStockNumber = () => {
     // If product has variants, find the selected variant's stock
@@ -211,7 +216,6 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
 
       {/* MAIN CONTENT CONTAINER WITH PADDING */}
       <div className="min-h-[calc(100vh-80px)] px-2 md:px-8 lg:px-16 xl:px-32 relative flex flex-col lg:flex-row gap-12">
-
         {/* DESKTOP: Images with padding and sticky positioning */}
         <div className="hidden lg:block w-full lg:w-2/5 lg:sticky lg:top-20 lg:self-start">
           <ProductImages
@@ -230,38 +234,6 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
           ) : null}
           <div className="h-[2px] bg-gray-100" />
           <h1 className="text-base lg:text-lg font-bold">{product.name}</h1>
-          <div
-            className="md:text-sm md:text-gray-900 md:block hidden"
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(
-                product.description || "",
-                sanitizeConfig
-              ),
-            }}
-          />
-
-          <Accordion
-            type="single"
-            collapsible
-            className="px-2 bg-gradient-to-r from-neutral-50 to-slate-50 rounded-xl md:hidden"
-          >
-            <AccordionItem value="product-description">
-              <AccordionTrigger className="font-bold">
-                Product Details
-              </AccordionTrigger>
-              <AccordionContent>
-                <p
-                  className="text-sm"
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(
-                      product.description || "",
-                      sanitizeConfig
-                    ),
-                  }}
-                />
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
 
           <div className="h-[2px] bg-gray-100" />
 
@@ -331,73 +303,143 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
 
           <div className="h-[2px] bg-gray-100" />
 
-          {product.additionalInfoSections?.map(
-            (section: AdditionalInfoSection) => {
-              if (section.title && section.description) {
-                return (
-                  <div className="text-sm" key={section.title}>
-                    <Accordion
-                      type="single"
-                      collapsible
-                      className="bg-gradient-to-r from-neutral-50 to-slate-50 px-4 md:px-6 rounded-2xl shadow-md"
-                    >
-                      <AccordionItem value={section.title || "info"}>
-                        <AccordionTrigger className="font-bold">
-                          {section.title}
-                        </AccordionTrigger>
-                        <AccordionContent>
-                          <p
-                            className="text-gray-950 text-sm"
-                            dangerouslySetInnerHTML={{
-                              __html: DOMPurify.sanitize(
-                                section.description || "",
-                                sanitizeConfig
-                              ),
-                            }}
-                          />
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
-                  </div>
-                );
-              } else {
-                return null;
-              }
-            }
-          )}
-
-          {filteredSections && filteredSections.length > 0 && (
-            <div className="flex flex-col gap-4 p-2 bg-gradient-to-r from-neutral-50 to-slate-50 rounded-2xl border-2 border-slate-100 shadow-md">
-              {filteredSections.map((section: AdditionalInfoSection) => {
-                if (section.title && section.description === "") {
-                  return (
-                    <div key={section.title} className="text-sm font-bold">
-                      <ul className="list-disc pl-4">
-                        <li>{section.title}</li>
-                      </ul>
-                    </div>
-                  );
-                } else if (section.title === "" && section.description) {
-                  return (
-                    <div key={section.description} className="text-sm font-bold">
-                      <h4>{section.description}</h4>
-                    </div>
-                  );
-                } else {
-                  return null;
-                }
-              })}
+          {/* NAVIGATION TABS */}
+          <div className="w-full mt-4">
+            <div className="flex border-b border-gray-200">
+              <button
+                onClick={() => setActiveTab("delivery")}
+                className={`px-6 py-3 font-semibold text-sm transition-all ${activeTab === "delivery"
+                  ? "border-b-2 border-blue-600 text-blue-600"
+                  : "text-gray-600 hover:text-gray-900"
+                  }`}
+              >
+                Delivery
+              </button>
+              <button
+                onClick={() => setActiveTab("features")}
+                className={`px-6 py-3 font-semibold text-sm transition-all ${activeTab === "features"
+                  ? "border-b-2 border-blue-600 text-blue-600"
+                  : "text-gray-600 hover:text-gray-900"
+                  }`}
+              >
+                Features
+              </button>
+              <button
+                onClick={() => setActiveTab("specifications")}
+                className={`px-6 py-3 font-semibold text-sm transition-all ${activeTab === "specifications"
+                  ? "border-b-2 border-blue-600 text-blue-600"
+                  : "text-gray-600 hover:text-gray-900"
+                  }`}
+              >
+                Specifications
+              </button>
             </div>
-          )}
 
-          <ProcessingBox
-            processingText="Processing"
-            processingValue="0 Days"
-            dispatchingText="Shipping"
-            dispatchValue="1 Day"
-            deliveryText="Delivery"
-            deliveryValue="4 - 7 Days"
-          />
+            {/* TAB CONTENT */}
+            <div className="mt-6">
+              {activeTab === "delivery" && (
+                <div className="animate-in fade-in duration-300">
+                  <ProcessingBox
+                    processingText="Processing"
+                    processingValue="0 Days"
+                    dispatchingText="Shipping"
+                    dispatchValue="1 Day"
+                    deliveryText="Delivery"
+                    deliveryValue="4 - 7 Days"
+                  />
+                </div>
+              )}
+
+              {activeTab === "features" && (
+                <div className="animate-in fade-in duration-300">
+                  {/* Additional Info Sections */}
+                  <div className="space-y-4">
+                    {product.additionalInfoSections?.map(
+                      (section: AdditionalInfoSection) => {
+                        if (section.title && section.description) {
+                          return (
+                            <div className="text-sm" key={section.title}>
+                              <Accordion
+                                type="single"
+                                collapsible
+                                className="bg-gradient-to-r from-neutral-50 to-slate-50 px-4 md:px-6 rounded-2xl shadow-md"
+                              >
+                                <AccordionItem value={section.title || "info"}>
+                                  <AccordionTrigger className="font-bold">
+                                    {section.title}
+                                  </AccordionTrigger>
+                                  <AccordionContent>
+                                    <p
+                                      className="text-gray-950 text-sm"
+                                      dangerouslySetInnerHTML={{
+                                        __html: DOMPurify.sanitize(
+                                          section.description || "",
+                                          sanitizeConfig
+                                        ),
+                                      }}
+                                    />
+                                  </AccordionContent>
+                                </AccordionItem>
+                              </Accordion>
+                            </div>
+                          );
+                        } else {
+                          return null;
+                        }
+                      }
+                    )}
+                  </div>
+
+                  {/* Filtered Sections */}
+                  {filteredSections && filteredSections.length > 0 && (
+                    <div className="mt-6 flex flex-col gap-4 p-4 bg-gradient-to-r from-neutral-50 to-slate-50 rounded-2xl border-2 border-slate-100 shadow-md">
+                      {filteredSections.map((section: AdditionalInfoSection) => {
+                        if (section.title && section.description === "") {
+                          return (
+                            <div key={section.title} className="text-sm font-bold">
+                              <ul className="list-disc pl-4">
+                                <li>{section.title}</li>
+                              </ul>
+                            </div>
+                          );
+                        } else if (section.title === "" && section.description) {
+                          return (
+                            <div
+                              key={section.description}
+                              className="text-sm font-bold"
+                            >
+                              <h4>{section.description}</h4>
+                            </div>
+                          );
+                        } else {
+                          return null;
+                        }
+                      })}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {activeTab === "specifications" && (
+                <div className="animate-in fade-in duration-300">
+                  {/* Product Description */}
+                  <div
+                    className="text-sm md:text-base text-gray-900 prose prose-sm max-w-none"
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(
+                        product.description || "",
+                        sanitizeConfig
+                      ),
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="h-[2px] bg-gray-100 mt-2" />
+
+
         </div>
       </div>
     </>
