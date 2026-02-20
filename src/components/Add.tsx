@@ -218,11 +218,11 @@ const Add = ({
 
         <div className="text-sm relative">
           {stockNumber === 0 ? (
-            <span className="text-red-600 text-sm font-semibold">
-              Out of stock!
+            <span className="text-sm font-bold text-red-500 flex gap-5 px-4 py-3 items-center bg-gradient-to-r from-violet-500/10 to-blue-500/10 rounded-full border border-violet-200/50">
+              Sold Out!
             </span>
           ) : stockNumber > 0 && stockNumber <= 5 ? (
-            <span className="text-sm font-bold text-red-500 flex gap-5 items-center">
+            <span className="text-sm font-bold text-red-500 flex gap-5 px-4 py-3 items-center bg-gradient-to-r from-violet-500/10 to-blue-500/10 rounded-full border border-violet-200/50">
               <span className="relative mr-1 bottom-2">
                 <span className="absolute inline-flex h-4 w-4 bg-red-500 rounded-full"></span>
                 <span className="absolute inline-flex h-4 w-4 bg-red-500 rounded-full opacity-80 animate-ping"></span>
@@ -230,7 +230,7 @@ const Add = ({
               Only {stockNumber} left!
             </span>
           ) : stockNumber > 5 && stockNumber <= 10 ? (
-            <span className="text-sm font-bold text-red-500 flex gap-5 items-center">
+            <span className="text-sm font-bold text-red-500 flex gap-5 px-4 py-3 items-center bg-gradient-to-r from-violet-500/10 to-blue-500/10 rounded-full border border-violet-200/50">
               <span className="relative mr-1 bottom-2">
                 <span className="absolute inline-flex h-4 w-4 bg-red-500 rounded-full"></span>
                 <span className="absolute inline-flex h-4 w-4 bg-red-500 rounded-full opacity-80 animate-ping"></span>
@@ -292,14 +292,14 @@ const Add = ({
             <Button
               onClick={() => addItem(wixClient, productId, variantId, quantity)}
               disabled={stockNumber === 0}
-              className="md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-[#FFD700] text-black hover:bg-[#E6C200] disabled:hidden"
+              className="md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-white disabled:hidden"
             >
               Add To Cart <FaShoppingCart />
             </Button>
             <Button
               onClick={handleBuyNow}
               disabled={stockNumber === 0}
-              className={`md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-purple-800 text-slate-100 hover:bg-purple-900 disabled:hidden ${isLoading ? 'opacity-50' : ''}`}
+              className={`md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-gradient-to-r from-gray-900 to-emerald-600 hover:from-gray-800 hover:to-emerald-500 text-white disabled:hidden ${isLoading ? 'opacity-50' : ''}`}
             >
               {isLoading ? (
                 <div className="flex flex-row gap-2 justify-center items-center">
@@ -318,11 +318,11 @@ const Add = ({
           </div>
 
 
-          <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t px-1 py-1.5 z-20 rounded-t-2xl shadow-xl shadow-black">
+          <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t px-1 py-1.5 z-20 rounded-t-2xl shadow-lg shadow-black">
             <div className="flex gap-1 max-w-screen-xl mx-auto">
               <Link href="/cart" className="flex flex-col items-center space-y-1 relative">
                 <button
-                  className="h-12 rounded-xl border border-gray-300 bg-white shadow-sm px-4 flex items-center justify-center hover:bg-gray-50"
+                  className="h-12 rounded-xl border border-gray-300 bg-white shadow-xl px-4 flex items-center justify-center hover:bg-gray-50"
                 >
                   <div className="relative">
                     <ShoppingCartIcon size={22} weight="bold" className="shrink-0" />
@@ -339,14 +339,14 @@ const Add = ({
               <Button
                 onClick={() => addItem(wixClient, productId, variantId, quantity)}
                 disabled={stockNumber === 0}
-                className="w-1/2 h-12 text-xs font-bold rounded-xl bg-[#FFD700] text-black hover:bg-[#E6C200] disabled:hidden"
+                className="w-1/2 h-12 text-xs font-bold rounded-xl shadow-xl bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-white disabled:hidden"
               >
                 Add To Cart <FaShoppingCart />
               </Button>
               <Button
                 onClick={handleBuyNow}
                 disabled={stockNumber === 0}
-                className={`w-1/2 h-12 text-xs font-bold rounded-xl bg-purple-800 text-slate-100 hover:bg-purple-900 disabled:hidden ${isLoading ? 'opacity-50' : ''}`}
+                className={`w-1/2 h-12 text-xs font-bold rounded-xl shadow-xl bg-gradient-to-r from-gray-900 to-emerald-600 hover:from-gray-800 hover:to-emerald-500 text-white disabled:hidden ${isLoading ? 'opacity-50' : ''}`}
               >
                 {isLoading ? (
                   <div className="flex flex-row gap-2 justify-center items-center">

@@ -8,6 +8,8 @@ import { Metadata } from "next";
 import DomPurify from "isomorphic-dompurify";
 import RelatedProductsWrapper from "@/components/products/RelatedProductsWrapper";
 import MultiCategoryRelatedWrapper from "@/components/multicategory/MultiCategoryProductWrapper";
+import ShuffledCategoryWrapper from "@/components/multicategory/ShuffledCategoryWrapper";
+import SanityProductSection from "@/components/sanity/SanityProductSection";
 
 // CRITICAL: Set timeout limit and force dynamic rendering
 export const maxDuration = 10;
@@ -51,19 +53,6 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  // const wixClient = await wixClientServer();
-  // const { slug } = await params;
-  // const decodedSlug = decodeURIComponent(slug);
-
-  // const products = await wixClient.products.queryProducts().eq("slug", decodedSlug).find();
-
-  // if (!products.items[0]) {
-  //   return {
-  //     title: "Product Not Found",
-  //     description: "The product you are looking for does not exist.",
-  //   }
-  // }
-
   const { slug } = await params;
 
   // Use cached product or fetch
@@ -76,9 +65,7 @@ export async function generateMetadata({
     };
   }
 
-  // const product = products.items[0];
   const productImage = product.media?.mainMedia?.image?.url;
-  //const price = product.price?.formatted?.discountedPrice || product.price?.formatted?.price;
 
   const price = parseFloat(
     (
@@ -87,7 +74,7 @@ export async function generateMetadata({
       "0"
     ).replace(/[^0-9.]/g, "")
   );
-  const currency = product.price?.currency || "USD";
+  const currency = product.price?.currency || "INR";
   const inStock = product.stock?.inStock !== false;
   const canonicalUrl = `https://uscartel.com/products/${slug}`;
 
@@ -103,33 +90,6 @@ export async function generateMetadata({
       ? cleanDescription.slice(0, 200) + "..."
       : cleanDescription;
 
-  // Structured data for rich snippets
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.name,
-    description: cleanDescription,
-    image: productImage,
-    brand: product.brand
-      ? {
-        "@type": "Brand",
-        name: product.brand,
-      }
-      : undefined,
-    offers: {
-      "@type": "Offer",
-      price: price,
-      priceCurrency: currency,
-      availability: inStock
-        ? "https://schema.org/InStock"
-        : "https://schema.org/OutOfStock",
-      url: canonicalUrl,
-      seller: {
-        "@type": "Organization",
-        name: "US Cartel",
-      },
-    },
-  };
   return {
     title: `${product.name} - US Cartel`,
     description: truncatedDescription,
@@ -151,7 +111,7 @@ export async function generateMetadata({
         ]
         : [
           {
-            url: "https://uscartel.com/og-image.png",
+            url: "https://uscartel.com/og-image.jpg",
             width: 1200,
             height: 630,
             alt: "US Cartel - Your one-stop shop for the best products",
@@ -165,9 +125,7 @@ export async function generateMetadata({
       description: truncatedDescription,
       images: productImage ? [`${productImage}?w=1200&h=630&fit=crop`] : [],
     },
-    other: {
-      "json-ld": JSON.stringify(jsonLd),
-    },
+    // Removed 'other' field - JSON-LD will be added directly in the component
   };
 }
 
@@ -176,26 +134,6 @@ const SinglePage = async ({
 }: {
   params: Promise<{ slug: string }>;
 }) => {
-  // const wixClient = await wixClientServer();
-  // const { slug } = await params;
-
-  // const decodedSlug = decodeURIComponent(slug);
-
-  // const products = await wixClient.products
-  //   .queryProducts()
-  //   .eq("slug", decodedSlug)
-  //   .find();
-
-  // if (!products.items[0] || !products.items[0].visible) {
-  //   return notFound();
-  // }
-
-  // const product = products.items[0];
-
-  //console.log("Product Categories:", product.collectionIds);
-
-  // NEW CODE: Use cached product or fetch
-
   const { slug } = await params;
 
   // Use cached product (already fetched in generateMetadata)
@@ -207,37 +145,176 @@ const SinglePage = async ({
     return notFound();
   }
 
+  // Prepare schema data
+  const productImage = product.media?.mainMedia?.image?.url;
+
+  // const price = parseFloat(
+  //   (
+  //     product.price?.formatted?.discountedPrice ||
+  //     product.price?.formatted?.price ||
+  //     "0"
+  //   ).replace(/[^0-9.]/g, "")
+  // );
+
+  // Parse price with fallback
+  let rawPriceString =
+    product.price?.formatted?.discountedPrice ||
+    product.price?.formatted?.price ||
+    "0";
+  rawPriceString = rawPriceString.replace(/[^0-9.]/g, ""); // Strip non-numeric chars
+
+  const price = parseFloat(rawPriceString);
+
+  //console.log(typeof (price))
+
+  // Validation check
+  if (isNaN(price) || price <= 0) {
+    // Fallback: Skip schema or set a default/error. For now, log and skip 'offers' in schema.
+    console.error(`Invalid price for product ${product._id}: ${rawPriceString}`);
+    // In productSchema, you could conditionally omit 'offers' or set price to null, but Google prefers valid prices.
+    // For simplicity, we'll set to 0.00 but in real scenarios, exclude the product from indexing if no price.
+  } else {
+    // Proceed with .toFixed(2) in the schema as before
+  }
+
+  const currency = product.price?.currency || "INR";
+  const inStock = product.stock?.inStock !== false;
+  const canonicalUrl = `https://uscartel.com/products/${slug}`;
+
+  // SANITIZE DESCRIPTION
+  const rawDescription =
+    product.description ||
+    `Buy ${product.name} at the best price from US Cartel`;
+  const cleanDescription = DomPurify.sanitize(rawDescription, sanitizeConfig);
+
+  // Create complete Product Schema
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: cleanDescription,
+    image: productImage,
+    sku: product.sku || product._id,
+    brand: product.brand
+      ? {
+        "@type": "Brand",
+        name: product.brand,
+      }
+      : {
+        "@type": "Brand",
+        name: "US Cartel",
+      },
+    offers: {
+      "@type": "Offer",
+      // FIX 1: Add .toFixed(2) here
+      price: (isNaN(price) || price <= 0) ? "0.00" : price.toFixed(2),
+      priceCurrency: currency,
+      availability: inStock
+        ? "https://schema.org/InStock"
+        : "https://schema.org/OutOfStock",
+      url: canonicalUrl,
+      // FIX 2: Add condition (Crucial for Amazon-style cards)
+      itemCondition: "https://schema.org/NewCondition",
+      // FIX 3: Add your ₹25 shipping fee
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+        "shippingRate": {
+          "@type": "MonetaryAmount",
+          "value": "25.00", // Change if not free
+          "currency": currency
+        }
+      },
+      seller: {
+        "@type": "Organization",
+        name: "US Cartel",
+        url: "https://uscartel.com",
+      },
+    },
+  };
+
+
+  // ADD THIS: Breadcrumb Schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://uscartel.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Products",
+        "item": "https://uscartel.com/list?cat=all-products"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": product.name,
+        // Note: last item doesn't have "item" property
+      }
+    ]
+  };
+
+  // Filter out "all products" category ID
+  const ALL_PRODUCTS_CATEGORY_ID = "00000000-0000-0000-0000-000000000001";
+  const filteredCollectionIds = (product.collectionIds || []).filter(
+    (id: string) => id !== ALL_PRODUCTS_CATEGORY_ID
+  );
+
   // Clear cache after use to prevent memory leaks
   delete productCache[slug];
+
   return (
     <>
-      {/* Client Component for main product display */}
-      <ProductPageClient product={product} />
-
-      {/* Add structured data to body */}
+      {/* Product Schema - Must be at the top for Google to detect */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Product",
-            name: product.name,
-            description: product.description,
-            image: product.media?.mainMedia?.image?.url,
-            brand: product.brand,
-            offers: {
-              "@type": "Offer",
-              price: product.price?.price,
-              priceCurrency: product.price?.currency || "USD",
-              availability: product.stock?.inStock
-                ? "https://schema.org/InStock"
-                : "https://schema.org/OutOfStock",
-            },
-          }),
+          __html: JSON.stringify(productSchema),
         }}
       />
 
+      {/* ADD THIS: Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
+
+      {/* Client Component for main product display */}
+      <ProductPageClient product={product} />
+
       {/* Server Components for product recommendations */}
+
+
+
+      <div className="px-1 md:px-8 lg:px-16 xl:px-32">
+        <ShuffledCategoryWrapper
+          heading="You May Also Like"
+          categoryIds={filteredCollectionIds}
+          limit={12}
+          shuffleCategories={true}
+          shuffleProducts={true}
+          productsPerCategory={30}
+          strategy="weighted"
+        />
+      </div>
+
+
+      {/* Related Products Section - Uses multiple algorithms */}
+      <div className="px-1 md:px-8 lg:px-16 xl:px-32">
+        <h2 className="px-3 text-lg md:text-xl font-bold mt-8">
+          Recommended For You
+        </h2>
+        <Suspense fallback={<RelatedProductsLoadingSkeleton />}>
+          <RelatedProductsWrapper productId={product._id!} limit={10} />
+        </Suspense>
+      </div>
 
       <div className="px-1 md:px-8 lg:px-16 xl:px-32">
         <h2 className="px-3 text-lg md:text-xl font-bold mt-6">
@@ -245,67 +322,36 @@ const SinglePage = async ({
         </h2>
         <Suspense fallback={<RelatedProductsLoadingSkeleton />}>
           <MultiCategoryRelatedWrapper
-            categoryIds={product.collectionIds || []}
+            categoryIds={filteredCollectionIds}
             currentProductId={product._id!}
-            limit={12}
+            limit={8}
             productsPerCategory={20}
             shuffle={true}
           />
         </Suspense>
       </div>
 
-      <div className="px-1 md:px-8 lg:px-16 xl:px-32">
-        <h2 className="px-3 text-lg md:text-xl font-bold mt-8">More Picks</h2>
-        <Suspense fallback={<RelatedProductsLoadingSkeleton />}>
-          <ProductWrapper
-            categoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID!}
-            limit={8}
-          />
-        </Suspense>
-      </div>
+      <SanityProductSection
+        sectionSlug="section-1"
+        // Optional fallbacks if section not found in Sanity:
+        fallbackCategoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID}
+        fallbackHeading="New Arrivals"
+        fallbackLimit={12}
+      />
 
-      {/* SCROLL SECTION */}
-      {/* <div className="px-2 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
-        <Suspense fallback={<RelatedProductsLoadingSkeleton />}>
-        <ProductScrollWrapper
-          categoryId={process.env.NEXT_PUBLIC_ALL_PRDUCTS_CATEGORY_ID!}
-          limit={16}
-        />
-        </Suspense>
-      </div> */}
       <div className="px-1 md:px-8 lg:px-16 xl:px-32">
         <h2 className="px-3 text-lg md:text-xl font-bold mt-8">
           More Selections
         </h2>
         <Suspense fallback={<RelatedProductsLoadingSkeleton />}>
           <MultiCategoryRelatedWrapper
-            categoryIds={product.collectionIds || []}
+            categoryIds={filteredCollectionIds}
             currentProductId={product._id!}
-            limit={12}
+            limit={6}
             shuffle={true}
           />
         </Suspense>
       </div>
-
-      {/* Related Products Section - Uses multiple algorithms */}
-      <div className="px-1 md:px-8 lg:px-16 xl:px-32">
-        <h2 className="px-3 text-lg md:text-xl font-bold mt-8">
-          You May Also Like
-        </h2>
-        <Suspense fallback={<RelatedProductsLoadingSkeleton />}>
-          <RelatedProductsWrapper productId={product._id!} limit={6} />
-        </Suspense>
-      </div>
-
-      {/*<h2 className="px-2 md:px-8 lg:px-16 xl:px-32 2xl:px-64 text-lg md:text-xl font-bold mt-8">Essentials for you</h2>
-       <div className="px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
-        <ProductScrollWrapper
-          categoryId={process.env.NEXT_PUBLIC_ESSENTIAL_PRODUCTS_CATEGORY_ID!}
-          limit={20}
-        />
-      </div> */}
-
-      {/* <RelatedProducts productId={product._id!} /> */}
     </>
   );
 };
@@ -332,19 +378,3 @@ function RelatedProductsLoadingSkeleton() {
 }
 
 export default SinglePage;
-
-/* interface RelatedProductsProps {
-  productId: string;
-}
-
-async function RelatedProducts({ productId }: RelatedProductsProps) {
-  const wixClient = await wixClientServer();
-  const algorithm = await wixClient.recommendations.listAvailableAlgorithms();
-
-  console.log(JSON.stringify(algorithm, null, 2));
-
-  return <div>
-
-  </div>
-  
-} */

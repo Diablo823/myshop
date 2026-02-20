@@ -32,16 +32,29 @@ export default function AboutUs() {
 
       {/* Content Sections */}
       <div className="container mx-auto py-12 max-w-4xl space-y-12">
-        {/* Story Behind the Name */}
+        <section>
+          <h1 className="text-xl md:text-2xl font-bold mb-6 text-center">This Is The Real US Cartel</h1>
+          <p className="text-sm md:text-lg leading-relaxed">
+            Welcome to US Cartel the bold, innovative brand that's redefining what those two words mean. For years, when people searched "US Cartel," they'd stumble upon stories of shadowy organizations and illicit activities tied to cartels in America.
+            <br />
+            But here's the truth: there has never been a specific entity officially known as "US Cartel." That's why those search results pointed elsewhere until now.
+            <br />
+            Enter US Cartel, the real deal. We're not just claiming the name, we're owning it. Proudly holding the domain uscartel.com, we've stepped into the spotlight to transform this phrase from a vague association into a symbol of quality.
+            <br />
+            Our mission is to build something positive, powerful, and entirely legitimate a cartel of ideas, products, and connections that unites rather than divides.
+            The landscape is shifting. As we grow, so will the world's understanding of US Cartel. No more misconceptions, <b>THIS IS THE FUTURE</b>.
+          </p>
+        </section>
         <section>
           <h1 className="text-xl md:text-2xl font-bold mb-6 text-center">About Myself</h1>
           <p className="text-sm md:text-lg leading-relaxed text-center">
             Hello, My name is Muruka Bhupathy M V and I am the founder of US Cartel. I created US Cartel when I was 21 years old while I was in my final year of college. I am a BSc Computer Science graduate from University of Kerala. <br />
             I just wanted to Introduce myself before saying more about US Cartel.
             <br />
-             I created US Cartel with a vision to build a unique ecommerce brand that stands out from the crowd. The idea was to start something that could grow into a memorable brand known for quality and affordability.
+            I created US Cartel with a vision to build a unique ecommerce brand that stands out from the crowd. The idea was to start something that could grow into a memorable brand known for quality and affordability.
           </p>
         </section>
+        {/* Story Behind the Name */}
         <section>
           <h2 className="text-xl md:text-2xl font-bold mb-6 border-b-2 border-gray-200 pb-2">
             The Story Behind the Name

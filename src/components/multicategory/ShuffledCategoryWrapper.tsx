@@ -1,4 +1,4 @@
-import { getShuffledCategoryProducts } from './getShuffledCategoryProducts.ts'; 
+import { getShuffledCategoryProducts } from './getShuffledCategoryProducts';
 import ProductsList from '../products/ProductsList';
 
 interface MultiCategoryWrapperProps {
@@ -8,6 +8,7 @@ interface MultiCategoryWrapperProps {
   shuffleProducts?: boolean;
   productsPerCategory?: number;
   strategy?: "round-robin" | "sequential" | "weighted";
+  heading?: string;
 }
 
 export default async function ShuffledCategoryWrapper({
@@ -17,11 +18,12 @@ export default async function ShuffledCategoryWrapper({
   shuffleProducts = true,
   productsPerCategory = 10,
   strategy = "round-robin",
+  heading,
 }: MultiCategoryWrapperProps) {
   // Fetch MORE products than limit to create variety
   const fetchLimit = limit * 2; // Fetch double the amount
   const fetchPerCategory = productsPerCategory * 2; // Fetch more per category
-  
+
   const products = await getShuffledCategoryProducts({
     categoryIds,
     limit: fetchLimit, // Fetch more
@@ -48,14 +50,17 @@ export default async function ShuffledCategoryWrapper({
   };
 
   return (
-    <ProductsList
-      initialProducts={mockData.items}
-      currentPage={mockData.currentPage}
-      hasMore={false}
-      categoryId=""
-      limit={limit}
-      searchParams={{}}
-    />
+    <>
+      <h2 className="mt-2 px-3 text-lg md:textxl font-bold">{heading}</h2>
+      <ProductsList
+        initialProducts={mockData.items}
+        currentPage={mockData.currentPage}
+        hasMore={false}
+        categoryId=""
+        limit={limit}
+        searchParams={{}}
+      />
+    </>
   );
 }
 

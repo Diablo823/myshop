@@ -1,10 +1,18 @@
+// types/banner.ts
+
 export interface BannerSlide {
   _key?: string
   image: {
     asset: {
-      _ref: string
-      _type: string
-    }
+      _id: string
+      url: string
+      metadata?: {
+        dimensions?: {
+          width: number
+          height: number
+        }
+      }
+    } | null
     _type: string
   }
   alt: string
@@ -28,4 +36,6 @@ export interface Slide {
   alt: string
   url: string
   bg: string
+  width?: number   // Add width
+  height?: number  // Add height
 }

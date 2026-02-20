@@ -215,7 +215,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
       </div>
 
       {/* MAIN CONTENT CONTAINER WITH PADDING */}
-      <div className="min-h-[calc(100vh-80px)] px-2 md:px-8 lg:px-16 xl:px-32 relative flex flex-col lg:flex-row gap-12">
+      <div className="lg:min-h-[calc(100vh-80px)] px-2 md:px-8 lg:px-16 xl:px-32 relative flex flex-col lg:flex-row gap-12">
         {/* DESKTOP: Images with padding and sticky positioning */}
         <div className="hidden lg:block w-full lg:w-2/5 lg:sticky lg:top-20 lg:self-start">
           <ProductImages
@@ -261,7 +261,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
                   % OFF
                 </span>
               </div>
-              <Badge className="bg-blue-100 hover:bg-blue-100 text-xs text-blue-800 rounded-lg">
+              <Badge className="bg-pink-900 text-xs text-white rounded-lg">
                 {product.ribbon}
               </Badge>
             </div>
@@ -353,7 +353,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
               {activeTab === "features" && (
                 <div className="animate-in fade-in duration-300">
                   {/* Additional Info Sections */}
-                  <div className="space-y-4">
+                  <div className="space-y-2">
                     {product.additionalInfoSections?.map(
                       (section: AdditionalInfoSection) => {
                         if (section.title && section.description) {
@@ -392,7 +392,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
 
                   {/* Filtered Sections */}
                   {filteredSections && filteredSections.length > 0 && (
-                    <div className="mt-6 flex flex-col gap-4 p-4 bg-gradient-to-r from-neutral-50 to-slate-50 rounded-2xl border-2 border-slate-100 shadow-md">
+                    <div className="mt-6 flex flex-col gap-3 py-4 px-2 md:px-4 bg-gradient-to-r from-neutral-50 to-slate-50 rounded-2xl border-2 border-slate-100 shadow-md">
                       {filteredSections.map((section: AdditionalInfoSection) => {
                         if (section.title && section.description === "") {
                           return (
@@ -421,7 +421,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
               )}
 
               {activeTab === "specifications" && (
-                <div className="animate-in fade-in duration-300">
+                <div className="p-2 animate-in fade-in duration-300">
                   {/* Product Description */}
                   <div
                     className="text-sm md:text-base text-gray-900 prose prose-sm max-w-none"

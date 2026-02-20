@@ -15,7 +15,13 @@ export async function getBanners(): Promise<SanityBanner[]> {
           image {
             asset-> {
               _id,
-              url
+              url,
+              metadata {
+                dimensions {
+                  width,
+                  height
+                }
+              }
             }
           },
           alt,
@@ -46,7 +52,13 @@ export async function getBannersByType(type: 'single' | 'carousel'): Promise<San
           image {
             asset-> {
               _id,
-              url
+              url,
+              metadata {
+                dimensions {
+                  width,
+                  height
+                }
+              }
             }
           },
           alt,
@@ -73,6 +85,8 @@ export function convertSanitySlideToLegacy(slide: BannerSlide, index: number): S
     alt: slide.alt,
     url: slide.url,
     bg: slide.backgroundGradient || '',
+    width: slide.image.asset?.metadata?.dimensions?.width,
+    height: slide.image.asset?.metadata?.dimensions?.height,
   }
 }
 
@@ -89,7 +103,13 @@ export async function getBannerByName(name: string): Promise<SanityBanner | null
           image {
             asset-> {
               _id,
-              url
+              url,
+              metadata {
+                dimensions {
+                  width,
+                  height
+                }
+              }
             }
           },
           alt,
@@ -99,10 +119,7 @@ export async function getBannerByName(name: string): Promise<SanityBanner | null
         isActive,
         order
       }`,
-      { name },
-      // {
-      //   next: { tags: ['banner'] }, // Add Cache tag for revalidation
-      // }
+      { name }
     )
     return banner || null
   } catch (error) {

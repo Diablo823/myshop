@@ -14,6 +14,7 @@ import { currentCart } from "@wix/ecom";
 import { paymentIcons } from "@/constants";
 import { HourglassMediumIcon } from "@phosphor-icons/react";
 import { useToast } from "@/hooks/use-toast";
+import { FaLock } from "react-icons/fa6";
 
 interface DescriptionLine {
   name?: {
@@ -268,16 +269,22 @@ const CartPage = () => {
                       </span>
                     </div>
                   ) : (
-                    <div className="flex flex-row gap-2 justify-center items-center">
+                    <div className="flex flex-row">
                       <span>Proceed to Checkout</span>
                       <span><FaShoppingBag className="ml-2" /></span>
                     </div>
                   )}
                 </Button>
 
-                <p className="text-gray-800 text-center font-medium mt-4 text-xs">
-                  🔒 Secure checkout powered by Razorpay
-                </p>
+                <div className="flex gap-2 justify-center text-gray-800 font-medium mt-4 text-center text-xs">
+                  <span>
+                    <FaLock />
+                  </span>
+                  <span>
+
+                    Secure checkout powered by Razorpay
+                  </span>
+                </div>
 
                 <div className="flex gap-3 justify-center mt-4 pt-2 border-t border-gray-100">
                   {paymentIcons.map((payment) => (

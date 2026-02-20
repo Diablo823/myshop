@@ -107,19 +107,6 @@ const MobNav = () => {
           <span className="text-xs">Home</span>
         </Link>
 
-        {/* Categories */}
-        <Link
-          href="/categories"
-          className={`flex flex-col items-center space-y-1`}
-        >
-
-          {/* <BiSolidCategory  size={22} /> */}
-          {/* <LayoutIcon size={22} weight={pathname === "/categories" ? "fill" : "bold"} /> */}
-          <LayoutDashboard size={22}
-            fill={pathname === '/categories' ? 'currentColor' : 'none'} />
-
-          <span className="text-xs">Categories</span>
-        </Link>
 
         {/* Deals */}
         <Link
@@ -128,9 +115,24 @@ const MobNav = () => {
         >
 
           {/* <FaStore  size={22} /> */}
-          <StorefrontIcon size={22} weight={pathname === "/deals" ? "fill" : "bold"} />
+          <LayoutDashboard size={22}
+            fill={pathname === '/deals' ? 'currentColor' : 'none'} />
 
-          <span className="text-xs">Deals</span>
+
+          <span className="text-xs">Offers</span>
+        </Link>
+
+        {/* Categories */}
+        <Link
+          href="/categories"
+          className={`flex flex-col items-center space-y-1`}
+        >
+
+          {/* <BiSolidCategory  size={22} /> */}
+          {/* <LayoutIcon size={22} weight={pathname === "/categories" ? "fill" : "bold"} /> */}
+          <StorefrontIcon size={22} weight={pathname === "/categories" ? "fill" : "bold"} />
+
+          <span className="text-xs">Categories</span>
         </Link>
 
 

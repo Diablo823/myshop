@@ -1,21 +1,108 @@
 // src/app/list/page.tsx
 
-
-import CategoryListClient from "@/components/CategoryComponent/CategoryList2";
 import CategoryListServer from "@/components/CategoryComponent/CategoryListServer";
 import Filter from "@/components/Filter";
 import ProductWrapper from "@/components/products/ProductWrapper";
-import SanityBanner from "@/components/SanityBanner";
-import { Button } from "@/components/ui/button";
 import { wixClientServer } from "@/lib/wixClientServer";
-import Image from "next/image";
+import { Metadata } from "next";
 import React, { Suspense } from "react";
-import { FaShoppingBag } from "react-icons/fa";
 
 // CRITICAL: Add timeout config
 export const maxDuration = 10;
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    cat?: string;
+    name?: string;
+    type?: string;
+    min?: string;
+    max?: string;
+    sort?: string;
+  }>;
+}): Promise<Metadata> {
+  const params = await searchParams;
+  const DEFAULT_OG = "https://uscartel.com/images/og-image.jpg";
+  const BASE_URL = "https://www.uscartel.com";
+
+  // ── 1. SEARCH QUERY  →  /list?name=gym ──────────────────────────────
+  if (params.name && !params.cat) {
+    const titleCased =
+      params.name.charAt(0).toUpperCase() + params.name.slice(1);
+    return {
+      title: `"${titleCased}" – Search Results | US Cartel`,
+      description: `Shop search results for "${params.name}" on US Cartel. Browse gadgets, kitchenware, and more.`,
+      openGraph: {
+        title: `"${titleCased}" – Search Results | US Cartel`,
+        description: `Shop search results for "${params.name}" on US Cartel. Browse gadgets, kitchenware, and more.`,
+        url: `${BASE_URL}/list?name=${encodeURIComponent(params.name)}`,
+        siteName: "US Cartel",
+        images: [{ url: DEFAULT_OG, width: 1200, height: 630, alt: "US Cartel" }],
+        type: "website",
+      },
+    };
+  }
+
+  // ── 2. CATEGORY  →  /list?cat=featured ──────────────────────────────
+  if (params.cat) {
+    try {
+      const wixClient = await wixClientServer();
+
+      const timeoutPromise = new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error("metadata fetch timeout")), 5000)
+      );
+
+      const cat = await Promise.race([
+        wixClient.collections.getCollectionBySlug(params.cat),
+        timeoutPromise,
+      ]) as any;
+
+      const categoryName: string = cat?.collection?.name || params.cat;
+      const rawImageUrl: string | undefined =
+        cat?.collection?.media?.mainMedia?.image?.url;
+
+      // Wix SDK sometimes returns wix:image:// URIs — fall back to default if so
+      const ogImage =
+        rawImageUrl?.startsWith("https://") ? rawImageUrl : DEFAULT_OG;
+
+      return {
+        title: `${categoryName} | US Cartel`,
+        description: `Browse ${categoryName} products on US Cartel. Discover the best deals on ${categoryName}.`,
+        openGraph: {
+          title: `${categoryName} | US Cartel`,
+          description: `Browse ${categoryName} products on US Cartel. Discover the best deals on ${categoryName}.`,
+          url: `${BASE_URL}/list?cat=${encodeURIComponent(params.cat)}`,
+          siteName: "US Cartel",
+          images: [{ url: ogImage, width: 800, height: 600, alt: categoryName }],
+          type: "website",
+        },
+      };
+    } catch (error) {
+      console.error("generateMetadata: collection fetch failed", error);
+      // Falls through to the default below
+    }
+  }
+
+  // ── 3. DEFAULT  →  /list (no params) ────────────────────────────────
+  return {
+    title: "All Products | US Cartel",
+    description:
+      "Browse all products on US Cartel. Shop gadgets, kitchenware, and more at great prices.",
+    openGraph: {
+      title: "All Products | US Cartel",
+      description:
+        "Browse all products on US Cartel. Shop gadgets, kitchenware, and more at great prices.",
+      url: `${BASE_URL}/list`,
+      siteName: "US Cartel",
+      images: [{ url: DEFAULT_OG, width: 1200, height: 630, alt: "US Cartel Products" }],
+      type: "website",
+    },
+  };
+}
+
 
 const ListPage = async ({ searchParams }: {
   searchParams: Promise<{

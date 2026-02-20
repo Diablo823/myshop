@@ -125,7 +125,7 @@ const ProductImages = ({ items, currentIndex = 0, setCurrentIndex }: ProductImag
         {items.map((item: any, idx: number) => (
           <div
             className={`w-12 h-12 relative flex-shrink-0 transition-all duration-300 ${idx === safeIndex
-              ? "ring-2 ring-pink-300 rounded-lg ring-offset-2"
+              ? "ring-2 ring-black rounded-lg ring-offset-2"
               : "opacity-70 hover:opacity-100"
               }`}
             key={item._id || idx}

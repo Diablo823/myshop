@@ -1,21 +1,54 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useSyncExternalStore } from 'react';
 
 interface PromotionProps {
   days: number;
-  startDate: string; // ISO date string format: 'YYYY-MM-DDTHH:mm:ssZ'
+  startDate: string;
   title?: string;
   description?: string;
   className?: string;
+  children?: React.ReactNode;
 }
 
-// Function to calculate a shared target date that's the same for all visitors
 const getSharedTargetDate = (startDate: string, days: number): Date => {
   const START_DATE = new Date(startDate);
+  return new Date(START_DATE.getTime() + days * 24 * 60 * 60 * 1000);
+};
 
-  // Calculate the end date by adding the specified days
-  const targetDate = new Date(START_DATE.getTime() + (days * 24 * 60 * 60 * 1000));
-  return targetDate;
+const useIsClient = () =>
+  useSyncExternalStore(
+    () => () => { },
+    () => true,
+    () => false
+  );
+
+const useCountdown = (startDate: string, days: number, enabled: boolean) => {
+  const [time, setTime] = React.useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    if (!enabled) return;
+
+    const update = () => {
+      const diff = getSharedTargetDate(startDate, days).getTime() - Date.now();
+      if (diff <= 0) {
+        setTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        return;
+      }
+      const totalSeconds = Math.floor(diff / 1000);
+      setTime({
+        days: Math.floor(totalSeconds / (3600 * 24)),
+        hours: Math.floor((totalSeconds % (3600 * 24)) / 3600),
+        minutes: Math.floor((totalSeconds % 3600) / 60),
+        seconds: totalSeconds % 60,
+      });
+    };
+
+    update();
+    const id = setInterval(update, 1000);
+    return () => clearInterval(id);
+  }, [enabled, startDate, days]);
+
+  return time;
 };
 
 const Promotion = ({
@@ -24,92 +57,77 @@ const Promotion = ({
   title = "Deals of the Month",
   description = "Get ready for a shopping experience like never before with our Deals of the Month! Every purchase comes with exclusive perks and offers, making this month a celebration of savvy choices and amazing deals. Don't miss out.",
   className = "",
+  children,
 }: PromotionProps) => {
-  const [isClient, setIsClient] = useState(false);
-  const [time, setTime] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
+  const isClient = useIsClient();
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isClient) return;
-
-    const updateTimeRemaining = () => {
-      const targetDate = getSharedTargetDate(startDate, days);
-      const now = new Date();
-      const difference = targetDate.getTime() - now.getTime();
-
-      if (difference <= 0) {
-        // Countdown has ended
-        setTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-      } else {
-        const totalSeconds = Math.floor(difference / 1000);
-        const remainingDays = Math.floor(totalSeconds / (3600 * 24));
-        const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
-        const seconds = totalSeconds % 60;
-
-        setTime({
-          days: remainingDays,
-          hours,
-          minutes,
-          seconds,
-        });
-      }
-    };
-
-    // Initial update
-    updateTimeRemaining();
-
-    // Update every second
-    const timerId = setInterval(updateTimeRemaining, 1000);
-    return () => clearInterval(timerId);
-  }, [isClient, days, startDate]);
-
-  // Render initial state on server
-  if (!isClient) {
-    return (
-      <section className={`flex flex-col md:flex-row items-center justify-between gap-8 ${className}`}>
-        <div className="flex flex-col justify-center gap-8 w-full md:w-1/2">
-          <h3 className="text-2xl md:text-3xl font-normal">{title}</h3>
-          <p className="text-sm md:text-lg">{description}</p>
-          <div className="flex gap-2">
-            <StatBox label="Days" value={0} />
-            <StatBox label="Hours" value={0} />
-            <StatBox label="Minutes" value={0} />
-            <StatBox label="Seconds" value={0} />
-          </div>
-        </div>
-      </section>
-    );
-  }
+  // Timer always runs in background — negligible CPU, always accurate
+  const time = useCountdown(startDate, days, isClient);
 
   return (
-    <section className={`flex flex-col md:flex-row items-center justify-between gap-4 ${className}`}>
-      <div className="flex flex-col justify-center gap-4 w-full md:w-1/2">
-        <h3 className="text-lg md:text-xl font-bold">{title}</h3>
-        <p className="text-sm md:text-lg">{description}</p>
-        <div className="flex gap-2">
-          <StatBox label="Days" value={time.days} />
-          <StatBox label="Hours" value={time.hours} />
-          <StatBox label="Minutes" value={time.minutes} />
-          <StatBox label="Seconds" value={time.seconds} />
+    <section
+      className={`relative overflow-hidden rounded-2xl md:rounded-3xl bg-gradient-to-br from-slate-900 via-purple-900/50 to-slate-900 ${className}`}
+    >
+      {/* Header Section */}
+      <div className="p-4 md:p-8 lg:p-12">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-40" />
+
+        <div className="relative z-10 flex flex-col justify-center gap-4 md:gap-8 w-full">
+          <div className="space-y-2 md:space-y-4">
+            <div className="inline-block">
+              <div
+                className={`h-0.5 md:h-1 w-12 md:w-16 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 rounded-full mb-2 md:mb-4 ${isClient ? 'animate-pulse' : ''}`}
+              />
+            </div>
+            <h3 className="text-xl md:text-3xl lg:text-5xl font-bold bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent tracking-tight">
+              {title}
+            </h3>
+            <p className="text-xs md:text-sm lg:text-lg text-slate-300 max-w-2xl leading-relaxed">
+              {description}
+            </p>
+          </div>
+
+          <div className="flex gap-1.5 md:gap-3 lg:gap-4">
+            <StatBox label="Days" value={isClient ? time.days : 0} />
+            <StatBox label="Hours" value={isClient ? time.hours : 0} />
+            <StatBox label="Mins" value={isClient ? time.minutes : 0} />
+            <StatBox label="Secs" value={isClient ? time.seconds : 0} />
+          </div>
         </div>
+
+        <div
+          className={`absolute top-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-purple-500/10 rounded-full blur-2xl ${isClient ? 'animate-pulse' : ''}`}
+          style={{ willChange: 'opacity' }}
+        />
+        <div
+          className={`absolute bottom-0 left-0 w-64 h-64 md:w-96 md:h-96 bg-pink-500/10 rounded-full blur-2xl ${isClient ? 'animate-pulse' : ''}`}
+          style={{ willChange: 'opacity', animationDelay: '1s' }}
+        />
       </div>
+
+      {/* Products Section */}
+      {children && (
+        <div className="relative z-10 px-2 md:px-4 pb-4 md:pb-8 lg:pb-12">
+          {children}
+        </div>
+      )}
     </section>
   );
 };
 
 const StatBox = ({ label, value }: { label: string; value: number }) => (
-  <div className="border border-gray-300 rounded-lg p-4 text-center min-w-[80px]">
-    <h4 className="font-bold text-sm md:text-lg">{value}</h4>
-    <p className="text-xs md:text-base">{label}</p>
+  <div className="group relative flex-1">
+    <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg md:rounded-2xl opacity-30 group-hover:opacity-60 transition duration-500" />
+
+    <div className="relative bg-white/5 border border-white/10 rounded-lg md:rounded-2xl p-2 md:p-4 lg:p-6 text-center hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:border-white/20">
+      <h4 className="font-bold text-xl md:text-3xl lg:text-4xl bg-gradient-to-br from-white to-purple-200 bg-clip-text text-transparent mb-0.5 md:mb-2 tabular-nums">
+        {String(value).padStart(2, '0')}
+      </h4>
+      <p className="text-[9px] md:text-xs lg:text-sm uppercase tracking-wider text-slate-400 font-medium">
+        {label}
+      </p>
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 md:w-8 h-0.5 bg-gradient-to-r from-transparent via-purple-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+    </div>
   </div>
 );
 

@@ -20,12 +20,12 @@ import { GA4 } from "./ga";
 
 const inter = Inter({ subsets: ["latin"] });
 const jost = Jost({ subsets: ["latin"] });
-const roboto = Roboto({ subsets: ["latin"] });
+const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"] });
 
 export const metadata: Metadata = {
   title: "US Cartel",
   description:
-    "US Cartel is India's new ecommerce marketplace founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials. Shop smart and Shop quality products online at US Cartel, US Cartel store",
+    "US Cartel is the new rising ecommerce marketplace in India, founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials. Shop smart and Shop quality products online at US Cartel, US Cartel store",
   keywords: [
     "US Cartel",
     "US Cartel shop",
@@ -62,14 +62,14 @@ export const metadata: Metadata = {
     title:
       "US Cartel - Marketplace for Fashion, Cosmetics, Gadgets, Household essentials & More",
     description:
-      "US Cartel is India's new ecommerce marketplace founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials. Shop smart and Shop quality products online at US Cartel, US Cartel store",
+      "US Cartel is the new rising ecommerce marketplace in India, founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials. Shop smart and Shop quality products online at US Cartel, US Cartel store",
     url: "https://uscartel.com",
     siteName: "US Cartel",
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: "/og-image.png", // You'll need to create this image (1200x630px recommended)
+        url: "https://uscartel.com/og-image.jpg", // You'll need to create this image (1200x630px recommended)
         width: 1200,
         height: 630,
         alt: "US Cartel Marketplace",
@@ -81,8 +81,8 @@ export const metadata: Metadata = {
     title:
       "US Cartel - Marketplace for Fashion, Cosmetics, Gadgets, Household essentials & More",
     description:
-      "US Cartel is India's new ecommerce marketplace founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials. Shop smart and Shop quality products online at US Cartel, US Cartel store",
-    images: ["/og-image.png"], // Same image as OpenGraph
+      "US Cartel is the new rising ecommerce marketplace in India, founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials. Shop smart and Shop quality products online at US Cartel, US Cartel store",
+    images: ["https://uscartel.com/og-image.jpg"], // Same image as OpenGraph
     creator: "@uscartelcompany", // Replace with your actual Twitter handle if you have one
   },
   robots: {
@@ -130,6 +130,14 @@ export const metadata: Metadata = {
   category: "E-commerce",
 };
 
+//Separate viewport export (themeColor moved here as it's deprecated in metadata)
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#ffffff", // White matches your background
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -150,6 +158,11 @@ export default function RootLayout({
 
         <meta name="msvalidate.01" content="C58A8ABF53A617997EAEAC357116C71B" />
 
+        {/* WhatsApp/OG Image meta tags - helps with WhatsApp preview */}
+        <meta property="og:image" content="https://uscartel.com/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:type" content="image/png" />
 
         {/* Preconnect to external domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -178,12 +191,25 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "US Cartel",
-              alternateName: ["US Cartel Marketplace", "US Cartel Shop"],
+              alternateName: ["US Cartel", "US Cartel Marketplace", "US Cartel Shop", "US Cartel Ecommerce", "US Cartel Store"],
               url: "https://uscartel.com",
+              logo: "https://uscartel.com/logo.png",
 
               description:
-                "US Cartel is India's new ecommerce marketplace founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials. Shop smart and Shop quality products online at US Cartel, US Cartel store",
-              foundingDate: "2025", // Update with your actual founding date
+                "US Cartel is the new rising ecommerce marketplace in India,founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials. Shop smart and Shop quality products online at US Cartel, US Cartel store",
+              foundingDate: "2024", // Update with your actual founding date
+              foundingLocation: {
+                "@type": "Place",
+                address: {
+                  "@type": "PostalAddress",
+                  addressCountry: "IN",
+                },
+              },
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "Customer Service",
+                availableLanguage: ["English"],
+              },
               sameAs: [
                 // Add your social media URLs here when you create them
                 "https://x.com/uscartelcompany",

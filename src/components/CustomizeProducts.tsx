@@ -19,7 +19,7 @@ const CustomizeProducts = ({
 }) => {
   // Early return if no real options or variants
   if (
-    !productOptions || productOptions.length === 0 || 
+    !productOptions || productOptions.length === 0 ||
     !variants || variants.length === 0 ||
     (variants.length === 1 && variants[0]._id === "00000000-0000-0000-0000-000000000000")
   ) {
@@ -47,9 +47,9 @@ const CustomizeProducts = ({
     // If current selection is not in stock, try to find an alternative
     if (!variant || !variant.stock?.inStock || !variant.stock?.quantity || variant.stock.quantity <= 0) {
       // Find the first available variant that matches as many current selections as possible
-      const availableVariant = variants.find((v) => 
-        v.stock?.inStock && 
-        v.stock?.quantity && 
+      const availableVariant = variants.find((v) =>
+        v.stock?.inStock &&
+        v.stock?.quantity &&
         v.stock.quantity > 0 &&
         v.choices
       );
@@ -57,7 +57,7 @@ const CustomizeProducts = ({
       if (availableVariant && availableVariant.choices) {
         // Only update if the current selection is actually unavailable
         const currentIsUnavailable = !variant || !variant.stock?.inStock || !variant.stock?.quantity || variant.stock.quantity <= 0;
-        
+
         if (currentIsUnavailable) {
           setSelectedOptions(availableVariant.choices);
         }
@@ -86,11 +86,11 @@ const CustomizeProducts = ({
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-5">
       {productOptions.map((option) => (
-        <div className="flex flex-col gap-4" key={option.name}>
-          <h4 className="font-medium">Choose a {option.name}</h4>
-          <ul className="flex items-center gap-3">
+        <div className="flex flex-col gap-3" key={option.name}>
+          <h4 className="font-medium text-sm text-gray-900">Choose a {option.name}</h4>
+          <ul className="flex items-center gap-2 flex-wrap">
             {option.choices?.map((choice) => {
               const disabled = !isVariantInStock({
                 ...selectedOptions,
@@ -106,7 +106,10 @@ const CustomizeProducts = ({
 
               return option.name === "Color" ? (
                 <li
-                  className="w-8 h-8 rounded-full ring-1 ring-gray-300 relative"
+                  className={`w-9 h-9 rounded-full ring-2 relative transition-all duration-200 ${selected
+                      ? "ring-gray-900 ring-offset-2"
+                      : "ring-gray-300"
+                    }`}
                   style={{
                     backgroundColor: choice.value,
                     cursor: disabled ? "not-allowed" : "pointer",
@@ -115,25 +118,20 @@ const CustomizeProducts = ({
                   key={choice.description}
                 >
                   {selected && (
-                    <div className="absolute w-10 h-10 rounded-full ring-2 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+                    <div className="absolute inset-0 rounded-full ring-2 ring-gray-900 ring-offset-2" />
                   )}
                   {disabled && (
-                    <div className="absolute w-10 h-[2px] bg-red-400 rotate-45 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+                    <div className="absolute w-full h-0.5 bg-red-500 rotate-45 top-1/2 left-0 transform -translate-y-1/2" />
                   )}
                 </li>
               ) : (
                 <li
-                  className="ring-1 ring-lama text-lama rounded-md py-1 px-4 text-sm"
-                  style={{
-                    cursor: disabled ? "not-allowed" : "pointer",
-                    backgroundColor: selected
-                      ? "#f35c7a"
+                  className={`rounded-lg py-2 px-4 text-xs md:text-sm font-medium transition-all duration-200 ${selected
+                      ? "bg-gray-900 text-white"
                       : disabled
-                      ? "#FBCFE8"
-                      : "white",
-                    color: selected || disabled ? "white" : "#f35c7a",
-                    boxShadow: disabled ? "none" : "",
-                  }}
+                        ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                        : "bg-gray-100 text-gray-900 hover:bg-gray-200 cursor-pointer"
+                    }`}
                   key={choice.description}
                   onClick={clickHandler}
                 >
@@ -146,11 +144,14 @@ const CustomizeProducts = ({
       ))}
       <Add
         productId={productId}
-        variantId={selectedVariant?._id || "00000000-0000-0000-0000-000000000000"}
+        variantId={
+          selectedVariant?._id || "00000000-0000-0000-0000-000000000000"
+        }
         stockNumber={selectedVariant?.stock?.quantity || 0}
       />
     </div>
   );
+
 };
 
 export default CustomizeProducts;

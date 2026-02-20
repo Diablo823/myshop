@@ -1,12 +1,12 @@
-import CategoryList from "@/components/CategoryList";
-import Promotion from "@/components/Promotion";
 import SanityBanner from "@/components/SanityBanner";
 import { slides1, slides2, videoSlides, videoSlides2 } from "@/constants";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import ProductWrapper from "@/components/products/ProductWrapper";
 import ProductScrollWrapper from "@/components/ProductScroll/ProductScrollWrapper";
 import ShuffledCategoryWrapper from "@/components/multicategory/ShuffledCategoryWrapper";
-import { FaLessThanEqual } from "react-icons/fa6";
+import SanityProductSection from "@/components/sanity/SanityProductSection";
+import SanityShuffledCategorySection from "@/components/sanity/SanityShuffledCategorySection";
+import SanityMasonryCard from "@/components/sanity/SanityMasonryCard";
+import SanityPromotion from "@/components/sanity/SanityPromotion";
 
 export const revalidate = 60; // seconds (Regenerates page every 60 seconds)
 
@@ -72,167 +72,72 @@ const HomePage = async () => {
         />
       </div>
 
-      {/* <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 max-w-[100vw] overflow-x-hidden">
-        <SingleVideoBanner slide={videoSlides[0]} />
-      </div>
-      <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 max-w-[100vw] overflow-x-hidden">
-        <VideoBannerGrid slides={videoSlides2} />
-      </div> */}
-
-      <div className="mt-20 px-1 md:px-8 lg:px-16 xl:px-32">
-        <h2 className="px-3 text-lg md:textxl font-bold">New Arrivals</h2>
-
-        <ProductWrapper
-          categoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID!}
-          limit={12}
-        />
-      </div>
-
-      <div className="mt-10 px-2 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
-        <h2 className="flex items-center justify-center gap-12 text-lg md:text-2xl font-bold">
-          <span>
-            <FaArrowLeft />
-          </span>
-          Discover Categories{" "}
-          <span>
-            <FaArrowRight />
-          </span>
-        </h2>
-
-        <CategoryList />
-      </div>
-
-
-      <div className="mt-20 px-1 md:px-8 lg:px-16 xl:px-32">
-        <h2 className="mt-5 px-3 text-lg md:textxl font-bold">Picked For You</h2>
-
-        <ShuffledCategoryWrapper
-          categoryIds={[
-            categories["cat-2"]!, // Featured
-            categories["cat-3"]!, // Popular
-            categories["cat-4"]!, // New Arrivals
-          ]}
-          limit={12}
-          shuffleCategories={true}
-          shuffleProducts={true}
-          productsPerCategory={30}
-          strategy="round-robin"
-        />
-
-        <h2 className="mt-5 px-3 text-lg md:textxl font-bold">Beauty Essentials</h2>
-
-        <ShuffledCategoryWrapper
-          categoryIds={[
-            categories["cat-5"]!, // Face Wash
-            categories["cat-9"]!, // Skincare
-            categories["cat-7"]!, // Shampoo
-            categories["cat-6"]!, // Hair Products
-          ]}
-          limit={8}
-          shuffleCategories={true}
-          shuffleProducts={true}
-          productsPerCategory={30}
-          strategy="weighted"
-        />
-
+      {/* Masonry cards */}
+      <div className="mt-8 px-1 md:px-12">
         <h2 className="mt-5 px-3 text-lg md:text-xl font-bold">
-          Featured Products
+          Offers & Deals
         </h2>
-
-        <ShuffledCategoryWrapper
-          categoryIds={[
-            categories["cat-2"]!, // Featured
-          ]}
-          limit={12}
-          shuffleCategories={true}
-          shuffleProducts={true}
-          productsPerCategory={30}
-          strategy="round-robin"
+        <SanityMasonryCard
+          bannerName="masonrybanner1"
+          columns={{ default: 2, sm: 3, md: 4, lg: 5, xl: 6 }}
+          gap="gap-1.5"
+          fallbackItems={slides1}
         />
+      </div>
 
-        {/* <ProductWrapper
-          categoryId={process.env.NEXT_PUBLIC_FEATURED_PRDUCTS_CATEGORY_ID!}
-          limit={6}
-        /> */}
 
+      <div className="mt-4 px-1 md:px-8 lg:px-16 xl:px-32">
+        <SanityPromotion promotionName="promo2" className="mt-5" />
+      </div>
+
+
+
+      <SanityProductSection
+        sectionSlug="section-1"
+        // Optional fallbacks if section not found in Sanity:
+        fallbackCategoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID}
+        fallbackHeading="New Arrivals"
+        fallbackLimit={12}
+      />
+
+      {/* Masonry cards */}
+      {/* <div className="mt-8 px-1 md:px-12">
         <h2 className="mt-5 px-3 text-lg md:text-xl font-bold">
-          Popular Products
+          Offers & Deals
         </h2>
-
-        <ShuffledCategoryWrapper
-          categoryIds={[
-            categories["cat-3"]!, // Popular
-          ]}
-          limit={6}
-          shuffleCategories={false}
-          shuffleProducts={true}
-          productsPerCategory={30}
-          strategy="round-robin"
-        />
-
-        {/* <ProductWrapper
-          categoryId={process.env.NEXT_PUBLIC_POPULAR_PRDUCTS_CATEGORY_ID!}
-          limit={6}
-        /> */}
-      </div>
-
-      {/* <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 max-w-[100vw] overflow-x-hidden">
-        <SingleBanner
-          slide={slides2[0]}
-          height="h-[18rem] md:h-[26rem]"
-        />
-      </div> */}
-
-      {/* <div>
-        <Promotion
-          days={7}
-          title="Flash Sale!"
-          description="Don't miss out on our amazing flash sale deals!"
-          className="mt-8 px-4 md:px-8 lg:px-16 xl:px-32"
-        />
-      </div>
-      <div className="mt-8 px-1 md:px-8 lg:px-16 xl:px-32">
-        <ProductWrapper
-          categoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID!}
-          limit={5}
+        <SanityMasonryCard
+          bannerName="masonrybanner2"
+          columns={{ default: 2, sm: 3, md: 4, lg: 5, xl: 6 }}
+          gap="gap-1.5"
+          fallbackItems={slides1}
         />
       </div> */}
 
 
-      <div className="mt-20 px-1 md:px-8 lg:px-16 xl:px-32">
-        <h2 className="px-3 text-lg md:text-xl font-bold">Facewash</h2>
 
-        <ProductWrapper
-          categoryId={process.env.NEXT_PUBLIC_FACE_WASH_CATEGORY_ID!}
-          limit={6}
-        />
-      </div>
 
-      {/* <div className="mt-20 px-2 md:px-6 lg:px-8 xl:px-10 2xl:px-12">
-        <h2 className="flex items-center justify-center gap-12 text-lg md:text-2xl font-bold">
-          <span>
-            <FaArrowLeft />
-          </span>
-          Products You Might Like
-          <span>
-            <FaArrowRight />
-          </span>
-        </h2>
 
-        <ProductScrollWrapper
-          categoryId={process.env.NEXT_PUBLIC_ESSENTIAL_PRODUCTS_CATEGORY_ID!}
-          limit={14}
-        />
-      </div> */}
 
-      <div className="mt-20 px-1 md:px-8 lg:px-16 xl:px-32">
-        <h2 className="px-3 text-lg md:text-xl font-bold">Hair Care</h2>
+      <SanityProductSection
+        sectionSlug="section-2"
+        // Optional fallbacks if section not found in Sanity:
+        fallbackCategoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID}
+        fallbackHeading="New Arrivals"
+        fallbackLimit={12}
+      />
 
-        <ProductWrapper
-          categoryId={process.env.NEXT_PUBLIC_HAIR_PRODUCTS_CATEGORY_ID!}
-          limit={5}
-        />
-      </div>
+
+      <SanityShuffledCategorySection
+        sectionSlug="shuffle-1"
+        fallbackLimit={12}
+      />
+
+
+      <SanityShuffledCategorySection /* Picked for you */
+        sectionSlug="shuffle-2"
+        fallbackLimit={12}
+      />
+
     </div>
   );
 };
