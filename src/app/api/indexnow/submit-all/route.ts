@@ -5,13 +5,14 @@ import { wixClientServer } from '@/lib/wixClientServer';
 // Set up a cron job to hit: https://uscartel.com/api/indexnow/submit-all
 
 export async function GET(request: NextRequest) {
-    // Optional: Add authentication to prevent unauthorized access
-    const authHeader = request.headers.get('authorization');
+    // Authentication via query parameter (since cron-job.org free doesn't support headers)
+    const { searchParams } = new URL(request.url);
+    const providedSecret = searchParams.get('secret');
     const CRON_SECRET = process.env.CRON_SECRET || 'your-secret-key'; // Set this in your .env
 
-    if (authHeader !== `Bearer ${CRON_SECRET}`) {
+    if (providedSecret !== CRON_SECRET) {
         return NextResponse.json(
-            { error: 'Unauthorized' },
+            { error: 'Unauthorized - Invalid or missing secret' },
             { status: 401 }
         );
     }
