@@ -94,7 +94,7 @@ const PromotionProductsList = ({
 
     if (products.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-[180px] px-4 backdrop-blur-sm bg-white/5 rounded-xl border border-white/10">
+            <div className="flex flex-col items-center justify-center min-h-[180px] px-4 bg-white/5 rounded-xl border border-white/10">
                 <div className="relative w-16 h-16 mb-3 opacity-40">
                     <svg
                         className="w-full h-full text-slate-400"
@@ -126,7 +126,7 @@ const PromotionProductsList = ({
                 {products.map((product: products.Product) => (
                     <Link
                         href={"/products/" + encodeURIComponent(product.slug || "")}
-                        className="group flex flex-col rounded-xl backdrop-blur-sm bg-white/5 border border-white/10 hover:bg-white/10 hover:border-amber-500/30 transition-all duration-500 shadow-lg hover:shadow-xl hover:shadow-amber-500/5 overflow-hidden hover:scale-[1.02] mt-1"
+                        className="group flex flex-col rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-amber-500/30 transition-all duration-500 shadow-lg hover:shadow-xl hover:shadow-amber-500/5 overflow-hidden hover:scale-[1.02] mt-1"
                         key={product._id}
                     >
                         {/* Image Container */}

@@ -28,6 +28,7 @@ export const metadata: Metadata = {
     "US Cartel is the new rising ecommerce marketplace in India, founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials. Shop smart and Shop quality products online at US Cartel, US Cartel store",
   keywords: [
     "US Cartel",
+    "us cartel",
     "US Cartel shop",
     "US Cartel store",
     "US Cartel marketplace",
