@@ -36,6 +36,16 @@ const CartPage = () => {
 
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
 
+  useEffect(() => {
+    const handlePageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) {
+        setIsCheckoutLoading(false);
+      }
+    };
+    window.addEventListener("pageshow", handlePageShow);
+    return () => window.removeEventListener("pageshow", handlePageShow);
+  }, []);
+
   const showEmptyCart =
     !isLoading && (!cart || !cart.lineItems || cart.lineItems.length === 0);
 
@@ -258,8 +268,11 @@ const CartPage = () => {
 
                 <Button
                   onClick={handleCheckout}
-                  //disabled
-                  className={`w-full mt-4 rounded-2xl bg-[#FFD700] text-gray-950 font-bold hover:bg-[#FFD700] disabled:bg-pink-200 disabled:text-white hover:scale-105 transition-all duration-300 ${isCheckoutLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  disabled={isCheckoutLoading}  // ✅ actually disables the button
+                  className="w-full mt-4 rounded-2xl bg-[#FFD700] text-gray-950 font-bold 
+             hover:bg-[#FFD700] hover:scale-105 transition-all duration-300 
+             disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100 
+             disabled:bg-[#FFD700] disabled:text-gray-950"
                 >
                   {isCheckoutLoading ? (
                     <div className="flex flex-row gap-2 justify-center items-center">
@@ -275,6 +288,7 @@ const CartPage = () => {
                     </div>
                   )}
                 </Button>
+
 
                 <div className="flex gap-2 justify-center text-gray-800 font-medium mt-4 text-center text-xs">
                   <span>
