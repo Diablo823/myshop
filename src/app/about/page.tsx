@@ -14,7 +14,7 @@ import Link from "next/link";
 
 export default function AboutUs() {
   return (
-    <div className="min-h-screen px-2 md:px-8 lg:px-16 xl:px-32 bg-white text-gray-800 overflow-hidden">
+    <div className="min-h-screen px-3 md:px-8 lg:px-16 xl:px-32 bg-white text-gray-800 overflow-hidden">
       {/* Hero Section */}
       <div className="relative h-64 md:h-[24rem] w-full">
         <Image
@@ -76,7 +76,7 @@ export default function AboutUs() {
               </p>
               <p className="text-sm md:text-lg leading-relaxed mb-4">
                 Then, while watching <em>Call of Duty: Modern Warfare 2</em>, a
-                scene caught my attention where Captain Price and sergeant Gaz goes for a mission to find and kill the terrorists who supplies missiles to Hassan Zyani's Al Qatala. After killing some people of that group Captian Price a tattoo on one of the dead bodies and realised that they're not terrorist group but a cartel. Captian Price immediately recognized the tattoo and said{" "}
+                scene caught my attention where Captain Price and sergeant Gaz goes for a mission to find and kill the terrorists who supplies missiles to Hassan Zyani's Al Qatala. After killing some people of that group Captian Price finds a tattoo on one of the dead bodies and realised that they're not terrorist group but a cartel. Captian Price immediately recognized the tattoo and said{" "}
                 <em><strong>"Gaz look, Las Almas Mexican Cartel"</strong></em>. That moment sparked an idea:{" "}
                 <strong>"US Cartel"</strong>.
               </p>
