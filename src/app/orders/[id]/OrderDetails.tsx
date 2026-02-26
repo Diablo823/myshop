@@ -262,7 +262,7 @@ const OrderDetails = ({ orderData }: { orderData: OrderDataProps }) => {
 
             <div className="flex flex-row items-center justify-center gap-2 mt-6">
               <Link href="/">
-                <Button className="w-full sm:w-auto bg-gradient-to-r from-yellow-500 to-gray-900 hover:from-gray-900  hover:to-yellow-500 duration-500 text-white px-8 py-3 font-semibold shadow-lg rounded-lg hover:shadow-xl transition-all hover:transform hover:scale-105">
+                <Button className="w-full sm:w-auto bg-black text-white px-8 py-3 font-semibold shadow-lg rounded-lg hover:shadow-xl transition-all hover:transform hover:scale-105">
                   Continue
                 </Button>
               </Link>

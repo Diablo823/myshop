@@ -194,52 +194,58 @@ const Add = ({
       </div>
 
 
-      <h4 className="font-medium">Choose a Quantity</h4>
-      <div className="flex items-center gap-8">
+      <h4 className="text-sm font-semibold uppercase tracking-widest text-slate-400">
+        Choose a Quantity
+      </h4>
+
+      <div className="flex flex-wrap items-center gap-5 mt-1">
         <div className="flex items-center gap-4">
-          <div className="flex items-center justify-between w-36">
+          <div className="flex items-center justify-between gap-3 px-2 py-1.5 rounded-2xl border border-violet-200/60 bg-white shadow-md shadow-violet-100/40">
             <Button
-              className="bg-black text-white rounded-xl"
+              className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-500 hover:from-violet-600 hover:to-indigo-600 text-white shadow-sm shadow-violet-300/50 active:scale-95 transition-all duration-150"
               onClick={() => handleQuantity("d")}
             >
-              <FaMinus />
+              <FaMinus className="w-3 h-3" />
             </Button>
-            <span className="font-bold">
+
+            <span className="min-w-[2rem] text-center text-base font-bold text-slate-800 select-none">
               {stockNumber === 0 ? 0 : quantity}
             </span>
+
             <Button
-              className="bg-black text-white rounded-xl"
+              className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-500 hover:from-violet-600 hover:to-indigo-600 text-white shadow-sm shadow-violet-300/50 active:scale-95 transition-all duration-150"
               onClick={() => handleQuantity("i")}
             >
-              <FaPlus />
+              <FaPlus className="w-3 h-3" />
             </Button>
           </div>
         </div>
 
         <div className="text-sm relative">
           {stockNumber === 0 ? (
-            <span className="text-sm font-bold text-red-500 flex gap-5 px-4 py-3 items-center bg-gradient-to-r from-violet-500/10 to-blue-500/10 rounded-full border border-violet-200/50">
+            <span className="text-xs font-semibold text-rose-500 flex gap-2 px-4 py-2 items-center bg-rose-50 rounded-full border border-rose-200/60 shadow-sm">
               Sold Out!
             </span>
           ) : stockNumber > 0 && stockNumber <= 5 ? (
-            <span className="text-sm font-bold text-red-500 flex gap-5 px-4 py-3 items-center bg-gradient-to-r from-violet-500/10 to-blue-500/10 rounded-full border border-violet-200/50">
-              <span className="relative mr-1 bottom-2">
-                <span className="absolute inline-flex h-4 w-4 bg-red-500 rounded-full"></span>
-                <span className="absolute inline-flex h-4 w-4 bg-red-500 rounded-full opacity-80 animate-ping"></span>
+            <span className="text-xs font-semibold text-rose-600 flex gap-3 px-4 py-2 items-center bg-gradient-to-r from-violet-50 to-rose-50 rounded-full border border-rose-200/50 shadow-sm">
+              <span className="relative mr-1 bottom-0 flex-shrink-0 w-2.5 h-2.5">
+                <span className="absolute inset-0 inline-flex h-2.5 w-2.5 bg-rose-500 rounded-full"></span>
+                <span className="absolute inset-0 inline-flex h-2.5 w-2.5 bg-rose-400 rounded-full opacity-75 animate-ping"></span>
               </span>
               Only {stockNumber} left!
             </span>
           ) : stockNumber > 5 && stockNumber <= 10 ? (
-            <span className="text-sm font-bold text-red-500 flex gap-5 px-4 py-3 items-center bg-gradient-to-r from-violet-500/10 to-blue-500/10 rounded-full border border-violet-200/50">
-              <span className="relative mr-1 bottom-2">
-                <span className="absolute inline-flex h-4 w-4 bg-red-500 rounded-full"></span>
-                <span className="absolute inline-flex h-4 w-4 bg-red-500 rounded-full opacity-80 animate-ping"></span>
+            <span className="text-xs font-semibold text-amber-600 flex gap-3 px-4 py-2 items-center bg-gradient-to-r from-amber-50 to-orange-50 rounded-full border border-amber-200/50 shadow-sm">
+              <span className="relative mr-1 bottom-0 flex-shrink-0 w-2.5 h-2.5">
+                <span className="absolute inset-0 inline-flex h-2.5 w-2.5 bg-amber-500 rounded-full"></span>
+                <span className="absolute inset-0 inline-flex h-2.5 w-2.5 bg-amber-400 rounded-full opacity-75 animate-ping"></span>
               </span>
               Only a few left!
             </span>
           ) : null}
         </div>
       </div>
+
 
       {/*<div className="flex flex-col gap-2 text-sm text-white font-semibold text-center border-2 bg-red-600 p-4 rounded-3xl shadow-xl">
         <span>
@@ -299,7 +305,7 @@ const Add = ({
             <Button
               onClick={handleBuyNow}
               disabled={stockNumber === 0}
-              className={`md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-gradient-to-r from-gray-900 to-emerald-600 hover:from-gray-800 hover:to-emerald-500 text-white disabled:hidden ${isLoading ? 'opacity-50' : ''}`}
+              className={`md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-gradient-to-r from-indigo-800 to-violet-600 hover:from-indigo-700 hover:to-violet-500 text-white disabled:hidden ${isLoading ? 'opacity-50' : ''}`}
             >
               {isLoading ? (
                 <div className="flex flex-row gap-2 justify-center items-center">
@@ -346,7 +352,7 @@ const Add = ({
               <Button
                 onClick={handleBuyNow}
                 disabled={stockNumber === 0}
-                className={`w-1/2 h-12 text-xs font-bold rounded-xl shadow-xl bg-gradient-to-r from-gray-900 to-emerald-600 hover:from-gray-800 hover:to-emerald-500 text-white disabled:hidden ${isLoading ? 'opacity-50' : ''}`}
+                className={`w-1/2 h-12 text-xs font-bold rounded-xl shadow-xl bg-gradient-to-r from-indigo-800 to-violet-600 hover:from-indigo-700 hover:to-violet-500 text-white disabled:hidden ${isLoading ? 'opacity-50' : ''}`}
               >
                 {isLoading ? (
                   <div className="flex flex-row gap-2 justify-center items-center">

@@ -1,7 +1,8 @@
 import { url } from "inspector";
-import { FaFacebookF, FaInstagram, FaPinterest, FaYoutube, FaGooglePay, FaCcMastercard } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaPinterest, FaYoutube, FaGooglePay, FaCcMastercard, FaApplePay, FaAmazonPay } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6"
-import { SiPhonepe, SiPaytm, SiVisa,  } from "react-icons/si";
+import { SiPhonepe, SiPaytm, SiVisa, } from "react-icons/si";
+import { GrAmex } from "react-icons/gr"
 
 export const NEXT_PUBLIC_WIX_APP_ID_BACK_IN_STOCK_NOTIFICATIONS = "1380b703-ce81-ff05-f115-39571d94dfcd";
 
@@ -88,44 +89,44 @@ export const navLinksMenu = [
 
 export const slides1 = [
     {
-      id: 1,
-    //   title: "Summer Sale Collections",
-    //   description: "Sale! Up to 50% off!",
-      img: "https://ik.imagekit.io/5ok2lashts/US%20CARTEL/banner1.png?updatedAt=1741106851893",
-      alt: "US Cartel Shop Banner",
-      url: "/list?cat=all-products",
-      bg: "bg-gradient-to-r from-yellow-50 to-pink-50",
+        id: 1,
+        //   title: "Summer Sale Collections",
+        //   description: "Sale! Up to 50% off!",
+        img: "https://ik.imagekit.io/5ok2lashts/US%20CARTEL/banner1.png?updatedAt=1741106851893",
+        alt: "US Cartel Shop Banner",
+        url: "/list?cat=all-products",
+        bg: "bg-gradient-to-r from-yellow-50 to-pink-50",
     },
     {
-      id: 2,
-    //   title: "Winter Sale Collections",
-    //   description: "Sale! Up to 50% off!",
-      img: "https://ik.imagekit.io/5ok2lashts/US%20CARTEL/banner2.png?updatedAt=1741204181681",
-      alt: "US Cartel Store Banner",
-      url: "/list?cat=new-arrivals",
-      bg: "bg-gradient-to-r from-pink-50 to-blue-50",
+        id: 2,
+        //   title: "Winter Sale Collections",
+        //   description: "Sale! Up to 50% off!",
+        img: "https://ik.imagekit.io/5ok2lashts/US%20CARTEL/banner2.png?updatedAt=1741204181681",
+        alt: "US Cartel Store Banner",
+        url: "/list?cat=new-arrivals",
+        bg: "bg-gradient-to-r from-pink-50 to-blue-50",
     },
     {
-      id: 3,
-    //   title: "Spring Sale Collections",
-    //   description: "Sale! Up to 50% off!",
-      img: "https://ik.imagekit.io/5ok2lashts/US%20CARTEL/banner3.png?updatedAt=1741204181920",
-      alt: "US Cartel Ecommerce Store",
-      url: "/list?cat=neustar",
-      bg: "bg-gradient-to-r from-blue-50 to-yellow-50",
+        id: 3,
+        //   title: "Spring Sale Collections",
+        //   description: "Sale! Up to 50% off!",
+        img: "https://ik.imagekit.io/5ok2lashts/US%20CARTEL/banner3.png?updatedAt=1741204181920",
+        alt: "US Cartel Ecommerce Store",
+        url: "/list?cat=neustar",
+        bg: "bg-gradient-to-r from-blue-50 to-yellow-50",
     },
-  ];
+];
 export const slides2 = [
     {
-      id: 1,
-     //title: "Summer Sale Collections",
-     //description: "Sale! Up to 50% off!",
-      img: "https://ik.imagekit.io/5ok2lashts/US%20CARTEL/Warrior%20in%20t6he%20garden.png?updatedAt=1746206162893",
-      alt: "US Cartel Company",
-      url: "/list?cat=all-products",
-      bg: "bg-gradient-to-r from-yellow-50 to-pink-50",
+        id: 1,
+        //title: "Summer Sale Collections",
+        //description: "Sale! Up to 50% off!",
+        img: "https://ik.imagekit.io/5ok2lashts/US%20CARTEL/Warrior%20in%20t6he%20garden.png?updatedAt=1746206162893",
+        alt: "US Cartel Company",
+        url: "/list?cat=all-products",
+        bg: "bg-gradient-to-r from-yellow-50 to-pink-50",
     }
-  ];
+];
 
 export const socialIcons = [
 
@@ -159,35 +160,43 @@ export const paymentIcons = [
     {
         id: 1,
         icon: FaGooglePay,
-        alt: 'gpay',       
+        alt: 'gpay',
     },
     {
         id: 2,
         icon: SiPhonepe,
-        alt: 'phonepe',       
+        alt: 'phonepe',
     },
     {
         id: 3,
         icon: SiPaytm,
-        alt: 'paytm',       
+        alt: 'paytm',
     },
     {
         id: 4,
+        icon: FaApplePay,
+        alt: 'apple pay',
+    },
+    {
+        id: 5,
         icon: SiVisa,
         alt: 'visa',
     },
     {
-        id: 5,
+        id: 6,
         icon: FaCcMastercard,
         alt: 'mastercard',
     },
-    // {
-    //     id: 6,
-    //     img: '/mastercard.png',
-    //     alt: 'mastercard',
-    //     width: 38,
-    //     height: 18
-    // },
+    {
+        id: 7,
+        icon: GrAmex,
+        alt: 'american express'
+    },
+    {
+        id: 8,
+        icon: FaAmazonPay,
+        alt: 'amazon pay'
+    },
 ]
 
 export const footLinksCompany = [
@@ -293,42 +302,42 @@ export const productImages = [
 ];
 
 export const videoSlides = [
-  {
-    id: 1,
-    title: "Video Promotion",
-    description: "Check out our latest video!",
-    video: "https://ik.imagekit.io/5ok2lashts/Brand%20Name%202.mp4?updatedAt=1749708532540",
-    poster: "https://ik.imagekit.io/5ok2lashts/celestial-6.jpg?updatedAt=1701773946817",
-    url: "/contact",
-    bg: "bg-gradient-to-r from-blue-50 to-green-50",
-  },
+    {
+        id: 1,
+        title: "Video Promotion",
+        description: "Check out our latest video!",
+        video: "https://ik.imagekit.io/5ok2lashts/Brand%20Name%202.mp4?updatedAt=1749708532540",
+        poster: "https://ik.imagekit.io/5ok2lashts/celestial-6.jpg?updatedAt=1701773946817",
+        url: "/contact",
+        bg: "bg-gradient-to-r from-blue-50 to-green-50",
+    },
 ];
 export const videoSlides2 = [
-  {
-    id: 1,
-    title: "Video Promotion",
-    description: "Check out our latest video!",
-    video: "https://ik.imagekit.io/5ok2lashts/Brand%20Name%202.mp4?updatedAt=1749708532540",
-    poster: "https://ik.imagekit.io/5ok2lashts/celestial-6.jpg?updatedAt=1701773946817",
-    url: "/contact",
-    bg: "bg-gradient-to-r from-blue-50 to-green-50",
-  },
-  {
-    id: 2,
-    title: "Video Promotion",
-    description: "Check out our latest video!",
-    video: "https://ik.imagekit.io/5ok2lashts/Brand%20Name%202.mp4?updatedAt=1749708532540",
-    poster: "https://ik.imagekit.io/5ok2lashts/celestial-6.jpg?updatedAt=1701773946817",
-    url: "/contact",
-    bg: "bg-gradient-to-r from-blue-50 to-green-50",
-  },
-  {
-    id: 3,
-    title: "Video Promotion",
-    description: "Check out our latest video!",
-    video: "https://ik.imagekit.io/5ok2lashts/Brand%20Name%202.mp4?updatedAt=1749708532540",
-    poster: "https://ik.imagekit.io/5ok2lashts/celestial-6.jpg?updatedAt=1701773946817",
-    url: "/contact",
-    bg: "bg-gradient-to-r from-blue-50 to-green-50",
-  },
+    {
+        id: 1,
+        title: "Video Promotion",
+        description: "Check out our latest video!",
+        video: "https://ik.imagekit.io/5ok2lashts/Brand%20Name%202.mp4?updatedAt=1749708532540",
+        poster: "https://ik.imagekit.io/5ok2lashts/celestial-6.jpg?updatedAt=1701773946817",
+        url: "/contact",
+        bg: "bg-gradient-to-r from-blue-50 to-green-50",
+    },
+    {
+        id: 2,
+        title: "Video Promotion",
+        description: "Check out our latest video!",
+        video: "https://ik.imagekit.io/5ok2lashts/Brand%20Name%202.mp4?updatedAt=1749708532540",
+        poster: "https://ik.imagekit.io/5ok2lashts/celestial-6.jpg?updatedAt=1701773946817",
+        url: "/contact",
+        bg: "bg-gradient-to-r from-blue-50 to-green-50",
+    },
+    {
+        id: 3,
+        title: "Video Promotion",
+        description: "Check out our latest video!",
+        video: "https://ik.imagekit.io/5ok2lashts/Brand%20Name%202.mp4?updatedAt=1749708532540",
+        poster: "https://ik.imagekit.io/5ok2lashts/celestial-6.jpg?updatedAt=1701773946817",
+        url: "/contact",
+        bg: "bg-gradient-to-r from-blue-50 to-green-50",
+    },
 ];

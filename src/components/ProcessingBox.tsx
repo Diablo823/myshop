@@ -2,6 +2,7 @@ import { paymentIcons } from "@/constants";
 import { ClockIcon, PackageIcon, TruckTrailerIcon } from "@phosphor-icons/react";
 import React from "react";
 import { FaShieldAlt, FaUndoAlt, FaLock } from "react-icons/fa";
+import { SiRazorpay } from "react-icons/si";
 
 interface InfoBoxProps {
   processingText: string;
@@ -109,15 +110,15 @@ const ProcessingBox: React.FC<InfoBoxProps> = ({
       {/* ── Payment Icons ── */}
       <div className="bg-white border border-gray-100 p-4 rounded-2xl shadow-sm">
         <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest text-center mb-3">
-          Secured Payments
+          Safe & Secure Checkout
         </p>
         <div className="flex justify-center items-center gap-2.5 flex-wrap">
           {paymentIcons.map((payment, index) => (
             <span
               key={index}
               className="flex items-center justify-center w-11 h-7 rounded-lg bg-gray-50
-                         border border-gray-100 hover:border-violet-300 hover:bg-violet-50
-                         transition-colors duration-150 cursor-pointer"
+                   border border-gray-100 hover:border-violet-300 hover:bg-violet-50
+                   transition-colors duration-150 cursor-pointer"
             >
               <payment.icon size={28} color="#6d28d9" />
             </span>
@@ -125,12 +126,14 @@ const ProcessingBox: React.FC<InfoBoxProps> = ({
         </div>
         <div className="flex items-center justify-center gap-1.5 mt-3 text-[11px] font-semibold text-gray-400">
           <FaLock className="text-emerald-500" size={9} />
-          <span>
-            Secured by{" "}
-            <span className="text-violet-600 font-bold">Razorpay</span>
+          <span>Secured by</span>
+          <span className="flex items-center gap-1 text-[#072654] font-bold">
+            <SiRazorpay className="text-[#072654]" size={13} />
+            Razorpay
           </span>
         </div>
       </div>
+
 
       {/* ── Trust Badges ── */}
       {/* <div className="grid grid-cols-2 gap-2">

@@ -338,7 +338,7 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
             {/* TAB CONTENT */}
             <div className="mt-6">
               {activeTab === "delivery" && (
-                <div className="animate-in fade-in duration-300">
+                <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
                   <ProcessingBox
                     processingText="Processing"
                     processingValue="0 Days"
@@ -351,33 +351,54 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
               )}
 
               {activeTab === "features" && (
-                <div className="animate-in fade-in duration-300">
+                <div className="animate-in fade-in slide-in-from-bottom-2 duration-300 space-y-4">
+
                   {/* Additional Info Sections */}
-                  <div className="space-y-2">
+                  <div className="space-y-2.5">
                     {product.additionalInfoSections?.map(
                       (section: AdditionalInfoSection) => {
                         if (section.title && section.description) {
                           return (
-                            <div className="text-sm" key={section.title}>
-                              <Accordion
-                                type="single"
-                                collapsible
-                                className="bg-gradient-to-r from-neutral-50 to-slate-50 px-4 md:px-6 rounded-2xl shadow-md"
-                              >
-                                <AccordionItem value={section.title || "info"}>
-                                  <AccordionTrigger className="font-bold">
-                                    {section.title}
+                            <div key={section.title}>
+                              <Accordion type="single" collapsible className="group">
+                                <AccordionItem
+                                  value={section.title || "info"}
+                                  className="
+                      border border-violet-100 rounded-2xl overflow-hidden
+                      bg-gradient-to-br from-white to-violet-50/30
+                      shadow-sm shadow-violet-100/50
+                      transition-all duration-200
+                      hover:border-violet-300/60 hover:shadow-md hover:shadow-violet-200/40
+                      data-[state=open]:border-violet-300/80
+                      data-[state=open]:shadow-lg data-[state=open]:shadow-violet-200/50
+                      data-[state=open]:bg-gradient-to-br data-[state=open]:from-white data-[state=open]:to-violet-50/60
+                    "
+                                >
+                                  <AccordionTrigger
+                                    className="
+                        px-5 py-4 font-semibold text-sm text-slate-700
+                        hover:text-violet-700 hover:no-underline
+                        transition-colors duration-150
+                        [&>svg]:text-violet-400 [&>svg]:transition-transform [&>svg]:duration-200
+                      "
+                                  >
+                                    <span className="flex items-center gap-2.5">
+                                      <span className="w-1.5 h-1.5 rounded-full bg-violet-400 flex-shrink-0" />
+                                      {section.title}
+                                    </span>
                                   </AccordionTrigger>
-                                  <AccordionContent>
-                                    <p
-                                      className="text-gray-950 text-sm"
-                                      dangerouslySetInnerHTML={{
-                                        __html: DOMPurify.sanitize(
-                                          section.description || "",
-                                          sanitizeConfig
-                                        ),
-                                      }}
-                                    />
+                                  <AccordionContent className="px-5 pb-5">
+                                    <div className="pt-1 border-t border-violet-100/70">
+                                      <p
+                                        className="text-slate-500 text-sm leading-relaxed mt-3"
+                                        dangerouslySetInnerHTML={{
+                                          __html: DOMPurify.sanitize(
+                                            section.description || "",
+                                            sanitizeConfig
+                                          ),
+                                        }}
+                                      />
+                                    </div>
                                   </AccordionContent>
                                 </AccordionItem>
                               </Accordion>
@@ -392,48 +413,92 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
 
                   {/* Filtered Sections */}
                   {filteredSections && filteredSections.length > 0 && (
-                    <div className="mt-6 flex flex-col gap-3 py-4 px-2 md:px-4 bg-gradient-to-r from-neutral-50 to-slate-50 rounded-2xl border-2 border-slate-100 shadow-md">
-                      {filteredSections.map((section: AdditionalInfoSection) => {
-                        if (section.title && section.description === "") {
-                          return (
-                            <div key={section.title} className="text-sm font-bold">
-                              <ul className="list-disc pl-4">
-                                <li>{section.title}</li>
-                              </ul>
-                            </div>
-                          );
-                        } else if (section.title === "" && section.description) {
-                          return (
-                            <div
-                              key={section.description}
-                              className="text-sm font-bold"
-                            >
-                              <h4>{section.description}</h4>
-                            </div>
-                          );
-                        } else {
-                          return null;
-                        }
-                      })}
+                    <div className="
+        relative overflow-hidden
+        rounded-3xl border border-violet-200/60
+        bg-gradient-to-br from-violet-50/80 via-white to-indigo-50/60
+        shadow-md shadow-violet-100/40
+        px-5 md:px-7 py-5
+      ">
+                      {/* Decorative top accent line */}
+                      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-violet-400 via-indigo-400 to-violet-300 rounded-t-3xl" />
+
+                      <div className="flex flex-col gap-3 mt-1">
+                        {filteredSections.map((section: AdditionalInfoSection) => {
+                          if (section.title && section.description === "") {
+                            return (
+                              <div
+                                key={section.title}
+                                className="flex items-center gap-3 text-sm text-slate-600 font-medium group/item"
+                              >
+                                <span className="
+                    relative flex-shrink-0 w-2 h-2
+                  ">
+                                  <span className="absolute inset-0 rounded-full bg-violet-400" />
+                                  <span className="absolute inset-0 rounded-full bg-violet-300 scale-150 opacity-0 group-hover/item:opacity-100 transition-opacity duration-200" />
+                                </span>
+                                {section.title}
+                              </div>
+                            );
+                          } else if (section.title === "" && section.description) {
+                            return (
+                              <div
+                                key={section.description}
+                                className="
+                    text-xs font-bold uppercase tracking-widest
+                    text-violet-500 pt-3 mt-1
+                    border-t border-violet-200/60
+                    first:border-none first:pt-0 first:mt-0
+                  "
+                              >
+                                {section.description}
+                              </div>
+                            );
+                          } else {
+                            return null;
+                          }
+                        })}
+                      </div>
                     </div>
                   )}
                 </div>
               )}
 
               {activeTab === "specifications" && (
-                <div className="p-2 animate-in fade-in duration-300">
-                  {/* Product Description */}
-                  <div
-                    className="text-sm md:text-base text-gray-900 prose prose-sm max-w-none"
-                    dangerouslySetInnerHTML={{
-                      __html: DOMPurify.sanitize(
-                        product.description || "",
-                        sanitizeConfig
-                      ),
-                    }}
-                  />
+                <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+                  <div className="
+      relative overflow-hidden
+      rounded-3xl border border-slate-200/70
+      bg-gradient-to-br from-white via-slate-50/50 to-violet-50/20
+      shadow-md shadow-slate-100/60
+      px-5 md:px-8 py-6
+    ">
+                    {/* Decorative top accent line */}
+                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-violet-400 via-indigo-400 to-violet-300 rounded-t-3xl" />
+
+                    <div
+                      className="
+          text-sm md:text-base text-slate-600 leading-relaxed
+          prose prose-sm max-w-none mt-1
+          prose-headings:text-slate-800 prose-headings:font-semibold prose-headings:tracking-tight
+          prose-strong:text-slate-700 prose-strong:font-semibold
+          prose-li:text-slate-600 prose-li:marker:text-violet-400
+          prose-a:text-violet-500 prose-a:font-medium prose-a:no-underline hover:prose-a:underline
+          prose-p:text-slate-500 prose-p:leading-relaxed
+          prose-hr:border-violet-100
+        "
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(
+                          product.description || "",
+                          sanitizeConfig
+                        ),
+                      }}
+                    />
+                  </div>
                 </div>
               )}
+
+
             </div>
           </div>
 
