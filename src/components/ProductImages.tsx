@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, PlayIcon } from "lucide-react";
 import { useSwipeable } from "react-swipeable";
 import Lightbox from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import Video from "yet-another-react-lightbox/plugins/video";
 import "yet-another-react-lightbox/styles.css";
 
 interface ProductImagesProps {
@@ -12,6 +13,16 @@ interface ProductImagesProps {
   currentIndex?: number;
   setCurrentIndex?: (index: number) => void;
 }
+
+// Mirrors the other dev's resolvedThumbnailUrl logic
+const getVideoThumbnail = (item: any): string | undefined => {
+  const stillFrameMediaId = item.video?.stillFrameMediaId;
+  const thumbnailUrl = item.thumbnail?.url;
+  if (stillFrameMediaId && thumbnailUrl) {
+    return thumbnailUrl.split(stillFrameMediaId)[0] + stillFrameMediaId;
+  }
+  return thumbnailUrl;
+};
 
 const ProductImages = ({ items, currentIndex = 0, setCurrentIndex }: ProductImagesProps) => {
   const [index, setIndex] = useState(currentIndex);
@@ -49,10 +60,31 @@ const ProductImages = ({ items, currentIndex = 0, setCurrentIndex }: ProductImag
 
   const safeIndex = Math.max(0, Math.min(index, items.length - 1));
 
-  const slides = items.map((item: any) => ({
-    src: item.image?.url,
-    alt: item.image?.altText || "US Cartel product image",
-  }));
+  // const slides = items.map((item: any) => ({
+  //   src: item.image?.url,
+  //   alt: item.image?.altText || "US Cartel product image",
+  // }));
+
+  // Build slides for lightbox — images use Zoom, videos use Video plugin
+  const slides = items.map((item: any) => {
+    const videoFile = item.video?.files?.[0];
+    if (videoFile?.url) {
+      return {
+        type: "video" as const,
+        poster: getVideoThumbnail(item),
+        sources: [
+          {
+            src: videoFile.url,
+            type: `video/${videoFile.format || "mp4"}`,
+          },
+        ],
+      };
+    }
+    return {
+      src: item.image?.url,
+      alt: item.image?.altText || "US Cartel product image",
+    };
+  });
 
   return (
     <div className="w-full">
@@ -66,22 +98,59 @@ const ProductImages = ({ items, currentIndex = 0, setCurrentIndex }: ProductImag
           className="flex h-full transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${safeIndex * 100}%)` }}
         >
-          {items.map((item: any, idx: number) => (
-            <div
-              key={item._id || idx}
-              className="relative w-full h-full flex-shrink-0"
-            >
-              <Image
-                src={item.image?.url}
-                alt={item.image?.altText || "US Cartel product image"}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
-                priority={idx === safeIndex}
-                className="object-cover cursor-pointer"
-                onClick={() => setIsLightboxOpen(true)}
-              />
-            </div>
-          ))}
+          {items.map((item: any, idx: number) => {
+            const videoFile = item.video?.files?.[0];
+            const thumbnailUrl = getVideoThumbnail(item);
+            const isVideo = !!videoFile?.url;
+
+            return (
+              <div key={item._id || idx} className="relative w-full h-full flex-shrink-0 flex-none">
+                {isVideo ? (
+                  // Active video slide: inline player. Inactive: thumbnail + play overlay
+                  idx === safeIndex ? (
+                    <video
+                      controls
+                      playsInline
+                      className="w-full h-full object-cover"
+                      poster={thumbnailUrl}
+                    >
+                      <source
+                        src={videoFile.url}
+                        type={`video/${videoFile.format || "mp4"}`}
+                      />
+                    </video>
+                  ) : (
+                    <>
+                      {thumbnailUrl && (
+                        <Image
+                          src={thumbnailUrl}
+                          alt={videoFile.altText || "US Cartel product video"}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
+                          className="object-cover"
+                        />
+                      )}
+                      <span className="absolute inset-0 flex items-center justify-center bg-black/10">
+                        <span className="flex size-14 items-center justify-center rounded-full bg-black/40">
+                          <PlayIcon className="size-8 text-white/80" />
+                        </span>
+                      </span>
+                    </>
+                  )
+                ) : (
+                  <Image
+                    src={item.image?.url}
+                    alt={item.image?.altText || "US Cartel product image"}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
+                    priority={idx === safeIndex}
+                    className="object-cover cursor-pointer"
+                    onClick={() => setIsLightboxOpen(true)}
+                  />
+                )}
+              </div>
+            );
+          })}
         </div>
 
         {/* Navigation Arrows */}
@@ -120,51 +189,64 @@ const ProductImages = ({ items, currentIndex = 0, setCurrentIndex }: ProductImag
         )}
       </div>
 
-      {/* SMALL IMAGES */}
+      {/* SMALL THUMBNAILS */}
       <div className="flex gap-4 mt-4 pt-1 px-2 overflow-x-auto pb-1 scrollbar-hide">
-        {items.map((item: any, idx: number) => (
-          <div
-            className={`w-12 h-12 relative flex-shrink-0 transition-all duration-300 ${idx === safeIndex
-              ? "ring-2 ring-black rounded-lg ring-offset-2"
-              : "opacity-70 hover:opacity-100"
-              }`}
-            key={item._id || idx}
-            onClick={() => handleIndexChange(idx)}
-          >
-            <Image
-              src={item.image?.url}
-              alt={item.image?.altText || "US Cartel products"}
-              fill
-              sizes="80px"
-              loading="lazy"
-              className="object-cover rounded-lg cursor-pointer"
-            />
-          </div>
-        ))}
+        {items.map((item: any, idx: number) => {
+          const videoFile = item.video?.files?.[0];
+          const isVideo = !!videoFile?.url;
+          const thumbSrc = isVideo ? getVideoThumbnail(item) : item.image?.url;
+
+          if (!thumbSrc) return null;
+
+          return (
+            <div
+              className={`w-12 h-12 relative flex-shrink-0 transition-all duration-300 ${idx === safeIndex
+                  ? "ring-2 ring-black rounded-lg ring-offset-2"
+                  : "opacity-70 hover:opacity-100"
+                }`}
+              key={item._id || idx}
+              onClick={() => handleIndexChange(idx)}
+            >
+              <Image
+                src={thumbSrc}
+                alt={item.image?.altText || "US Cartel products"}
+                fill
+                sizes="80px"
+                loading="lazy"
+                className="object-cover rounded-lg cursor-pointer"
+              />
+              {/* Play icon overlay for video thumbnails */}
+              {isVideo && (
+                <span className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/20">
+                  <PlayIcon className="size-4 text-white drop-shadow" />
+                </span>
+              )}
+            </div>
+          );
+        })}
       </div>
 
-      {/* LIGHTBOX WITH ZOOM */}
       <Lightbox
         open={isLightboxOpen}
         close={() => setIsLightboxOpen(false)}
         slides={slides}
         index={safeIndex}
-        plugins={[Zoom]}
+        plugins={[Zoom, Video]}
         zoom={{
           maxZoomPixelRatio: 3,
           scrollToZoom: true,
+        }}
+        video={{
+          controls: true,
+          playsInline: true,
         }}
         on={{
           view: ({ index: lightboxIndex }) => {
             handleIndexChange(lightboxIndex);
           },
         }}
-        carousel={{
-          finite: false,
-        }}
-        controller={{
-          closeOnBackdropClick: true,
-        }}
+        carousel={{ finite: false }}
+        controller={{ closeOnBackdropClick: true }}
       />
     </div>
   );

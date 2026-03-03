@@ -205,38 +205,97 @@ const ProfileClient = ({ profileData }: { profileData: ProfileData }) => {
 
             <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
               <AlertDialogTrigger asChild>
-                <Button className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 w-full text-white py-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 hover:transform hover:scale-105 flex items-center justify-center gap-3">
-                  <span className="text-lg font-semibold">Logout</span>
-                  <span className="font-bold">
-                    <RiShutDownLine />
-                  </span>
+                <Button className="
+      w-full h-12 rounded-xl text-white font-bold text-sm
+      bg-gradient-to-r from-red-500 to-rose-600
+      hover:from-red-600 hover:to-rose-700
+      shadow-md shadow-red-200/60 hover:shadow-lg hover:shadow-red-300/50
+      transition-all duration-300 flex items-center justify-center gap-2
+    ">
+                  <RiShutDownLine className="w-4 h-4" />
+                  <span>Logout</span>
                 </Button>
               </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    You can log back in at any time and continue where you left
-                    off.
+
+              <AlertDialogContent className="
+    p-0 overflow-hidden rounded-3xl max-w-sm w-[96vw] border-0
+    shadow-2xl shadow-red-200/40
+    [&>button]:text-red-300 [&>button]:hover:text-red-600
+    [&>button]:hover:bg-red-50 [&>button]:rounded-xl
+  ">
+
+                {/* Gradient Header */}
+                <div className="bg-gradient-to-br from-red-500 to-rose-600 px-6 pt-6 pb-4 relative overflow-hidden">
+
+                  {/* Soft blobs */}
+                  <div className="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-rose-400/20 blur-2xl pointer-events-none" />
+                  <div className="absolute bottom-0 -left-4 w-24 h-14 rounded-full bg-red-400/20 blur-2xl pointer-events-none" />
+
+                  {/* Icon + Title */}
+                  <div className="relative flex items-center gap-3 mb-3">
+                    <div className="w-11 h-11 rounded-2xl bg-white/15 border border-white/25 backdrop-blur-sm flex items-center justify-center">
+                      <RiShutDownLine className="text-white w-5 h-5" />
+                    </div>
+                    <AlertDialogTitle className="text-white text-base font-bold tracking-tight">
+                      Logging Out?
+                    </AlertDialogTitle>
+                  </div>
+
+                  <AlertDialogDescription className="relative text-red-100 text-xs leading-relaxed">
+                    You can log back in at any time and continue right where you left off.
                   </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction
-                    onClick={handleLogout}
-                    className="bg-red-600 text-slate-100 hover:text-white hover:bg-red-700 cursor-pointer"
-                  >
-                    <span>LogOut</span> <RiShutDownLine />
-                  </AlertDialogAction>
-                </AlertDialogFooter>
+                </div>
+
+                {/* Overlap card */}
+                <div className="-mt-4 mx-2 bg-white rounded-2xl shadow-md shadow-red-100 px-3 pt-5 pb-2 space-y-4">
+
+                  {/* Confirmation text */}
+                  <p className="text-slate-500 text-xs leading-relaxed">
+                    Are you sure you want to log out of your account?
+                  </p>
+
+                  {/* Action Buttons */}
+                  <AlertDialogFooter className="flex flex-row gap-2 sm:flex-row">
+                    <AlertDialogCancel className="
+          flex-1 h-11 rounded-xl border border-slate-200
+          bg-slate-50 hover:bg-slate-100
+          text-slate-600 hover:text-slate-800
+          font-semibold text-sm
+          transition-all duration-200 mt-0
+        ">
+                      Cancel
+                    </AlertDialogCancel>
+
+                    <AlertDialogAction
+                      onClick={handleLogout}
+                      className="
+            flex-1 h-11 rounded-xl font-bold text-sm text-white
+            bg-gradient-to-r from-red-500 to-rose-600
+            hover:from-red-600 hover:to-rose-700
+            shadow-md shadow-red-200/50
+            transition-all duration-300
+            flex items-center justify-center gap-2
+          "
+                    >
+                      <RiShutDownLine className="w-4 h-4" />
+                      <span>Yes, Logout</span>
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+
+                </div>
+
+                {/* Bottom padding */}
+                <div className="h-4 bg-white" />
+
               </AlertDialogContent>
             </AlertDialog>
+
           </div>
 
           <div className="mt-8 p-4 mb-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-2xl border border-yellow-200">
             <h3 className="font-semibold text-sm text-gray-700 leading-relaxed">
               If you want to update your profile information <br />
-              message{" "}
+              send an email to{" "}
               <span className="text-blue-600 font-bold italic">
                 support@uscartel.com
               </span>

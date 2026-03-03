@@ -323,7 +323,7 @@ const Add = ({
             </Button>
           </div>
 
-
+          {/* FOR MOBILE SCREENS */}
           <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t px-1 py-1.5 z-20 rounded-t-2xl shadow-lg shadow-black">
             <div className="flex gap-1 max-w-screen-xl mx-auto">
               <Link href="/cart" className="flex flex-col items-center space-y-1 relative">
