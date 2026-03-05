@@ -95,7 +95,7 @@ export async function getProducts({
 
     // Add timeout protection (7 seconds max)
     const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('Products fetch timeout')), 7000)
+      setTimeout(() => reject(new Error('Products fetch timeout')), 10000)
     );
 
     const fetchPromise = (async () => {

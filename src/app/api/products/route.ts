@@ -140,7 +140,7 @@ export async function GET(request: NextRequest) {
     }
 
     const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('API timeout')), 8000)
+      setTimeout(() => reject(new Error('API timeout')), 10000)
     );
 
     const fetchPromise = (async () => {

@@ -65,11 +65,11 @@ const WIX_STORES_APP_ID = "215238eb-22a5-4c36-9e7b-e7c08025e04e";
 
 export async function getRelatedProducts(productId: string, limit: number = 6) {
   const wixClient = await wixClientServer();
-  
+
   try {
     // Add timeout protection
-    const timeoutPromise = new Promise((_, reject) => 
-      setTimeout(() => reject(new Error('Timeout')), 8000) // 8 second timeout
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('Timeout')), 10000) // 8 second timeout
     );
 
     const fetchPromise = (async () => {

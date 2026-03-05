@@ -86,9 +86,9 @@ const HomePage = async () => {
       </div>
 
 
-      <div className="mt-4 px-1 md:px-8 lg:px-16 xl:px-32">
+      {/* <div className="mt-4 px-1 md:px-8 lg:px-16 xl:px-32">
         <SanityPromotion promotionName="promo2" className="mt-5" />
-      </div>
+      </div> */}
 
 
 
@@ -120,6 +120,14 @@ const HomePage = async () => {
 
       <SanityProductSection
         sectionSlug="section-2"
+        // Optional fallbacks if section not found in Sanity:
+        fallbackCategoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID}
+        fallbackHeading="New Arrivals"
+        fallbackLimit={12}
+      />
+
+      <SanityProductSection
+        sectionSlug="section-3"
         // Optional fallbacks if section not found in Sanity:
         fallbackCategoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID}
         fallbackHeading="New Arrivals"

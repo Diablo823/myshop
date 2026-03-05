@@ -87,7 +87,7 @@ const DealPage = () => {
       </div>
 
       <SanityProductSection
-        sectionSlug="section-1"
+        sectionSlug="deal-section-1"
         // Optional fallbacks if section not found in Sanity:
         fallbackCategoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID}
         fallbackHeading="New Arrivals"

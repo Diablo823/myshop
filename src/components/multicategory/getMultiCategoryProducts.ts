@@ -13,25 +13,25 @@
 
 //     const fetchPromise = (async () => {
 //       const wixClient = await wixClientServer();
-      
+
 //       let query = wixClient.products
 //         .queryProducts()
 //         .hasSome("collectionIds", categoryIds);
-      
+
 //       if (excludeProductId) {
 //         query = query.ne("_id", excludeProductId);
 //       }
-      
+
 //       const productsResult = await query
 //         .limit(30)
 //         .find();
 
 //       let finalProducts = productsResult.items;
-      
+
 //       if (shuffle) {
 //         finalProducts = shuffleArray([...finalProducts]);
 //       }
-      
+
 //       return finalProducts;
 //     })();
 
@@ -59,39 +59,39 @@ import { wixClientServer } from "@/lib/wixClientServer";
 import { products } from "@wix/stores";
 
 export async function getMultiCategoryProducts(
-  categoryIds: string[], 
+  categoryIds: string[],
   excludeProductId?: string,
   shuffle: boolean = true,
   productsPerCategory: number = 15
 ) {
   try {
     // Add timeout protection
-    const timeoutPromise = new Promise((_, reject) => 
-      setTimeout(() => reject(new Error('Timeout')), 7000)
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('Timeout')), 10000)
     );
 
     const fetchPromise = (async () => {
       const wixClient = await wixClientServer();
-      
+
       // Shuffle category order first if shuffle is enabled
       const orderedCategoryIds = shuffle ? shuffleArray([...categoryIds]) : categoryIds;
-      
+
       // Fetch products from each category in parallel
       const categoryPromises = orderedCategoryIds.map(async (categoryId) => {
         try {
           const query = wixClient.products
             .queryProducts()
             .eq("collectionIds", categoryId);
-          
+
           if (excludeProductId) {
             query.ne("_id", excludeProductId);
           }
-          
+
           const result = await query.limit(productsPerCategory).find();
-          
+
           // Shuffle products within this category if shuffle is enabled
-          return shuffle 
-            ? shuffleArray(result.items) 
+          return shuffle
+            ? shuffleArray(result.items)
             : result.items;
         } catch (error) {
           console.error(`Error fetching category ${categoryId}:`, error);
@@ -100,21 +100,21 @@ export async function getMultiCategoryProducts(
       });
 
       const categoriesProducts = await Promise.all(categoryPromises);
-      
+
       // Filter out empty arrays (failed/empty categories)
       const validCategoriesProducts = categoriesProducts.filter(cat => cat.length > 0);
-      
+
       // Mix products from all categories using round-robin
       const mixedProducts = roundRobinMix(validCategoriesProducts);
-      
+
       // Remove duplicates (in case product belongs to multiple categories)
       const uniqueProducts = removeDuplicateProducts(mixedProducts);
-      
+
       // Final shuffle for extra randomness if enabled
-      const finalProducts = shuffle 
-        ? shuffleArray(uniqueProducts) 
+      const finalProducts = shuffle
+        ? shuffleArray(uniqueProducts)
         : uniqueProducts;
-      
+
       return finalProducts;
     })();
 

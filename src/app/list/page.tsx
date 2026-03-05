@@ -52,7 +52,7 @@ export async function generateMetadata({
       const wixClient = await wixClientServer();
 
       const timeoutPromise = new Promise<never>((_, reject) =>
-        setTimeout(() => reject(new Error("metadata fetch timeout")), 5000)
+        setTimeout(() => reject(new Error("metadata fetch timeout")), 10000)
       );
 
       const cat = await Promise.race([
