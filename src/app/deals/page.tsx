@@ -18,11 +18,11 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: "Deals and Promotions - US Cartel",
       description: "Discover the best deals and promotions on US Cartel. Get discounts on your favorite products every day, week, and month!",
-      url: "https://uscartel.com/deals",
+      url: "https://www.uscartel.com/deals",
       siteName: "US Cartel",
       images: [
         {
-          url: "https://uscartel.com/images/og-image.jpg",
+          url: "https://www.uscartel.com/images/og-image.jpg",
           width: 1200,
           height: 630,
           alt: "Deals and Promotions on US Cartel"

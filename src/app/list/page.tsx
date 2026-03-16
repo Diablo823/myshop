@@ -25,7 +25,7 @@ export async function generateMetadata({
   }>;
 }): Promise<Metadata> {
   const params = await searchParams;
-  const DEFAULT_OG = "https://uscartel.com/images/og-image.jpg";
+  const DEFAULT_OG = "https://www.uscartel.com/images/og-image.jpg";
   const BASE_URL = "https://www.uscartel.com";
 
   // ── 1. SEARCH QUERY  →  /list?name=gym ──────────────────────────────

@@ -76,7 +76,7 @@ export async function submitMultipleToIndexNow(urls: string[]): Promise<boolean>
  * Submit product URL when a product is added/updated
  */
 export async function notifyProductChange(productSlug: string): Promise<boolean> {
-    const productUrl = `https://uscartel.com/products/${productSlug}`;
+    const productUrl = `https://www.uscartel.com/products/${productSlug}`;
     return submitToIndexNow(productUrl);
 }
 
@@ -84,7 +84,7 @@ export async function notifyProductChange(productSlug: string): Promise<boolean>
  * Submit category URL when a category is added/updated
  */
 export async function notifyCategoryChange(categorySlug: string): Promise<boolean> {
-    const categoryUrl = `https://uscartel.com/list?cat=${categorySlug}`;
+    const categoryUrl = `https://www.uscartel.com/list?cat=${categorySlug}`;
     return submitToIndexNow(categoryUrl);
 }
 
@@ -93,6 +93,6 @@ export async function notifyCategoryChange(categorySlug: string): Promise<boolea
  * This should be called server-side only
  */
 export async function submitAllProducts(productSlugs: string[]): Promise<boolean> {
-    const urls = productSlugs.map(slug => `https://uscartel.com/products/${slug}`);
+    const urls = productSlugs.map(slug => `https://www.uscartel.com/products/${slug}`);
     return submitMultipleToIndexNow(urls);
 }

@@ -76,7 +76,7 @@ export async function generateMetadata({
   );
   const currency = product.price?.currency || "INR";
   const inStock = product.stock?.inStock !== false;
-  const canonicalUrl = `https://uscartel.com/products/${slug}`;
+  const canonicalUrl = `https://www.uscartel.com/products/${slug}`;
 
   // SANITIZE AND PREPARE DESCRIPTION
   const rawDescription =
@@ -111,7 +111,7 @@ export async function generateMetadata({
         ]
         : [
           {
-            url: "https://uscartel.com/og-image.jpg",
+            url: "https://www.uscartel.com/og-image.jpg",
             width: 1200,
             height: 630,
             alt: "US Cartel - Your one-stop shop for the best products",
@@ -179,7 +179,7 @@ const SinglePage = async ({
 
   const currency = product.price?.currency || "INR";
   const inStock = product.stock?.inStock !== false;
-  const canonicalUrl = `https://uscartel.com/products/${slug}`;
+  const canonicalUrl = `https://www.uscartel.com/products/${slug}`;
 
   // SANITIZE DESCRIPTION
   const rawDescription =
@@ -227,7 +227,7 @@ const SinglePage = async ({
       seller: {
         "@type": "Organization",
         name: "US Cartel",
-        url: "https://uscartel.com",
+        url: "https://www.uscartel.com",
       },
     },
   };
@@ -242,13 +242,13 @@ const SinglePage = async ({
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://uscartel.com"
+        "item": "https://www.uscartel.com"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Products",
-        "item": "https://uscartel.com/list?cat=all-products"
+        "item": "https://www.uscartel.com/list?cat=all-products"
       },
       {
         "@type": "ListItem",

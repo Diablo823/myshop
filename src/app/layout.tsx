@@ -55,22 +55,22 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://uscartel.com"),
+  metadataBase: new URL("https://www.uscartel.com"),
   alternates: {
-    canonical: "https://uscartel.com",
+    canonical: "https://www.uscartel.com",
   },
   openGraph: {
     title:
       "US Cartel - Marketplace for Fashion, Cosmetics, Gadgets, Household essentials & More",
     description:
       "US Cartel is the new rising ecommerce marketplace in India, founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials. Shop smart and Shop quality products online at US Cartel, US Cartel store",
-    url: "https://uscartel.com",
+    url: "https://www.uscartel.com",
     siteName: "US Cartel",
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: "https://uscartel.com/og-image.jpg", // You'll need to create this image (1200x630px recommended)
+        url: "https://www.uscartel.com/og-image.jpg", // You'll need to create this image (1200x630px recommended)
         width: 1200,
         height: 630,
         alt: "US Cartel Marketplace",
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
       "US Cartel - Marketplace for Fashion, Cosmetics, Gadgets, Household essentials & More",
     description:
       "US Cartel is the new rising ecommerce marketplace in India, founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials. Shop smart and Shop quality products online at US Cartel, US Cartel store",
-    images: ["https://uscartel.com/og-image.jpg"], // Same image as OpenGraph
+    images: ["https://www.uscartel.com/og-image.jpg"], // Same image as OpenGraph
     creator: "@uscartelcompany", // Replace with your actual Twitter handle if you have one
   },
   robots: {
@@ -160,7 +160,7 @@ export default function RootLayout({
         <meta name="msvalidate.01" content="C58A8ABF53A617997EAEAC357116C71B" />
 
         {/* WhatsApp/OG Image meta tags - helps with WhatsApp preview */}
-        <meta property="og:image" content="https://uscartel.com/og-image.jpg" />
+        <meta property="og:image" content="https://www.uscartel.com/og-image.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:type" content="image/png" />
@@ -193,8 +193,8 @@ export default function RootLayout({
               "@type": "Organization",
               name: "US Cartel",
               alternateName: ["US Cartel", "US Cartel Marketplace", "US Cartel Shop", "US Cartel Ecommerce", "US Cartel Store"],
-              url: "https://uscartel.com",
-              logo: "https://uscartel.com/logo.png",
+              url: "https://www.uscartel.com",
+              logo: "https://www.uscartel.com/logo.png",
 
               description:
                 "US Cartel is the new rising ecommerce marketplace in India,founded by Muruka Bhupathy offering affordable high-quality useful gadgets, fashion, cosmetics, and household essentials. Shop smart and Shop quality products online at US Cartel, US Cartel store",
@@ -231,10 +231,10 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebSite",
               name: "US Cartel",
-              url: "https://uscartel.com",
+              url: "https://www.uscartel.com",
               potentialAction: {
                 "@type": "SearchAction",
-                target: "https://uscartel.com/search?q={search_term_string}",
+                target: "https://www.uscartel.com/search?q={search_term_string}",
                 "query-input": "required name=search_term_string",
               },
             }),
