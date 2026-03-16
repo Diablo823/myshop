@@ -134,6 +134,14 @@ const HomePage = async () => {
         fallbackLimit={12}
       />
 
+      <SanityProductSection
+        sectionSlug="section-4"
+        // Optional fallbacks if section not found in Sanity:
+        fallbackCategoryId={process.env.NEXT_PUBLIC_NEW_ARRIVAL_CATEGORY_ID}
+        fallbackHeading="New Arrivals"
+        fallbackLimit={12}
+      />
+
 
       <SanityShuffledCategorySection
         sectionSlug="shuffle-1"

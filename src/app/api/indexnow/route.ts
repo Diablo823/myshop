@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const API_KEY = '4090819601ab3b122e621940fc95ed41';
-const HOST = 'uscartel.com';
+const HOST = 'www.uscartel.com';
 
 export async function POST(request: NextRequest) {
     try {
@@ -82,7 +82,7 @@ export async function GET() {
             host: HOST,
             keyLocation: `https://${HOST}/${API_KEY}.txt`,
             endpoint: '/api/indexnow',
-            usage: 'POST with JSON body: { "urls": ["https://uscartel.com/products/slug"] }',
+            usage: 'POST with JSON body: { "urls": ["https://www.uscartel.com/products/slug"] }',
         },
     });
 }
