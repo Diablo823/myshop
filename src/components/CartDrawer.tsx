@@ -18,7 +18,7 @@ import LoadingSpinner from "./ui/LoadingSpinner";
 import Link from "next/link";
 import { Badge } from "./ui/badge";
 import { currentCart } from "@wix/ecom";
-import { HourglassMediumIcon } from "@phosphor-icons/react";
+import { HourglassMediumIcon, ShoppingCartIcon } from "@phosphor-icons/react";
 import { useToast } from "@/hooks/use-toast";
 
 interface CartDrawerProps {
@@ -45,6 +45,17 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
   const router = useRouter();
 
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
+
+  // ✅ ADD THIS — resets loading state when user hits back from Wix checkout
+  useEffect(() => {
+    const handlePageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) {
+        setIsCheckoutLoading(false);
+      }
+    };
+    window.addEventListener("pageshow", handlePageShow);
+    return () => window.removeEventListener("pageshow", handlePageShow);
+  }, []);
 
   const showEmptyCart =
     !isLoading && (!cart || !cart.lineItems || cart.lineItems.length === 0);
@@ -155,20 +166,47 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
         onClick={handleDrawerClick}
       >
         {/* Header */}
-        <div className="flex justify-between items-center p-5 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
-          <div>
-            <h2 className="text-xl font-bold text-gray-900">Shopping Cart</h2>
-            <p className="text-xs text-gray-500 mt-0.5">
-              {cart?.lineItems?.length || 0} items
-            </p>
+        <div className="relative flex justify-between items-center px-6 py-5 overflow-hidden bg-white border-b border-gray-100">
+
+          {/* Subtle decorative gradient blob */}
+          <div className="absolute -top-6 -right-10 w-36 h-36 bg-violet-100/60 rounded-full blur-2xl pointer-events-none" />
+
+          {/* Left: Title + badge */}
+          <div className="flex items-center gap-3 relative">
+            {/* Cart icon box */}
+            <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-gray-100 border border-gray-200">
+              <ShoppingCartIcon size={15} className="text-gray-600" />
+            </div>
+
+            <div>
+              <h2 className="text-base font-semibold tracking-wide text-gray-900 leading-tight">
+                Shopping Cart
+              </h2>
+              <p className="text-[11px] text-gray-400 mt-0.5 tracking-wider uppercase">
+                {cart?.lineItems?.length || 0} items in bag
+              </p>
+            </div>
+
+            {/* Item count pill — only shows when cart has items */}
+            {(cart?.lineItems?.length ?? 0) > 0 && (
+              <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-violet-100 text-violet-600 border border-violet-200">
+                {cart?.lineItems?.length}
+              </span>
+            )}
           </div>
+
+          {/* Close button */}
           <button
             onClick={onClose}
-            className="hover:bg-gray-100 text-gray-600 hover:text-gray-900 transition-all p-2 rounded-full"
+            className="flex items-center justify-center w-9 h-9 rounded-xl
+               bg-gray-100 border border-gray-200 text-gray-400
+               hover:bg-gray-200 hover:text-gray-700
+               active:scale-95 transition-all duration-200"
           >
-            <FaTimes size={20} />
+            <FaTimes size={13} />
           </button>
         </div>
+
 
         {/* Content */}
         <div className="flex flex-col h-[calc(100vh-80px)]">
@@ -323,14 +361,17 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
                   <div className="flex flex-col gap-2.5 pt-2">
                     <Button
                       onClick={handleViewCart}
-                      className="w-full rounded-xl bg-[#800020] text-white font-bold hover:bg-[#800023] hover:scale-105 transition-all duration-300"
+                      className="w-full rounded-2xl bg-[#800020] text-white font-bold hover:bg-[#800023] hover:scale-105 transition-all duration-300"
                     >
                       View Cart <FaShoppingCart className="ml-2" size={18} />
                     </Button>
                     <Button
                       onClick={handleCheckout}
-                      //disabled
-                      className={`w-full rounded-xl bg-[#FFD700] text-gray-950 font-bold hover:bg-[#FFD700] hover:scale-105 disabled:bg-pink-200 disabled:text-white transition-all duration-300 ${isCheckoutLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      disabled={isCheckoutLoading}  // ✅ actually disables the button
+                      className="w-full rounded-2xl bg-[#FFD700] text-gray-950 font-bold 
+                                 hover:bg-[#FFD700] hover:scale-105 transition-all duration-300 
+                                 disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100 
+                                 disabled:bg-[#FFD700] disabled:text-gray-950"
                     >
                       {isCheckoutLoading ? (
                         <div className="flex flex-row gap-2 justify-center items-center">
@@ -340,8 +381,8 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
                           </span>
                         </div>
                       ) : (
-                        <div className="flex flex-row gap-2 justify-center items-center">
-                          <span>Checkout</span>
+                        <div className="flex flex-row">
+                          <span>Proceed to Checkout</span>
                           <span><FaShoppingBag className="ml-2" /></span>
                         </div>
                       )}

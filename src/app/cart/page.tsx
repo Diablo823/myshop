@@ -114,12 +114,32 @@ const CartPage = () => {
 
   return (
     <div className="w-full min-h-screen mx-auto px-2 md:px-8 lg:px-16 xl:px-32 py-8 mb-8 bg-gradient-to-b from-slate-50 to-white">
-      <div className="mb-6">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900">My Shopping Cart</h1>
-        <p className="text-sm text-gray-500 mt-1">
-          {cart?.lineItems?.length || 0} items in your cart
-        </p>
+      <div className="mb-8 flex items-end justify-between">
+
+        {/* Left: Title block */}
+        <div className="relative">
+          {/* Decorative accent bar */}
+          <div className="absolute -left-4 top-1 h-8 w-1 rounded-full bg-violet-400" />
+
+          <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-violet-500 mb-1">
+            Your Bag
+          </p>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 leading-tight">
+            Shopping Cart
+          </h1>
+        </div>
+
+        {/* Right: Item count pill */}
+        <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-gray-100 border border-gray-200">
+          <span className="w-2 h-2 rounded-full bg-violet-400 animate-pulse" />
+          <p className="text-sm font-medium text-gray-600">
+            {cart?.lineItems?.length || 0}
+            <span className="text-gray-400 font-normal ml-1">items</span>
+          </p>
+        </div>
+
       </div>
+
 
       {isLoading ? (
         <LoadingSpinner />
