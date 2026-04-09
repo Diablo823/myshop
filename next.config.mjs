@@ -37,6 +37,24 @@ const nextConfig = {
     ],
     unoptimized: true,
   },
+
+  async headers() {
+    return [
+      {
+        source: '/api/pinterest-feed',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=43200, s-maxage=43200',
+          },
+          {
+            key: 'X-Robots-Tag',
+            value: 'all',
+          },
+        ],
+      },
+    ]
+  },
 };
 
 export default nextConfig;
