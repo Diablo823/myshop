@@ -69,7 +69,7 @@ const ProcessingBox: React.FC<InfoBoxProps> = ({
         <div className="bg-gradient-to-r from-violet-600 via-indigo-600 to-blue-600 p-px rounded-2xl">
           <div className="bg-gradient-to-r from-violet-600/95 via-indigo-600/95 to-blue-600/95 backdrop-blur-sm rounded-[calc(1rem-1px)] px-4 py-3 text-white text-center space-y-1.5">
             <p className="text-sm font-bold tracking-wide">
-              🚚 Free Shipping on Orders Over ₹650
+              🚚 Free Shipping on Orders Over ₹850
             </p>
             <div className="h-px bg-white/20 mx-6" />
             <p className="text-xs text-indigo-100 font-medium">

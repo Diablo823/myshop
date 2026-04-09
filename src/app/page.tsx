@@ -7,6 +7,8 @@ import SanityProductSection from "@/components/sanity/SanityProductSection";
 import SanityShuffledCategorySection from "@/components/sanity/SanityShuffledCategorySection";
 import SanityMasonryCard from "@/components/sanity/SanityMasonryCard";
 import SanityPromotion from "@/components/sanity/SanityPromotion";
+import { TestimonialSection } from "@/components/TestimonialSection";
+import SanityAppleCarousel from "@/components/sanity/SanityAppleCarousel";
 
 export const revalidate = 60; // seconds (Regenerates page every 60 seconds)
 
@@ -71,6 +73,15 @@ const HomePage = async () => {
           fallbackSlides={slides1} // Fallback slides if no banner found
         />
       </div>
+
+      {/* <SanityAppleCarousel
+        bannerName="masonrybanner2"
+      /> */}
+
+
+      {/* <div className="mt-2 px-2 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 max-w-[100vw] overflow-hidden">
+        <TestimonialSection />
+      </div> */}
 
       {/* Masonry cards */}
       <div className="mt-8 px-1 md:px-12">

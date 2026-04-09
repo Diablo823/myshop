@@ -83,7 +83,7 @@ export default function AboutUs() {
               <p className="text-sm md:text-lg leading-relaxed">
                 I immediately checked if <em>uscartel.com</em> was available, and
                 it was! The name felt bold, memorable, and had multiple
-                meanings. It could stand for <strong>"US" as in "we"</strong> and <strong>"Cart(like shopping cart)" in Cartel</strong>, or even a fun
+                meanings. It could stand for <strong>"US" as in "we"</strong> and <strong>"Cartel" means cartel of products and ideas</strong>, or even a fun
                 inside joke. Imagine someone asking,{" "}
                 <em>"Where did you get that?"</em> and replying,{" "}
                 <em>"From US Cartel."</em> Sounds cool, right?
