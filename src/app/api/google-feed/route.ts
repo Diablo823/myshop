@@ -80,7 +80,7 @@ export async function GET() {
                 const originalPrice = product.priceData?.price ?? 0;
                 const discountedPrice = product.priceData?.discountedPrice ?? originalPrice;
                 const mainImageUrl = product.media?.mainMedia?.image?.url ?? "";
-                const productUrl = `https://uscartel.com/products/${encodeURIComponent(product.slug || "")}`;
+                const productUrl = `https://www.uscartel.com/products/${encodeURIComponent(product.slug || "")}`;
                 const availability = product.stock?.inStock === false ? "out of stock" : "in stock";
                 const gpc = getGPC(product);
 
@@ -151,7 +151,7 @@ ${itemGroupLine}
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
   <channel>
     <title>US Cartel Products</title>
-    <link>https://uscartel.com</link>
+    <link>https://www.uscartel.com</link>
     <description>US Cartel Product Catalog</description>
 ${feedItems}
   </channel>
