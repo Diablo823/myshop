@@ -126,18 +126,21 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
   const viewContentFired = useRef(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.fbq && !viewContentFired.current) {
-      viewContentFired.current = true;
-      const price = product.priceData?.discountedPrice ?? product.priceData?.price ?? 0;
-      window.fbq("track", "ViewContent", {
-        content_ids: [product._id],
-        content_name: product.name,
-        content_type: "product",
-        value: price,
-        currency: "INR",
-      });
-    }
-  }, [product._id]);
+    const timer = setTimeout(() => {
+      if (typeof window !== "undefined" && window.fbq) {
+        const price = product.priceData?.discountedPrice ?? product.priceData?.price ?? 0;
+        window.fbq("track", "ViewContent", {
+          content_ids: [product._id],
+          content_name: product.name,
+          content_type: "product",
+          value: price,
+          currency: "INR",
+        });
+      }
+    }, 500); // wait 500ms for fbevents.js to drain the queue
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Configure DOMPurify once
   // Updated DOMPurify configuration to preserve HTML formatting
