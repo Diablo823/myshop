@@ -17,6 +17,7 @@ import Script from "next/script";
 import QueryClientProvider from "@/providers/QueryClientProvider";
 import ScrollToTop from "@/components/ScrollToTop";
 import { GA4 } from "./ga";
+import MetaPixel from "./MetaPixel";
 
 const inter = Inter({ subsets: ["latin"] });
 const jost = Jost({ subsets: ["latin"] });
@@ -274,6 +275,7 @@ export default function RootLayout({
 
       </head>
       <body className={`${roboto.className}`}>
+        <MetaPixel />
         <GA4 />
         <QueryClientProvider>
           <WixClientContextProvider>

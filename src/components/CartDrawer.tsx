@@ -75,6 +75,23 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
         return;
       }
       setIsCheckoutLoading(true);
+
+      // ─── Meta Pixel: InitiateCheckout ─────────────────────────────────────────
+      if (typeof window !== "undefined" && window.fbq) {
+        const lineItems = cart?.lineItems ?? [];
+        const contentIds = lineItems.map((item: any) => item.catalogReference?.catalogItemId ?? "");
+        const numItems = lineItems.reduce((sum: number, item: any) => sum + (item.quantity ?? 1), 0);
+        const value = parseFloat(
+          (cart as any)?.subtotal?.amount ?? "0"
+        );
+        window.fbq("track", "InitiateCheckout", {
+          content_ids: contentIds,
+          content_type: "product",
+          num_items: numItems,
+          value: value,
+          currency: "INR",
+        });
+      }
       const checkout =
         await wixClient.currentCart.createCheckoutFromCurrentCart({
           channelType: currentCart.ChannelType.WEB,

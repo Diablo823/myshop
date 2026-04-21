@@ -36,6 +36,19 @@ const ThankYouPage = () => {
     return () => clearTimeout(timer);
   }, [orderId, router]);
 
+  // ─── Meta Pixel: Purchase ──────────────────────────────────────────────────
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.fbq && orderId) {
+      window.fbq("track", "Purchase", {
+        value: 0,
+        currency: "INR",
+        content_type: "product",
+        order_id: orderId,
+      });
+    }
+  }, [orderId]);
+  // ──────────────────────────────────────────────────────────────────────────
+
   useEffect(() => {
     const sequence = async () => {
       await controls.start({ opacity: 1, y: 0, transition: { duration: 0.6 } });
@@ -49,9 +62,9 @@ const ThankYouPage = () => {
 
   return (
     <div className="fixed inset-0 w-full h-full bg-gradient-to-br from-slate-900 via-neutral-900 to-black flex flex-col items-center justify-center p-3 md:p-0 overflow-hidden">
-      <Confetti 
-        width={2000} 
-        height={1000} 
+      <Confetti
+        width={2000}
+        height={1000}
         numberOfPieces={200}
         colors={['#D4AF37', '#FFD700', '#C0C0C0', '#E5E4E2', '#B87333']}
         gravity={0.15}
@@ -177,7 +190,7 @@ const ThankYouPage = () => {
           <div className="flex justify-between items-center relative">
             {/* Connection line */}
             <div className="absolute top-6 left-[15%] right-[15%] h-[2px] bg-gradient-to-r from-amber-400/30 via-yellow-500/30 to-amber-400/30"></div>
-            
+
             <motion.div
               whileHover={{ scale: 1.08, y: -5 }}
               className="cursor-pointer text-center group z-10 flex-1"

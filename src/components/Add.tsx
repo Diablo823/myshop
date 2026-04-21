@@ -59,10 +59,14 @@ const Add = ({
   productId,
   variantId,
   stockNumber,
+  productName,
+  productPrice,
 }: {
   productId: string;
   variantId: string;
   stockNumber: number;
+  productName?: string;
+  productPrice?: number;
 }) => {
   const wixClient = useWixClient();
   const { addItem, cart } = useCartStore();
@@ -117,11 +121,38 @@ const Add = ({
     }
   };
 
+  // ─── Meta Pixel: AddToCart ─────────────────────────────────────────────────
+  const fireAddToCart = () => {
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("track", "AddToCart", {
+        content_ids: [productId],
+        content_name: productName ?? "",
+        content_type: "product",
+        value: (productPrice ?? 0) * quantity,
+        currency: "INR",
+      });
+    }
+  };
+
+
+
   const handleBuyNow = async () => {
     try {
       setIsLoading(true);
       // First add to cart
       //await addItem(wixClient, productId, variantId, quantity);
+
+      // ─── Meta Pixel: InitiateCheckout ─────────────────────────────────────────
+      if (typeof window !== "undefined" && window.fbq) {
+        window.fbq("track", "InitiateCheckout", {
+          content_ids: [productId],
+          content_name: productName ?? "",
+          content_type: "product",
+          value: (productPrice ?? 0) * quantity,
+          currency: "INR",
+          num_items: quantity,
+        });
+      }
 
       // Create separate checkout
       const checkout = await wixClient.checkout.createCheckout({
@@ -296,7 +327,7 @@ const Add = ({
 
           <div className="hidden md:flex md:gap-4 md:flex-row md:mt-6 md:pb-4">
             <Button
-              onClick={() => addItem(wixClient, productId, variantId, quantity)}
+              onClick={() => { fireAddToCart(); addItem(wixClient, productId, variantId, quantity); }}
               disabled={stockNumber === 0}
               className="md:w-1/2 h-12 text-sm font-extrabold rounded-2xl bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-white disabled:hidden"
             >
@@ -343,7 +374,7 @@ const Add = ({
 
 
               <Button
-                onClick={() => addItem(wixClient, productId, variantId, quantity)}
+                onClick={() => { fireAddToCart(); addItem(wixClient, productId, variantId, quantity); }}
                 disabled={stockNumber === 0}
                 className="w-1/2 h-12 text-xs font-bold rounded-xl shadow-xl bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-white disabled:hidden"
               >

@@ -23,11 +23,10 @@ const Footer = () => {
   const footRoutes = ['/', '/about', '/contact', '/legal', '/termsandconditions', '/returns', '/shipping', '/partnership'];
   return (
     <div
-      className={`${
-        footRoutes.includes(pathname)
-          ? "px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 mt-20 bg-neutral-50 text-black rounded-t-3xl"
-          : "hidden"
-      }`}
+      className={`${footRoutes.includes(pathname)
+        ? "px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 mt-20 bg-neutral-50 text-black rounded-t-3xl"
+        : "hidden"
+        }`}
     >
       {/* TOP */}
       <div className="flex flex-col md:flex-row justify-between gap-12">
@@ -47,7 +46,7 @@ const Footer = () => {
            US Cartel
           </h2> */}
           <p className="text-sm font-medium">
-           Kerala, India
+            Kerala, India
           </p>
           <span className="text-sm font-semibold">support@uscartel.com</span>
           <span className="text-sm font-semibold">hello@uscartel.com</span>
@@ -59,7 +58,7 @@ const Footer = () => {
           <div className="flex gap-6 mb-8">
             {socialIcons.map((social) => (
               <Link href={social.route} key={social.id}>
-              <social.icon key={social.id} size={22} className="cursor-pointer"/>
+                <social.icon key={social.id} size={22} className="cursor-pointer" />
               </Link>
             ))}
           </div>
@@ -128,9 +127,9 @@ const Footer = () => {
             </Button>
           </div> */}
           <span className="text-lg font-bold">Secure Payments</span>
-          <div className="flex justify-between mb-5">
+          <div className="flex mb-5 gap-2">
             {paymentIcons.map((payment) => (
-              <payment.icon key={payment.id} size={28}/>
+              <payment.icon key={payment.id} size={28} />
             ))}
           </div>
         </div>

@@ -3,7 +3,7 @@
 import Add from "@/components/Add";
 import CustomizeProducts from "@/components/CustomizeProducts";
 import ProductImages from "@/components/ProductImages";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import DOMPurify from "isomorphic-dompurify";
 import { Badge } from "@/components/ui/badge";
 import ShareUrlButton2 from "@/components/ShareUrlButton2";
@@ -121,6 +121,23 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
   };
 
   const currentStockNumber = getCurrentStockNumber();
+
+  // ─── Meta Pixel: ViewContent ───────────────────────────────────────────────
+  const viewContentFired = useRef(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.fbq && !viewContentFired.current) {
+      viewContentFired.current = true;
+      const price = product.priceData?.discountedPrice ?? product.priceData?.price ?? 0;
+      window.fbq("track", "ViewContent", {
+        content_ids: [product._id],
+        content_name: product.name,
+        content_type: "product",
+        value: price,
+        currency: "INR",
+      });
+    }
+  }, [product._id]);
 
   // Configure DOMPurify once
   // Updated DOMPurify configuration to preserve HTML formatting
@@ -289,6 +306,10 @@ const ProductPageClient = ({ product }: ProductPageClientProps) => {
               productId={product._id!}
               variantId="00000000-0000-0000-0000-000000000000"
               stockNumber={product.stock?.quantity || 0}
+              //new props after metapixel
+              productName={product.name}
+              productPrice={product.priceData?.discountedPrice
+                ?? product.priceData?.price ?? 0}
             />
           )}
 
