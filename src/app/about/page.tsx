@@ -42,7 +42,9 @@ export default function AboutUs() {
             Enter US Cartel, the real deal. We're not just claiming the name, we're owning it. Proudly holding the domain uscartel.com, we've stepped into the spotlight to transform this phrase from a vague association into a symbol of quality.
             <br />
             Our mission is to build something positive, powerful, and entirely legitimate a cartel of ideas, products, and connections that unites rather than divides.
-            The landscape is shifting. As we grow, so will the world's understanding of US Cartel. No more misconceptions, <b>THIS IS THE FUTURE</b>.
+            The landscape is shifting. As we grow, so will the world's understanding of US Cartel. No more misconceptions.
+            <br />
+            <b>THIS IS THE FUTURE</b>.
           </p>
         </section>
         <section>
@@ -76,8 +78,9 @@ export default function AboutUs() {
               </p>
               <p className="text-sm md:text-lg leading-relaxed mb-4">
                 Then, while watching <em>Call of Duty: Modern Warfare 2</em>, a
-                scene caught my attention where Captain Price and sergeant Gaz goes for a mission to find and kill the terrorists who supplies missiles to Hassan Zyani's Al Qatala. After killing some people of that group Captian Price finds a tattoo on one of the dead bodies and realised that they're not terrorist group but a cartel. Captian Price immediately recognized the tattoo and said{" "}
-                <em><strong>"Gaz look, Las Almas Mexican Cartel"</strong></em>. That moment sparked an idea:{" "}
+                scene caught my attention where Captain Price and sergeant Gaz goes for a mission to find and kill the terrorists who supplies missiles to Hassan Zyani's terrorist group Al Qatala. After killing some people of that group Captian Price finds a tattoo on one of the dead bodies and realised that they're not terrorist group but a cartel. Captian Price immediately recognized the tattoo and said{" "}
+                <em><strong>"Gaz look, Las Almas Mexican Cartel"</strong></em>. <br />
+                That moment sparked an idea:{" "}
                 <strong>"US Cartel"</strong>.
               </p>
               <p className="text-sm md:text-lg leading-relaxed">

@@ -157,6 +157,8 @@ export default function RootLayout({
           content="34764cb53c23c911a3152eb26617b9da"
         />
 
+        <meta name="facebook-domain-verification" content="lkjyoeljoeulwr6pd48dum2yzhz0bp" />
+
         <meta name="msvalidate.01" content="C58A8ABF53A617997EAEAC357116C71B" />
 
         {/* WhatsApp/OG Image meta tags - helps with WhatsApp preview */}

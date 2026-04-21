@@ -81,32 +81,32 @@ const OrdersList = ({ initialOrders, initialCursor, contactId }: OrdersListProps
                 key={order._id}
                 className="bg-gradient-to-r from-white to-gray-50 rounded-2xl p-2 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-blue-300"
               >
-                <div className="flex flex-row justify-between items-center mb-4 gap-3">
-                  <div>
-                    <p className="font-bold text-sm md:text-lg text-gray-900">
-                      Order #{order.number}
-                    </p>
-                    <p className="text-xs md:text-sm text-gray-600 font-medium">
-                      {formatDateTime(order.purchasedDate)}
-                    </p>
+                <Link href={`/orders/${order._id}`}>
+                  <div className="flex flex-row justify-between items-center mb-4 gap-3">
+                    <div>
+                      <p className="font-bold text-sm md:text-lg text-gray-900">
+                        Order #{order.number}
+                      </p>
+                      <p className="text-xs md:text-sm text-gray-600 font-medium">
+                        {formatDateTime(order.purchasedDate)}
+                      </p>
+                    </div>
+
+                    {order.status === "APPROVED" ? (
+                      <span className="px-4 py-2 bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 rounded-full text-xs md:text-sm font-semibold shadow-sm w-fit">
+                        {order.status}
+                      </span>
+                    ) : order.status === "CANCELED" ? (
+                      <span className="px-4 py-2 bg-gradient-to-r from-red-100 to-red-200 text-red-800 rounded-full text-xs md:text-sm font-semibold shadow-sm w-fit">
+                        {order.status}{" "}
+                      </span>
+                    ) : (
+                      <span className="px-4 py-2 bg-gradient-to-r from-yellow-100 to-yellow-200 text-yellow-800 rounded-full text-sm font-semibold shadow-sm w-fit">
+                        {order.status}{" "}
+                      </span>
+                    )}
                   </div>
 
-                  {order.status === "APPROVED" ? (
-                    <span className="px-4 py-2 bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 rounded-full text-xs md:text-sm font-semibold shadow-sm w-fit">
-                      {order.status}
-                    </span>
-                  ) : order.status === "CANCELED" ? (
-                    <span className="px-4 py-2 bg-gradient-to-r from-red-100 to-red-200 text-red-800 rounded-full text-xs md:text-sm font-semibold shadow-sm w-fit">
-                      {order.status}{" "}
-                    </span>
-                  ) : (
-                    <span className="px-4 py-2 bg-gradient-to-r from-yellow-100 to-yellow-200 text-yellow-800 rounded-full text-sm font-semibold shadow-sm w-fit">
-                      {order.status}{" "}
-                    </span>
-                  )}
-                </div>
-
-                <Link href={`/orders/${order._id}`}>
                   <div className="space-y-4 cursor-pointer">
                     {(order.lineItems as OrderLineItem[])?.map(
                       (item: OrderLineItem) => (
@@ -147,14 +147,14 @@ const OrdersList = ({ initialOrders, initialCursor, contactId }: OrdersListProps
                       )
                     )}
                   </div>
-                </Link>
 
-                <div className="flex justify-between items-center pt-2 border-t border-gray-200">
-                  <span className="font-bold text-lg text-gray-800">Total:</span>
-                  <span className="font-bold text-lg text-gray-900 bg-blue-50 px-4 py-2 rounded-xl shadow-sm">
-                    {order.priceSummary?.total?.formattedAmount}
-                  </span>
-                </div>
+                  <div className="flex justify-between items-center pt-2 border-t border-gray-200">
+                    <span className="font-bold text-lg text-gray-800">Total:</span>
+                    <span className="font-bold text-lg text-gray-900 bg-blue-50 px-4 py-2 rounded-xl shadow-sm">
+                      {order.priceSummary?.total?.formattedAmount}
+                    </span>
+                  </div>
+                </Link>
               </div>
             ))}
 
